@@ -66,7 +66,12 @@ section{padding-block:var(--space-6)}
 .btn.ghost{background:transparent;color:var(--on-brand);box-shadow:inset 0 0 0 2px rgba(255,255,255,.7)}
 .btn.ghost:hover{background:rgba(255,255,255,.12)}
 .top .btn{padding:10px 16px;font-size:14px}
-@media(max-width:860px){.top nav{display:none}.top .btn{margin-left:auto}}
+.lang{display:flex;gap:2px;background:var(--surface-200);border-radius:var(--radius-sm);padding:3px;margin-left:var(--space-2)}
+.lang button{border:0;background:transparent;color:var(--ink);font:700 12px/1 var(--font-sans);letter-spacing:.04em;padding:7px 9px;border-radius:4px}
+.lang button[aria-pressed="true"]{background:var(--brand);color:var(--on-brand)}
+.top nav+.lang{margin-left:0}
+@media(max-width:860px){.top nav{display:none}.lang{margin-left:auto}.top .btn{padding:10px 12px}}
+@media(max-width:380px){.top .btn{display:none}.logo{height:34px}}
 
 /* hero */
 .hero{padding-block:var(--space-3) 0}
@@ -290,6 +295,11 @@ footer p{margin:0}
       <a href="#dashboard">Dashboard</a>
       <a href="#arquitectura">Arquitectura</a>
     </nav>
+    <div class="lang" role="group" aria-label="Idioma / Idioma / Language">
+      <button type="button" data-lang="ca" aria-pressed="true" lang="ca" title="Català">CA</button>
+      <button type="button" data-lang="es" aria-pressed="false" lang="es" title="Castellano">ES</button>
+      <button type="button" data-lang="en" aria-pressed="false" lang="en" title="English">EN</button>
+    </div>
     <a class="btn" href="#prova">Prova-ho</a>
   </div>
 </header>
@@ -318,7 +328,7 @@ footer p{margin:0}
           <div class="app-top"><span class="sq"><svg><use href="#i-menu"/></svg></span><span class="sq"><svg><use href="#i-pin"/></svg></span></div>
           <div class="app-title">Avui a l'aula 204</div>
           <div class="datechip"><svg width="16" height="16"><use href="#i-cal"/></svg>DIMECRES 14 D'OCTUBRE 2026</div>
-          <div class="stage" id="stage"></div>
+          <div class="stage" id="stage" data-dyn></div>
           <div class="hint">Toca una targeta per veure-la</div>
           <div class="tabbar">
             <span class="sq act"><svg><use href="#i-home"/></svg></span>
@@ -348,8 +358,8 @@ footer p{margin:0}
       <article class="fcard"><div class="ico"><svg><use href="#i-laptop"/></svg></div><h3>Ordinador propi, opcional</h3><p>Qui ho prefereixi pot fer servir el seu portàtil a classe i al despatx, sense dependre de l'ordinador compartit.</p></article>
       <article class="fcard"><div class="ico"><svg><use href="#i-cal"/></svg></div><h3>Horari integrat</h3><p>El dashboard es sincronitza amb l'horari real de cada aula, sense configurar-ho classe a classe.</p></article>
       <article class="fcard"><div class="ico"><svg><use href="#i-bell"/></svg></div><h3>Avís de canvi d'aula</h3><p>Si una classe canvia d'aula o d'horari, professorat i alumnat reben la notificació a l'app.</p></article>
+      <article class="fcard"><div class="ico"><svg><use href="#i-temp"/></svg></div><h3>Climatització automàtica</h3><p>Sensors d'aire i temperatura a cada aula regulen l'AC segons l'ocupació i l'horari real, per estalviar energia.</p></article>
     </div>
-    <p class="also"><svg><use href="#i-temp"/></svg>També inclou climatització automàtica de l'aula amb sensors d'aire i temperatura.</p>
 
     <div class="compare">
       <div class="cmp old">
@@ -405,7 +415,7 @@ footer p{margin:0}
           <button class="tab" role="tab" aria-selected="false" data-flow="1">2 · Diagnòstic IA</button>
           <button class="tab" role="tab" aria-selected="false" data-flow="2">3 · Seguiment</button>
         </div>
-        <div class="tabdesc" id="tabdesc" aria-live="polite"></div>
+        <div class="tabdesc" id="tabdesc" aria-live="polite" data-dyn></div>
         <p class="note">Maqueta interactiva del concepte; encara no és l'app final.</p>
       </div>
       <div class="phone-wrap">
@@ -491,7 +501,7 @@ footer p{margin:0}
                 <button class="fbtn" aria-pressed="false" data-f="ia">IA resolent</button>
                 <button class="fbtn" aria-pressed="false" data-f="resolta">Resoltes</button>
               </div>
-              <div class="inc" id="inc"></div>
+              <div class="inc" id="inc" data-dyn></div>
             </div>
             <div style="display:grid;gap:var(--space-3);align-content:start">
               <div class="panel chart">
@@ -516,7 +526,7 @@ footer p{margin:0}
                   <div class="aula"><span class="nm">Aula 12</span><div class="meter"><i style="width:68%"></i></div><span class="vals">980 ppm · 24 °C</span></div>
                   <div class="aula"><span class="nm">Aula 301</span><div class="meter"><i style="width:30%"></i></div><span class="vals">520 ppm · 21 °C</span></div>
                 </div>
-                <div class="toggle"><span id="ac-lbl">AC automàtic activat</span><button class="sw" role="switch" aria-checked="true" aria-labelledby="ac-lbl" id="ac"></button></div>
+                <div class="toggle"><span id="ac-lbl" data-dyn>AC automàtic activat</span><button class="sw" role="switch" aria-checked="true" aria-labelledby="ac-lbl" id="ac"></button></div>
               </div>
             </div>
           </div>
@@ -720,24 +730,65 @@ footer p{margin:0}
   </div>
 </footer>
 
+<script src="assets/i18n.js"></script>
 <script>
 (function(){
-  /* Hero carousel */
+  /* ---------- i18n (ca = idioma base del HTML) ---------- */
+  var DICT=window.UPC_I18N||{es:{},en:{}},lang='ca',hooks=[];
+  var SUP=['ca','es','en'];
+  function norm(s){return s.replace(/\s+/g,' ').trim()}
+  function T(s){var d=DICT[lang];return (d&&d[s])||s}
+  function store(get,key){try{return window.localStorage[get?'setItem':'getItem'](key,get)}catch(e){return null}}
+  function applyLang(l){
+    lang=l;document.documentElement.lang=l;
+    var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+      var p=n.parentNode;if(!p||/^(SCRIPT|STYLE)$/i.test(p.nodeName)||(p.closest&&p.closest('[data-dyn]')))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT}});
+    var n;while((n=w.nextNode())){
+      if(n.__o===undefined)n.__o=n.nodeValue;
+      var k=norm(n.__o);if(!k)continue;
+      var tr=l==='ca'?null:(DICT[l]||{})[k];
+      n.nodeValue=tr?(/^\s/.test(n.__o)?' ':'')+tr+(/\s$/.test(n.__o)?' ':''):n.__o;
+    }
+    [].slice.call(document.querySelectorAll('[aria-label],[alt]')).forEach(function(el){
+      ['aria-label','alt'].forEach(function(a){
+        if(!el.hasAttribute(a))return;
+        if(el['__o_'+a]===undefined)el['__o_'+a]=el.getAttribute(a);
+        el.setAttribute(a,l==='ca'?el['__o_'+a]:((DICT[l]||{})[norm(el['__o_'+a])]||el['__o_'+a]));
+      });
+    });
+    var m=document.querySelector('meta[name="description"]');
+    if(m){if(m.__o===undefined)m.__o=m.getAttribute('content');m.setAttribute('content',l==='ca'?m.__o:((DICT[l]||{})[m.__o]||m.__o))}
+    [].slice.call(document.querySelectorAll('.lang button')).forEach(function(b){b.setAttribute('aria-pressed',b.dataset.lang===l)});
+    hooks.forEach(function(f){f()});
+  }
+  function setLang(l){
+    if(SUP.indexOf(l)<0)l='ca';
+    applyLang(l);store(l,'upchub-lang');
+    try{var u=new URL(location.href);u.searchParams.set('lang',l);history.replaceState(null,'',u)}catch(e){}
+  }
+  [].slice.call(document.querySelectorAll('.lang button')).forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.lang)})});
+
+  /* ---------- Hero carousel ---------- */
   var cards=[
     {t:'8:30',ic:'i-nfc',n:'Entrada amb carnet UPC'},
     {t:'10:00',ic:'i-book',n:'Classe · Disseny de Producte'},
     {t:'12:00',ic:'i-temp',n:'AC automàtic a 22 °C'},
     {t:'15:00',ic:'i-alert',n:'Projector sense senyal'},
-    {t:'17:00',ic:'i-swap',n:'Canvi d\'aula: 301 → 204'}
+    {t:'17:00',ic:'i-swap',n:"Canvi d'aula: 301 → 204"}
   ];
   var stage=document.getElementById('stage'),cur=3,els=[];
-  cards.forEach(function(c,i){
-    var b=document.createElement('button');b.className='acard';b.type='button';
-    b.setAttribute('aria-label',c.t+' '+c.n);
-    b.innerHTML='<span class="t">'+c.t+'</span><span class="ic"><svg><use href="#'+c.ic+'"/></svg></span><span class="n">'+c.n+'</span>';
-    b.addEventListener('click',function(){cur=i;draw()});
-    stage.appendChild(b);els.push(b);
-  });
+  function build(){
+    stage.innerHTML='';els=[];
+    cards.forEach(function(c,i){
+      var b=document.createElement('button');b.className='acard';b.type='button';
+      b.setAttribute('aria-label',c.t+' '+T(c.n));
+      b.innerHTML='<span class="t">'+c.t+'</span><span class="ic"><svg><use href="#'+c.ic+'"/></svg></span><span class="n">'+T(c.n)+'</span>';
+      b.addEventListener('click',function(){cur=i;draw()});
+      stage.appendChild(b);els.push(b);
+    });
+    draw();
+  }
   function draw(){
     els.forEach(function(b,i){
       var o=i-cur,a=Math.abs(o);
@@ -747,19 +798,20 @@ footer p{margin:0}
       b.style.opacity=a>2?0:1;
     });
   }
-  draw();
+  hooks.push(build);
 
-  /* App flow */
+  /* ---------- App flow ---------- */
   var desc=[
-    ['Informa en dos tocs','Tria què falla. UPCHub ja sap quina aula és i en quin estat està; no cal explicar res més.'],
-    ['La IA local prova primer','El hub fa diagnòstics habituals (connexió, sortida de vídeo, àudio). Si ho resol, ningú més no ha d\'intervenir.'],
-    ['El servei tècnic arriba amb context','Si cal escalar-ho, l\'incident porta l\'estat de l\'aula i els passos ja provats. Tu només segueixes l\'estat.']
+    ['Informa en dos tocs',"Tria què falla. UPCHub ja sap quina aula és i en quin estat està; no cal explicar res més."],
+    ['La IA local prova primer',"El hub fa diagnòstics habituals (connexió, sortida de vídeo, àudio). Si ho resol, ningú més no ha d'intervenir."],
+    ['El servei tècnic arriba amb context',"Si cal escalar-ho, l'incident porta l'estat de l'aula i els passos ja provats. Tu només segueixes l'estat."]
   ];
-  var tabs=[].slice.call(document.querySelectorAll('.tab')),flows=[].slice.call(document.querySelectorAll('.flow')),td=document.getElementById('tabdesc');
+  var tabs=[].slice.call(document.querySelectorAll('.tab')),flows=[].slice.call(document.querySelectorAll('.flow')),td=document.getElementById('tabdesc'),curTab=0;
   function show(i){
+    curTab=i;
     tabs.forEach(function(t,k){t.setAttribute('aria-selected',k===i)});
     flows.forEach(function(f,k){f.classList.toggle('on',k===i)});
-    td.innerHTML='<h3>'+desc[i][0]+'</h3><p>'+desc[i][1]+'</p>';
+    td.innerHTML='<h3>'+T(desc[i][0])+'</h3><p>'+T(desc[i][1])+'</p>';
   }
   tabs.forEach(function(t,k){t.addEventListener('click',function(){show(k)})});
   [].slice.call(document.querySelectorAll('[data-go]')).forEach(function(b){
@@ -768,9 +820,9 @@ footer p{margin:0}
   [].slice.call(document.querySelectorAll('#opts .opt')).forEach(function(o,_,all){
     o.addEventListener('click',function(){all.forEach(function(x){x.setAttribute('aria-pressed',x===o)})});
   });
-  show(0);
+  hooks.push(function(){show(curTab)});
 
-  /* Dashboard */
+  /* ---------- Dashboard ---------- */
   var data=[
     {id:'#0412',a:'204',t:'Projector sense senyal',s:'oberta'},
     {id:'#0411',a:'12',t:'Àudio amb soroll',s:'ia'},
@@ -784,8 +836,8 @@ footer p{margin:0}
     inc.innerHTML='';
     data.filter(function(d){return f==='all'||d.s===f}).forEach(function(d){
       var r=document.createElement('div');r.className='row';
-      r.innerHTML='<span class="av">'+d.a+'</span><span><b>'+d.t+'</b><br><span class="id">'+d.id+' · Aula '+d.a+'</span></span><span class="st '+d.s+'">'+label[d.s]+'</span>';
-      var b=document.createElement('button');b.className='rbtn';b.textContent='Resoldre';b.disabled=d.s==='resolta';
+      r.innerHTML='<span class="av">'+d.a+'</span><span><b>'+T(d.t)+'</b><br><span class="id">'+d.id+' · '+T('Aula')+' '+d.a+'</span></span><span class="st '+d.s+'">'+T(label[d.s])+'</span>';
+      var b=document.createElement('button');b.className='rbtn';b.textContent=T('Resoldre');b.disabled=d.s==='resolta';
       b.addEventListener('click',function(){d.s='resolta';render()});
       r.appendChild(b);inc.appendChild(r);
     });
@@ -795,9 +847,17 @@ footer p{margin:0}
   [].slice.call(document.querySelectorAll('#filters .fbtn')).forEach(function(b,_,all){
     b.addEventListener('click',function(){f=b.dataset.f;all.forEach(function(x){x.setAttribute('aria-pressed',x===b)});render()});
   });
-  render();
+  hooks.push(render);
   var ac=document.getElementById('ac'),lbl=document.getElementById('ac-lbl');
-  ac.addEventListener('click',function(){var on=ac.getAttribute('aria-checked')!=='true';ac.setAttribute('aria-checked',on);lbl.textContent=on?'AC automàtic activat':'AC automàtic desactivat'});
+  function acLabel(){lbl.textContent=T(ac.getAttribute('aria-checked')==='true'?'AC automàtic activat':'AC automàtic desactivat')}
+  ac.addEventListener('click',function(){ac.setAttribute('aria-checked',ac.getAttribute('aria-checked')!=='true');acLabel()});
+  hooks.push(acLabel);
+
+  /* ---------- Idioma inicial: ?lang= > guardat > navegador > català ---------- */
+  var q=null;try{q=new URL(location.href).searchParams.get('lang')}catch(e){}
+  var saved=store(null,'upchub-lang'),nav=(navigator.language||'ca').slice(0,2).toLowerCase();
+  var first=SUP.indexOf(q)>-1?q:(SUP.indexOf(saved)>-1?saved:(SUP.indexOf(nav)>-1?nav:'ca'));
+  applyLang(first);
 })();
 </script>
 </body>
