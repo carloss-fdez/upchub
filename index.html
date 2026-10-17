@@ -352,13 +352,13 @@ footer p{margin:0}
       <p class="lead" style="color:var(--ink-muted)">Avui una errada de projector o d'àudio vol dir perdre minuts de classe i no saber a qui avisar. UPCHub uneix identificació, aula, incidències i horari en un sol sistema.</p>
     </div>
     <div class="grid3">
-      <article class="fcard"><div class="ico"><svg><use href="#i-nfc"/></svg></div><h3>Identificació instantània</h3><p>El professor s'identifica amb el carnet UPC (NFC) i l'aula es reconeix automàticament en entrar.</p></article>
+      <article class="fcard"><div class="ico"><svg><use href="#i-nfc"/></svg></div><h3>Identificació instantània</h3><p>El professor s'identifica amb el carnet UPC al mòbil (NFC) i l'aula es reconeix automàticament en entrar.</p></article>
       <article class="fcard"><div class="ico"><svg><use href="#i-alert"/></svg></div><h3>Incidències resoltes abans</h3><p>Qualsevol errada es reporta des de l'app i arriba al servei tècnic amb l'estat de l'aula ja inclòs.</p></article>
-      <article class="fcard"><div class="ico"><svg><use href="#i-cpu"/></svg></div><h3>IA local a l'aula</h3><p>Un assistent integrat al hub diagnostica i resol les incidències més habituals abans de necessitar escalar-les.</p></article>
+      <article class="fcard"><div class="ico"><svg><use href="#i-cpu"/></svg></div><h3>IA local a l'aula</h3><p>Un assistent que s'executa en un servidor local del campus diagnostica i resol les incidències més habituals abans de necessitar escalar-les.</p></article>
       <article class="fcard"><div class="ico"><svg><use href="#i-laptop"/></svg></div><h3>Ordinador propi, opcional</h3><p>Qui ho prefereixi pot fer servir el seu portàtil a classe i al despatx, sense dependre de l'ordinador compartit.</p></article>
       <article class="fcard"><div class="ico"><svg><use href="#i-cal"/></svg></div><h3>Horari integrat</h3><p>El dashboard es sincronitza amb l'horari real de cada aula, sense configurar-ho classe a classe.</p></article>
       <article class="fcard"><div class="ico"><svg><use href="#i-bell"/></svg></div><h3>Avís de canvi d'aula</h3><p>Si una classe canvia d'aula o d'horari, professorat i alumnat reben la notificació a l'app.</p></article>
-      <article class="fcard"><div class="ico"><svg><use href="#i-temp"/></svg></div><h3>Climatització automàtica</h3><p>Sensors d'aire i temperatura a cada aula regulen l'AC segons l'ocupació i l'horari real, per estalviar energia.</p></article>
+      <article class="fcard"><div class="ico"><svg><use href="#i-temp"/></svg></div><h3>Climatització automàtica</h3><p>Sensors d'aire i temperatura a cada aula regulen l'AC segons l'ocupació i l'horari real; el consum es contrasta amb les dades de SIRENA i QaireUPC.</p></article>
     </div>
 
     <div class="compare">
@@ -375,7 +375,7 @@ footer p{margin:0}
         <p class="label">Amb UPCHub</p>
         <h3>Una sola entrada, tot sincronitzat</h3>
         <ul>
-          <li><svg><use href="#i-check"/></svg>Carnet NFC i el hub prepara pantalla, àudio i projector.</li>
+          <li><svg><use href="#i-check"/></svg>Carnet al mòbil i el hub prepara pantalla, àudio i projector.</li>
           <li><svg><use href="#i-check"/></svg>L'app envia la incidència amb l'estat de l'aula; la IA prova primer les solucions habituals.</li>
           <li><svg><use href="#i-check"/></svg>L'horari real avisa a tothom dels canvis.</li>
         </ul>
@@ -574,7 +574,7 @@ footer p{margin:0}
           <rect x="0" y="2" width="20" height="14" rx="2.5"/><path d="M7 6a4 4 0 0 1 0 6"/><path d="M4.3 4a7.5 7.5 0 0 1 0 10"/>
         </g>
         <text x="92" y="100" font-size="12.5" font-weight="600" fill="var(--fg)">Lector NFC</text>
-        <text x="92" y="117" font-size="12.5" fill="var(--muted)">LoginBlue (carnet UPC)</text>
+        <text x="92" y="117" font-size="12.5" fill="var(--muted)">carnet UPC al mòbil</text>
 
         <line x1="260" y1="107" x2="462" y2="107" stroke="#8a97b3" stroke-width="1.4" marker-end="url(#arrow)"/>
         <text x="361" y="99" text-anchor="middle" font-size="10.5" fill="var(--muted)">identifica</text>
@@ -598,8 +598,8 @@ footer p{margin:0}
         <g transform="translate(51,220)" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <rect x="2" y="0" width="16" height="11" rx="2"/><line x1="7" y1="15" x2="13" y2="15"/><line x1="10" y1="11" x2="10" y2="15"/>
         </g>
-        <text x="92" y="227" font-size="12.5" font-weight="600" fill="var(--fg)">Hub d'aula</text>
-        <text x="92" y="244" font-size="12.5" fill="var(--muted)">monitor + àudio + proj.</text>
+        <text x="92" y="227" font-size="12.5" font-weight="600" fill="var(--fg)">Dock USB-C d'aula</text>
+        <text x="92" y="244" font-size="12.5" fill="var(--muted)">vídeo + àudio + càrrega</text>
 
         <line x1="260" y1="230" x2="462" y2="230" stroke="#8a97b3" stroke-width="1.4" marker-end="url(#arrow)"/>
         <text x="361" y="222" text-anchor="middle" font-size="10.5" fill="var(--muted)">detecta connexió</text>
@@ -702,11 +702,28 @@ footer p{margin:0}
     </figure>
     <ul class="legend">
       <li><b>01 · Identificació</b> — NFC/carnet UPC autentica i reconeix l'aula a l'instant.</li>
-      <li><b>02 · Perifèrics</b> — el hub centralitza monitor, àudio i projector sense canviar cables.</li>
+      <li><b>02 · Perifèrics</b> — el dock USB-C centralitza vídeo, àudio, càrrega i USB amb un sol cable.</li>
       <li><b>03 · Climatització</b> — els sensors ajusten l'AC segons ocupació i horari real.</li>
-      <li><b>04 · Incidències</b> — una IA local resol les habituals; la resta escala al servei tècnic amb l'estat de l'aula.</li>
+      <li><b>04 · Incidències</b> — una IA local al servidor del campus resol les habituals; la resta entra a una cua prioritzada i escala al servei tècnic amb l'estat de l'aula.</li>
       <li><b>05 · Horari</b> — el motor central sincronitza aula, hores i notificacions de canvi.</li>
     </ul>
+  </div>
+</section>
+
+<!-- PRIORITAT -->
+<section id="prioritat" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">Prioritat i desplegament</p>
+      <h2 class="display-lg">Primer, el que bloqueja la classe.</h2>
+      <p>Cada incidència rep una puntuació P = G × U × I (gravetat, urgència i impacte) que ordena la cua del servei tècnic. El desplegament seria gradual: validació, pilot a dues aules, identitat, intel·ligència i campus.</p>
+    </div>
+    <div class="steps">
+      <article class="step"><h3>Crític · P ≥ 12</h3><p>Bloqueja la classe o hi ha risc elèctric. Objectiu: 15 minuts.</p></article>
+      <article class="step"><h3>Alt · P 6–11</h3><p>Degrada la classe (so, pantalla tàctil, un lloc d'alumne). Objectiu: el mateix dia.</p></article>
+      <article class="step"><h3>Normal · P 3–5</h3><p>Molèstia que no atura la classe. Objectiu: 48 h.</p></article>
+      <article class="step"><h3>Baix · P &lt; 3</h3><p>Cosmètic. Objectiu: revisió setmanal.</p></article>
+    </div>
   </div>
 </section>
 
