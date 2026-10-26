@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="demo.css?v=8">
+<link rel="stylesheet" href="demo.css?v=11">
 </head>
 <body>
 <a class="skip" href="#main">Salta al contingut</a>
@@ -411,10 +411,66 @@
 
 <!-- ================= Enquesta — fase 5 ================= -->
 <section class="view" data-view="enquesta" aria-labelledby="t-enquesta" hidden>
-  <div class="wrap">
+  <div class="wrap survey">
     <a class="btn ghost back" href="#"><svg aria-hidden="true"><use href="icons.svg#i-left"/></svg>Tots els rols</a>
-    <h1 id="t-enquesta" tabindex="-1">Valora la demo</h1>
-    <p class="placeholder">En construcció.</p>
+    <div class="intro">
+      <p class="eyebrow">Tres preguntes · menys d'un minut</p>
+      <h1 id="t-enquesta" tabindex="-1">Valora la demo</h1>
+      <p>Ens ajuda a saber si UPCHub s'entén. No et demanem el nom, el correu ni cap dada personal.</p>
+    </div>
+
+    <section class="panel tasks" aria-labelledby="h-tasks">
+      <h2 id="h-tasks">Les teves tasques</h2>
+      <ul class="tlist" id="s-tasks" data-dyn></ul>
+    </section>
+
+    <form id="s-form" class="sform" novalidate>
+      <fieldset class="q" aria-describedby="s-e1">
+        <legend><span class="qn">1</span>Has entès què fa UPCHub?</legend>
+        <div class="seg">
+          <input type="radio" name="s-und" id="su-yes" value="si"><label for="su-yes">Sí, del tot</label>
+          <input type="radio" name="s-und" id="su-part" value="en-part"><label for="su-part">En part</label>
+          <input type="radio" name="s-und" id="su-no" value="no"><label for="su-no">No gaire</label>
+        </div>
+        <p class="err" id="s-e1" hidden><svg aria-hidden="true"><use href="icons.svg#i-alert"/></svg>Tria una resposta.</p>
+      </fieldset>
+
+      <fieldset class="q" aria-describedby="s-scale s-e2">
+        <legend><span class="qn">2</span>Com de clara t'ha semblat la interfície?</legend>
+        <div class="seg scale">
+          <input type="radio" name="s-cla" id="sc-1" value="1"><label for="sc-1">1</label>
+          <input type="radio" name="s-cla" id="sc-2" value="2"><label for="sc-2">2</label>
+          <input type="radio" name="s-cla" id="sc-3" value="3"><label for="sc-3">3</label>
+          <input type="radio" name="s-cla" id="sc-4" value="4"><label for="sc-4">4</label>
+          <input type="radio" name="s-cla" id="sc-5" value="5"><label for="sc-5">5</label>
+        </div>
+        <p class="ends" id="s-scale"><span>1 · Gens clara</span><span>5 · Molt clara</span></p>
+        <p class="err" id="s-e2" hidden><svg aria-hidden="true"><use href="icons.svg#i-alert"/></svg>Tria una nota de l'1 al 5.</p>
+      </fieldset>
+
+      <div class="q">
+        <label class="qlbl" for="s-open"><span class="qn">3</span>Què hi canviaries? <span class="help">(opcional)</span></label>
+        <textarea id="s-open" rows="4" maxlength="500" aria-describedby="s-open-h"></textarea>
+        <p class="help" id="s-open-h">No hi escriguis el teu nom ni cap altra dada personal.</p>
+      </div>
+
+      <div class="privacy">
+        <h2>Què s'envia</h2>
+        <p>Si prems «Enviar respostes», s'envien de manera anònima les tres respostes, el temps i els passos de cada tasca, l'idioma i si fas servir mòbil o ordinador. No fem servir galetes ni analítica.</p>
+      </div>
+      <p class="err" id="s-e3" role="alert" hidden><svg aria-hidden="true"><use href="icons.svg#i-alert"/></svg>No s'ha pogut enviar. Comprova la connexió i torna-ho a provar.</p>
+      <div class="acts">
+        <button type="submit" class="btn pri" id="s-send"><span class="spin" aria-hidden="true" hidden></span><svg class="idle" aria-hidden="true"><use href="icons.svg#i-send"/></svg><span class="idle">Enviar respostes</span><span class="busy" hidden>Enviant…</span></button>
+        <button type="button" class="btn ghost" id="s-skip">Prefereixo no enviar-les</button>
+      </div>
+    </form>
+
+    <div class="thanks" id="s-thanks" hidden>
+      <span class="okmark" aria-hidden="true"><svg><use href="icons.svg#i-check"/></svg></span>
+      <h2 tabindex="-1">Gràcies!</h2>
+      <p id="s-thanks-msg" data-dyn></p>
+      <div class="acts"><a class="btn sec" href="#">Tornar a l'inici</a><button type="button" class="btn ghost" id="s-again">Canviar les respostes</button></div>
+    </div>
   </div>
 </section>
 
@@ -422,7 +478,7 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite" data-dyn></div>
 
-<script src="i18n-demo.js?v=8"></script>
-<script src="demo.js?v=8"></script>
+<script src="i18n-demo.js?v=11"></script>
+<script src="demo.js?v=11"></script>
 </body>
 </html>

@@ -457,6 +457,43 @@ legend,.lbl-f{font-weight:700;margin-bottom:var(--space-2);padding:0}
   .qrow .pv{grid-row:span 2}
 }
 
+/* ================= Enquesta ================= */
+.survey{max-width:760px;display:flex;flex-direction:column;gap:var(--space-5)}
+.survey .intro{margin:0}
+.survey .panel h2,.privacy h2{font-size:1.125rem;margin-bottom:var(--space-3)}
+.tlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-2)}
+.tlist li{display:flex;align-items:center;gap:var(--space-3);min-height:44px}
+.tlist .ic{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--surface-200);color:var(--ink-muted)}
+.tlist .ic svg{width:16px;height:16px}
+.tlist li.ok .ic{background:var(--ok);color:#fff}
+.tlist .t{flex:1}
+.tlist .t b{display:block}
+.tlist .t span{font-size:.875rem;color:var(--ink-muted)}
+.sform{display:flex;flex-direction:column;gap:var(--space-5)}
+.q legend,.qlbl{display:flex;align-items:center;gap:var(--space-3);font-family:var(--font-display);font-weight:700;font-size:1.25rem;margin-bottom:var(--space-3)}
+.qn{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--brand-tint);color:var(--brand-text);font-size:1rem;flex:none}
+.qlbl .help{font-family:var(--font-sans);font-weight:500;font-size:.875rem}
+.seg{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg label{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 var(--space-5);border:1.5px solid var(--line);border-radius:var(--radius-md);background:var(--surface-0);font-weight:700;cursor:pointer;transition:border-color 160ms ease,background-color 160ms ease,transform 160ms var(--ease-out)}
+.seg label:active{transform:scale(.97)}
+.seg input:checked+label{border-color:var(--brand);background:var(--brand-tint);box-shadow:inset 0 0 0 1px var(--brand)}
+.seg input:focus-visible+label{outline:2px solid var(--focus-ring);outline-offset:2px}
+.scale label{flex:1;min-width:48px;padding:0;font-family:var(--font-display);font-size:1.25rem}
+.ends{display:flex;justify-content:space-between;margin-top:var(--space-2);font-size:.8125rem;color:var(--ink-muted)}
+.sform textarea{width:100%;padding:var(--space-3) var(--space-4);border:1px solid var(--border);border-radius:var(--radius-md);background:var(--surface-0);color:var(--ink);font:inherit;font-size:1rem;resize:vertical;min-height:112px}
+.privacy{padding:var(--space-4) var(--space-5);background:var(--surface-200);border-radius:var(--radius-md);font-size:.9375rem;color:var(--ink-muted)}
+.privacy h2{color:var(--ink);font-size:1rem;margin-bottom:var(--space-1)}
+.thanks{display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-3);padding:var(--space-6);background:var(--surface-0);border:1px solid var(--line);border-radius:var(--radius-lg)}
+.thanks .okmark{margin:0}
+.thanks h2{font-size:1.75rem}
+.thanks p{color:var(--ink-muted)}
+.thanks:not([hidden]) .okmark svg{animation:draw 360ms 120ms var(--ease-out) forwards}
+@media (max-width:599px){
+  .wrap{padding:var(--space-5) var(--space-4) var(--space-7)}
+  .seg:not(.scale) label{flex:1 1 100%;justify-content:flex-start}
+}
+
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}

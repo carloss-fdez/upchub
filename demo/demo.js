@@ -1,6 +1,13 @@
 /* UPCHub · Demo interactiva — estat compartit, rutes, mesura i recorreguts */
 (function(){
   'use strict';
+
+  /* Formulari extern anònim per a l'enquesta (p. ex. Google Forms → URL acabada en /formResponse).
+     Mentre url sigui buida no s'envia res. Com obtenir la URL i els entry.XXXX: demo/README.md */
+  var FORM={
+    url:'',
+    fields:{understood:'entry.0000000001',clarity:'entry.0000000002',change:'entry.0000000003',tasks:'entry.0000000004',lang:'entry.0000000005',device:'entry.0000000006'}
+  };
   var $=function(s,c){return (c||document).querySelector(s)},$$=function(s,c){return [].slice.call((c||document).querySelectorAll(s))};
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -406,6 +413,59 @@
   on(function(){cQueue();if(C.step==='c2')cFicha()});
   hooks.push(function(){cCount();cQueue();cFicha();cMsg();if(!$('#c-result').hidden)renderResult($('#c-result'),'tecnic')});
 
+  /* ================= Enquesta ================= */
+  var ROLES=[['alumne','Alumne','i-phone'],['professor','Professor','i-laptop'],['tecnic','Tècnic','i-wrench']];
+  var sForm=$('#s-form'),sSend=$('#s-send');
+  var SMSG={sent:'Hem rebut les teves respostes. Moltes gràcies per ajudar-nos.',skip:'No hem enviat res. Gràcies igualment per provar la demo.',local:"L'enviament encara no està configurat: les respostes només s'han desat en aquest navegador."};
+  function sTasks(){
+    $('#s-tasks').innerHTML=ROLES.map(function(r){
+      var m=S.metrics[r[0]];
+      return '<li class="'+(m?'ok':'')+'"><span class="ic">'+ico(m?'i-check':r[2])+'</span><span class="t"><b>'+esc(T(r[1]))+'</b><span>'+
+        esc(m?T('Fet · {t} · {n} passos',{t:fmtTime(m.ms),n:m.steps}):T("Encara no l'has provada"))+'</span></span>'+
+        (m?'':'<a class="btn ghost" href="#'+r[0]+'">'+esc(T('Provar'))+'</a>')+'</li>';
+    }).join('');
+  }
+  function sView(){
+    var done=!!S.survey;
+    sForm.hidden=done;$('#s-thanks').hidden=!done;
+    $('#s-thanks-msg').textContent=done?T(SMSG[S.survey.r]):'';
+  }
+  function sTasksText(){
+    return ROLES.map(function(r){
+      var m=S.metrics[r[0]];if(!m)return r[0]+':-';
+      return r[0]+':'+Math.round(m.ms/1000)+'s,'+m.steps+'p'+(m.first?','+(m.ok?'primera-ok':'primera-no'):'');
+    }).join(';');
+  }
+  function sDone(r,ans){
+    S.survey={r:r,ans:ans||null};save();busy(sSend,false);sView();
+    var h=$('#s-thanks h2');if(h)h.focus();
+  }
+  sForm.addEventListener('change',function(e){
+    if(e.target.name==='s-und')$('#s-e1').hidden=true;
+    if(e.target.name==='s-cla')$('#s-e2').hidden=true;
+  });
+  sForm.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(sSend.getAttribute('aria-busy')==='true')return;
+    var und=$('input[name="s-und"]:checked',sForm),cla=$('input[name="s-cla"]:checked',sForm);
+    $('#s-e1').hidden=!!und;$('#s-e2').hidden=!!cla;$('#s-e3').hidden=true;
+    if(!und||!cla){$(!und?'#su-yes':'#sc-1').focus();return}
+    var ans={understood:und.value,clarity:cla.value,change:$('#s-open').value.trim().slice(0,500),tasks:sTasksText(),lang:lang,
+      device:window.matchMedia&&matchMedia('(max-width: 599px)').matches?'mobil':'ordinador'};
+    if(!FORM.url){sDone('local',ans);return}
+    var fd=new FormData();
+    for(var k in FORM.fields)fd.append(FORM.fields[k],ans[k]);
+    busy(sSend,true);
+    fetch(FORM.url,{method:'POST',mode:'no-cors',body:fd,credentials:'omit',referrerPolicy:'no-referrer'})
+      .then(function(){sDone('sent')})
+      .catch(function(){busy(sSend,false);$('#s-e3').hidden=false});
+  });
+  $('#s-skip').addEventListener('click',function(){sDone('skip')});
+  $('#s-again').addEventListener('click',function(){S.survey=null;save();sView();$('#su-yes').focus()});
+  function sEnter(){sTasks();sView();busy(sSend,false);$('#s-e3').hidden=true}
+  on(function(){if(cur==='enquesta'){sTasks();sView()}});
+  hooks.push(function(){sTasks();sView()});
+
   /* ---------- Avisos en directe quan una altra pestanya canvia l'estat ---------- */
   function liveNotice(a,b){
     var find=function(st,id){return st.queue.filter(function(x){return x.id===id})[0]};
@@ -420,7 +480,7 @@
   }
 
   /* ---------- Rutes ---------- */
-  var cur=null,ENTER={alumne:aEnter,professor:bEnter,tecnic:cEnter};
+  var cur=null,ENTER={alumne:aEnter,professor:bEnter,tecnic:cEnter,enquesta:sEnter};
   function route(){
     var h=(location.hash||'').slice(1)||'home',v=$('.view[data-view="'+h+'"]')||$('.view[data-view="home"]');
     h=v.dataset.view;
