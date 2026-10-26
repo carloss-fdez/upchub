@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="demo.css?v=4">
+<link rel="stylesheet" href="demo.css?v=6">
 </head>
 <body>
 <a class="skip" href="#main">Salta al contingut</a>
@@ -203,8 +203,148 @@
       <a class="btn ghost back" href="#"><svg aria-hidden="true"><use href="icons.svg#i-left"/></svg>Tots els rols</a>
       <p class="eyebrow">Tasca · Professor</p>
       <h1 id="t-professor" tabindex="-1">Inicia la sessió i esbrina quin equip falla</h1>
+      <p class="hint">Arribes a l'aula 205 per fer classe. A la paret hi ha un lector NFC i a la taula, la pantalla de l'aula.</p>
+      <p class="count" id="b-count" data-dyn aria-live="polite"></p>
+      <div class="result" id="b-result" data-dyn hidden></div>
     </aside>
-    <div class="stage"><p class="placeholder">En construcció.</p></div>
+    <div class="stage">
+      <div class="monitor" role="region" aria-label="Pantalla de l'aula simulada">
+
+        <!-- B1 · accés amb el carnet -->
+        <div class="scr on" id="b1">
+          <div class="login">
+            <img class="login-logo" src="../assets/upchub-anillo-H-horizontal-oscuro.svg" alt="UPCHub">
+            <p class="eyebrow">Aula</p>
+            <h2 class="room" tabindex="-1">205</h2>
+            <p class="meta">Disseny Bàsic · dilluns 9:00–11:00</p>
+            <div class="reader" id="b-reader" aria-hidden="true">
+              <span class="ring"></span><span class="ring"></span>
+              <span class="pad"><svg><use href="icons.svg#i-nfc"/></svg></span>
+              <span class="card-in"><svg><use href="icons.svg#i-phone"/></svg></span>
+            </div>
+            <p class="lead">Toca el lector amb el carnet del mòbil</p>
+            <button type="button" class="btn light" id="b-nfc"><svg aria-hidden="true"><use href="icons.svg#i-nfc"/></svg>Simular toc NFC</button>
+            <p class="small">A l'aula real només cal apropar el mòbil. Sense contrasenyes.</p>
+          </div>
+        </div>
+
+        <!-- B2 · sessió a punt -->
+        <div class="scr" id="b2">
+          <div class="ibody center">
+            <span class="okmark" aria-hidden="true"><svg><use href="icons.svg#i-check"/></svg></span>
+            <h2 tabindex="-1">Sessió a punt</h2>
+            <p class="sub">Hola, Professor/a de prova. L'aula s'ha preparat sola.</p>
+            <ul class="bootlist" id="b-boot" data-dyn></ul>
+            <button type="button" class="btn pri" data-go="b3">Obrir el tauler de l'aula</button>
+          </div>
+        </div>
+
+        <!-- B3 · tauler de l'aula -->
+        <div class="scr" id="b3">
+          <div class="dhead">
+            <div class="dt">
+              <img src="../assets/upchub-anillo-H-color.svg" alt="" width="32" height="32">
+              <div><h2 tabindex="-1">Aula 205</h2><span>Disseny Bàsic · dilluns 9:00–11:00</span></div>
+            </div>
+            <div class="who"><span class="avatar" aria-hidden="true">P</span><span class="nm">Professor/a de prova</span><button type="button" class="btn ghost" data-back="b1">Tancar sessió</button></div>
+          </div>
+          <div class="ibody">
+            <p class="summary" id="b-summary" data-dyn aria-live="polite"></p>
+            <div class="dgrid">
+              <section class="panel" aria-labelledby="h-eq">
+                <h3 id="h-eq">Equips</h3>
+                <ul class="eqs" id="b-eqs" data-dyn></ul>
+              </section>
+              <section class="panel" aria-labelledby="h-env">
+                <h3 id="h-env">Ambient</h3>
+                <div class="envs">
+                  <div class="env"><svg aria-hidden="true"><use href="icons.svg#i-temp"/></svg><b>22 °C</b><span>Temperatura · objectiu 21–23 °C</span></div>
+                  <div class="env"><svg aria-hidden="true"><use href="icons.svg#i-wind"/></svg><b>640 ppm</b><span>CO₂ · aire bo</span></div>
+                </div>
+                <p class="small">Climatització automàtica segons ocupació i horari.</p>
+              </section>
+              <section class="panel" aria-labelledby="h-sch">
+                <h3 id="h-sch">Horari d'avui</h3>
+                <ol class="sched">
+                  <li class="now"><b>9:00</b><span>Disseny Bàsic</span><span class="chip">Ara</span></li>
+                  <li><b>11:00</b><span>Aula lliure</span></li>
+                  <li><b>12:00</b><span>Expressió Gràfica</span></li>
+                </ol>
+              </section>
+            </div>
+            <p class="small">Dades d'exemple.</p>
+          </div>
+          <div class="dfoot">
+            <p>Alguna cosa no funciona?</p>
+            <button type="button" class="btn pri" data-go="b4"><svg aria-hidden="true"><use href="icons.svg#i-spark"/></svg>Tinc un problema</button>
+          </div>
+        </div>
+
+        <!-- B4 · ajuda de la IA -->
+        <div class="scr" id="b4">
+          <div class="dhead">
+            <button type="button" class="ic-btn" data-back="b3" aria-label="Tornar al tauler"><svg aria-hidden="true"><use href="icons.svg#i-left"/></svg></button>
+            <span class="ai"><svg aria-hidden="true"><use href="icons.svg#i-spark"/></svg>Assistent · IA local del campus</span>
+          </div>
+          <div class="ibody">
+            <h2 tabindex="-1">Provem-ho junts</h2>
+            <p class="bubble">He vist que el projector no rep senyal del dock. Prova aquests tres passos:</p>
+            <ol class="aisteps">
+              <li><span class="n" aria-hidden="true">1</span><div><b>Comprova que el projector està encès</b><span>El llum del frontal ha de ser verd, no taronja.</span></div></li>
+              <li><span class="n" aria-hidden="true">2</span><div><b>Reinicia la sortida de vídeo del dock</b><span>Mantén premut el botó de vídeo del dock 3 segons.</span></div></li>
+              <li><span class="n" aria-hidden="true">3</span><div><b>Tria l'entrada HDMI 1</b><span>Amb el comandament del projector, botó «Source».</span></div></li>
+            </ol>
+            <div class="ask">
+              <p id="b-ask">Funciona ara?</p>
+              <div class="yn" role="group" aria-labelledby="b-ask">
+                <button type="button" class="btn sec" id="b-yes">Sí, ja funciona</button>
+                <button type="button" class="btn sec" data-go="b5">No, encara no</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- B5 · fitxa per al tècnic -->
+        <div class="scr" id="b5">
+          <div class="dhead">
+            <button type="button" class="ic-btn" data-back="b4" aria-label="Tornar a l'assistent"><svg aria-hidden="true"><use href="icons.svg#i-left"/></svg></button>
+            <span class="ai"><svg aria-hidden="true"><use href="icons.svg#i-spark"/></svg>Assistent · IA local del campus</span>
+          </div>
+          <div class="ibody">
+            <h2 tabindex="-1">Avisem el tècnic</h2>
+            <p class="sub">L'assistent ha omplert la fitxa amb el que ja sap de l'aula. Revisa-la i envia-la.</p>
+            <div class="card" id="b-ficha" data-dyn></div>
+            <div class="acts">
+              <button type="button" class="btn pri" id="b-send"><span class="spin" aria-hidden="true" hidden></span><svg class="idle" aria-hidden="true"><use href="icons.svg#i-send"/></svg><span class="idle">Avisar el tècnic</span><span class="busy" hidden>Enviant…</span></button>
+              <button type="button" class="btn ghost" data-back="b3">Cancel·lar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- B6 · avís enviat -->
+        <div class="scr" id="b6">
+          <div class="ibody center">
+            <span class="okmark" aria-hidden="true"><svg><use href="icons.svg#i-check"/></svg></span>
+            <h2 tabindex="-1">Avís enviat</h2>
+            <p class="sub" id="b-sent" data-dyn></p>
+            <div class="narrow" id="b-track" data-dyn></div>
+            <div class="card ctx narrow"><span class="pin"><svg aria-hidden="true"><use href="icons.svg#i-laptop"/></svg></span><div><b>Mentrestant</b><span>L'àudio i l'ordinador funcionen: pots començar la classe i projectar quan arribi el tècnic.</span></div></div>
+            <button type="button" class="btn sec" data-back="b3">Tornar al tauler</button>
+          </div>
+        </div>
+
+        <!-- B7 · resolt amb la IA -->
+        <div class="scr" id="b7">
+          <div class="ibody center">
+            <span class="okmark" aria-hidden="true"><svg><use href="icons.svg#i-check"/></svg></span>
+            <h2 tabindex="-1">Perfecte, ja funciona</h2>
+            <p class="sub">Ho deixem anotat a l'historial de l'aula perquè el servei tècnic ho sàpiga. No cal fer res més.</p>
+            <button type="button" class="btn sec" data-back="b3">Tornar al tauler</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </section>
 
@@ -233,7 +373,7 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite" data-dyn></div>
 
-<script src="i18n-demo.js?v=4"></script>
-<script src="demo.js?v=4"></script>
+<script src="i18n-demo.js?v=6"></script>
+<script src="demo.js?v=6"></script>
 </body>
 </html>

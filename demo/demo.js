@@ -109,6 +109,24 @@
   function ico(id){return '<svg aria-hidden="true"><use href="icons.svg#'+id+'"/></svg>'}
   function fmtTime(ms){var s=Math.max(1,Math.round(ms/1000));return s<60?s+' s':Math.floor(s/60)+' min '+('0'+s%60).slice(-2)+' s'}
   function statusLabel(st){return st==='done'?T('Resolta'):st==='progress'?T('En curs'):T('Rebuda')}
+  function openItem(aula,eq){return S.queue.filter(function(x){return x.aula===aula&&x.eq===eq&&x.status!=='done'})[0]||null}
+  /* Botó d'enviar: estat ocupat amb spinner, textos traduïbles a l'HTML */
+  function busy(btn,b){
+    btn.setAttribute('aria-busy',b);
+    $$('.idle',btn).forEach(function(x){x.hidden=b});$$('.busy,.spin',btn).forEach(function(x){x.hidden=!b});
+  }
+  /* Seguiment d'un avís: rebut → en mans del tècnic → resolt */
+  function trackHTML(it){
+    var st=it.status,nowSet=false,steps=[
+      ['Rebuda','Ara mateix',true],
+      ['En mans del tècnic',st==='open'?"Quan l'obri a la cua":'Revisant-la',st!=='open'],
+      ['Resolta',"Rebràs un avís a l'app",st==='done']
+    ];
+    return '<h3 class="sec-h">'+esc(T('Estat'))+'</h3><ol class="track">'+steps.map(function(s){
+      var c=s[2]?'done':(!nowSet?(nowSet=true,'now'):'');
+      return '<li class="'+c+'"><span class="dot">'+ico('i-check')+'</span><span><b>'+esc(T(s[0]))+'</b><span>'+esc(T(s[1]))+'</span></span></li>';
+    }).join('')+'</ol>';
+  }
   var toastT,toastEl=$('#toast');
   function toast(msg){toastEl.textContent=msg;toastEl.classList.add('on');clearTimeout(toastT);toastT=setTimeout(function(){toastEl.classList.remove('on')},2600)}
 
@@ -119,16 +137,16 @@
   bandH();
 
   /* ---------- Mesura local: temps i passos per tasca, sense dades personals ---------- */
-  var MIN={alumne:4},run=null;
+  var MIN={alumne:4,professor:5},run=null;
   function startTask(role){run={role:role,t0:Date.now(),steps:0}}
   document.addEventListener('click',function(e){
     if(!run)return;
     var el=e.target.closest('button,a,input,select');if(!el||el.closest('.tpanel,.band'))return;
     var v=el.closest('[data-role]');if(v&&v.dataset.role===run.role)run.steps++;
   },true);
-  function finishTask(){
+  function finishTask(min){
     if(!run)return null;
-    var m={ms:Date.now()-run.t0,steps:run.steps,min:MIN[run.role]};
+    var m={ms:Date.now()-run.t0,steps:run.steps,min:min||MIN[run.role]};
     S.metrics[run.role]=m;run=null;save();
     return m;
   }
@@ -185,19 +203,15 @@
   $('#a-photo-add').addEventListener('click',function(){aPhoto(true)});
   $('#a-photo-del').addEventListener('click',function(){aPhoto(false)});
   aForm.addEventListener('change',function(e){if(e.target.name==='a-type')aErr.hidden=true});
-  function aBusy(b){
-    aSend.setAttribute('aria-busy',b);
-    $$('.idle',aSend).forEach(function(x){x.hidden=b});$$('.busy,.spin',aSend).forEach(function(x){x.hidden=!b});
-  }
   aForm.addEventListener('submit',function(e){
     e.preventDefault();
     var t=$('input[name="a-type"]:checked',aForm);
     if(!t){aErr.hidden=false;$('#at-proj').focus();return}
     if(aSend.getAttribute('aria-busy')==='true')return;
-    aBusy(true);
+    busy(aSend,true);
     setTimeout(function(){
       var r=report({aula:$('#a-aula').value,eq:t.value,by:'alumne',photo:A.photo});
-      A.last=r;aBusy(false);
+      A.last=r;busy(aSend,false);
       aFlow.go('a4');
       if(finishTask()){document.body.classList.remove('full');renderResult($('#a-result'),'alumne')}
     },reduce?150:650);
@@ -205,23 +219,14 @@
   function aSum(){
     var el=$('#a-sum'),it=A.last&&item(A.last.item.id);
     if(!it){el.innerHTML='';return}
-    var l=lvl(P(it)),st=it.status;
-    var steps=[
-      ['Rebuda','Ara mateix',true],
-      ['En mans del tècnic',st==='open'?'Quan l\'obri a la cua':'Revisant-la',st!=='open'],
-      ['Resolta','Rebràs un avís a l\'app',st==='done']
-    ];
-    var nowSet=false;
+    var l=lvl(P(it));
     el.innerHTML='<div class="card"><dl class="sum">'+
       '<dt>'+esc(T('Aula'))+'</dt><dd>'+esc(it.aula)+'</dd>'+
       '<dt>'+esc(T('Equip'))+'</dt><dd>'+esc(T(EQ[it.eq].n))+'</dd>'+
       '<dt>'+esc(T('Prioritat'))+'</dt><dd><span class="badge '+l+'">'+esc(T(LV[l].n))+'</span></dd>'+
       '<dt>'+esc(T('Objectiu'))+'</dt><dd>'+esc(T(LV[l].goal))+'</dd></dl></div>'+
       (A.last.merged?'<p class="merged">'+esc(T("Ja hi havia una incidència oberta d'aquest equip. Hi hem sumat el teu avís: ara en té {n}.",{n:it.reps}))+'</p>':'')+
-      '<h3 class="sec-h">'+esc(T('Estat'))+'</h3><ol class="track">'+steps.map(function(s){
-        var c=s[2]?'done':(!nowSet?(nowSet=true,'now'):'');
-        return '<li class="'+c+'"><span class="dot">'+ico('i-check')+'</span><span><b>'+esc(T(s[0]))+'</b><span>'+esc(T(s[1]))+'</span></span></li>';
-      }).join('')+'</ol>';
+      trackHTML(it);
   }
   function aMine(){
     var mine=S.reports.filter(function(r){return r.by==='alumne'}),ul=$('#a-mine'),seen={};
@@ -232,7 +237,7 @@
     ul.innerHTML=rows.length?rows.join(''):'<li class="empty">'+esc(T('Encara no has enviat cap avís.'))+'</li>';
   }
   function aEnter(){
-    aFlow.reset();aForm.reset();aErr.hidden=true;aBusy(false);
+    aFlow.reset();aForm.reset();aErr.hidden=true;busy(aSend,false);
     A.photo=false;$('#a-photo').hidden=true;$('#a-photo-add').hidden=false;
     A.last=null;$('#a-result').hidden=true;aSum();aMine();
     document.body.classList.add('full');
@@ -241,8 +246,93 @@
   on(function(){aSum();aMine()});
   hooks.push(function(){aCount();aSum();aMine();if(!$('#a-result').hidden)renderResult($('#a-result'),'alumne')});
 
+  /* ================= Professor ================= */
+  var B={step:'b1',last:null,prev:{}},EQ205=['proj','audio','pc','dock'];
+  var TRIED=['Comprova que el projector està encès','Reinicia la sortida de vídeo del dock',"Tria l'entrada HDMI 1"];
+  var bFlow=Flow($('[data-view="professor"] .monitor'),function(id){
+    B.step=id;bCount();
+    if(id==='b2')bBoot();
+    if(id==='b5')bFicha();
+  });
+  var bSend=$('#b-send');
+  function bCount(){var n=+B.step.slice(1);$('#b-count').textContent=n>6?T('Pantalla {n} de {t}',{n:5,t:5}):T('Pantalla {n} de {t}',{n:n,t:6})}
+  function eqState(k){
+    if(S.equip[k]!=='bad')return {c:'',t:'Funciona'};
+    var it=openItem('205',k);
+    if(it&&it.status==='progress')return {c:'bad warn',t:'Tècnic en camí'};
+    if(it&&(it.reps>1||it.tried.length))return {c:'bad',t:'Avisat al tècnic'};
+    return {c:'bad',t:k==='proj'?'No rep senyal':'No funciona'};
+  }
+  function bBoot(){
+    var bad=S.equip.proj==='bad',rows=[
+      ['Identificació amb el carnet',0],['Aula 205 i horari reconeguts',0],
+      ["Àudio, ordinador i dock connectats",0],[bad?'Projector: no rep senyal':'Projector connectat',bad],
+      ['Climatització ajustada a 22 °C',0]];
+    $('#b-boot').innerHTML=rows.map(function(r){
+      return '<li class="'+(r[1]?'bad':'')+'"><span class="mk">'+ico(r[1]?'i-x':'i-check')+'</span>'+esc(T(r[0]))+'</li>';
+    }).join('');
+  }
+  function bDash(){
+    var bads=EQ205.filter(function(k){return S.equip[k]==='bad'}),sm=$('#b-summary');
+    sm.className='summary '+(bads.length?'bad':'ok');
+    sm.innerHTML=bads.length?ico('i-alert')+esc(T('Falla: {e}',{e:bads.map(function(k){return T(EQ[k].n)}).join(', ')})):ico('i-check')+esc(T('Tots els equips funcionen'));
+    $('#b-eqs').innerHTML=EQ205.map(function(k){
+      var st=eqState(k),fixed=B.prev[k]==='bad'&&S.equip[k]==='ok';
+      return '<li class="'+st.c+(fixed?' ok-new':'')+'">'+ico(EQ[k].i)+'<b>'+esc(T(EQ[k].n))+'</b><span class="st"><i></i>'+esc(T(st.t))+'</span></li>';
+    }).join('');
+    EQ205.forEach(function(k){B.prev[k]=S.equip[k]});
+  }
+  function bFicha(){
+    var it=openItem('205','proj'),g=it?[it.g,it.u,it.i]:GUI.proj,p=g[0]*g[1]*g[2],l=lvl(p);
+    var row=function(k,v){return '<dt>'+esc(T(k))+'</dt><dd>'+v+'</dd>'};
+    $('#b-ficha').innerHTML='<dl class="ficha">'+
+      row('Aula',esc(T('205 · Disseny Bàsic, classe en curs')))+
+      row('Equip',esc(T(EQ.proj.n)))+
+      row('Símptoma',esc(T('No rep senyal del dock')))+
+      row('Passos provats','<ul>'+TRIED.map(function(t){return '<li>'+esc(T(t))+'</li>'}).join('')+'</ul>')+
+      row("Estat de l'aula",esc(T('Àudio, ordinador i dock funcionen · 22 °C · CO₂ 640 ppm')))+
+      row('Avisos previs',esc(it?T('{n} a la cua',{n:it.reps}):T('Cap')))+
+      row('Prioritat','<span class="badge '+l+'">'+esc(T(LV[l].n))+'</span><span class="pf">P = '+g.join(' × ')+' = '+p+'</span>')+
+      row('Objectiu',esc(T(LV[l].goal)))+'</dl>';
+  }
+  function bSent(){
+    var it=B.last&&item(B.last.item.id);if(!it)return;
+    var l=lvl(P(it));
+    $('#b-sent').textContent=T('Prioritat {l}: objectiu {g}.',{l:T(LV[l].n),g:T(LV[l].goal)});
+    $('#b-track').innerHTML=trackHTML(it);
+  }
+  function bFinish(min){if(finishTask(min))renderResult($('#b-result'),'professor')}
+  $('#b-nfc').addEventListener('click',function(){
+    var r=$('#b-reader'),btn=this;
+    if(btn.getAttribute('aria-busy')==='true')return;
+    btn.setAttribute('aria-busy','true');r.classList.add('tapping');
+    setTimeout(function(){r.classList.add('ok')},reduce?50:650);
+    setTimeout(function(){bFlow.go('b2');r.classList.remove('tapping','ok');btn.setAttribute('aria-busy','false')},reduce?250:1150);
+  });
+  $('#b-yes').addEventListener('click',function(){
+    var it=openItem('205','proj');
+    if(it){it.status='done';it.hist.unshift({t:'Ara',k:"Resolt pel professor amb l'assistent IA"})}
+    S.equip.proj='ok';save();
+    bFlow.go('b7');bFinish(4);
+  });
+  bSend.addEventListener('click',function(){
+    if(bSend.getAttribute('aria-busy')==='true')return;
+    busy(bSend,true);
+    setTimeout(function(){
+      B.last=report({aula:'205',eq:'proj',by:'professor',tried:TRIED.slice()});
+      busy(bSend,false);bFlow.go('b6');bSent();bFinish();
+    },reduce?150:650);
+  });
+  function bEnter(){
+    bFlow.reset();busy(bSend,false);B.last=null;B.prev={};
+    $('#b-result').hidden=true;bDash();
+    startTask('professor');
+  }
+  on(function(){bDash();if(B.step==='b2')bBoot();if(B.step==='b5')bFicha();bSent()});
+  hooks.push(function(){bCount();bDash();bBoot();bFicha();bSent();if(!$('#b-result').hidden)renderResult($('#b-result'),'professor')});
+
   /* ---------- Rutes ---------- */
-  var cur=null,ENTER={alumne:aEnter};
+  var cur=null,ENTER={alumne:aEnter,professor:bEnter};
   function route(){
     var h=(location.hash||'').slice(1)||'home',v=$('.view[data-view="'+h+'"]')||$('.view[data-view="home"]');
     h=v.dataset.view;
