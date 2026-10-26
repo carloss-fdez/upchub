@@ -607,3 +607,11 @@ var P=[
 ];
 P.forEach(function(r){D.es[r[0]]=r[1];D.en[r[0]]=r[2]});
 })(window.UPC_I18N);
+
+/* v0.4 — demo interactiva (/demo/) */
+(function(D){
+var P=[
+["Prova la demo completa","Prueba la demo completa","Try the full demo"]
+];
+P.forEach(function(r){D.es[r[0]]=r[1];D.en[r[0]]=r[2]});
+})(window.UPC_I18N);
