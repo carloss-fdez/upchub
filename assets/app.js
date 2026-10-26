@@ -1,5 +1,6 @@
 /* UPCHub · v0.3 — interaccions */
 (function(){
+  window.UPC_READY=true;
   var $=function(s,c){return (c||document).querySelector(s)},$$=function(s,c){return [].slice.call((c||document).querySelectorAll(s))};
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -26,6 +27,8 @@
         el.setAttribute(a,l==='ca'?el['__o_'+a]:((DICT[l]||{})[norm(el['__o_'+a])]||el['__o_'+a]));
       });
     });
+    if(document.__oTitle===undefined)document.__oTitle=document.title;
+    document.title=l==='ca'?document.__oTitle:((DICT[l]||{})[document.__oTitle]||document.__oTitle);
     var m=$('meta[name="description"]');
     if(m){if(m.__o===undefined)m.__o=m.getAttribute('content');m.setAttribute('content',l==='ca'?m.__o:((DICT[l]||{})[m.__o]||m.__o))}
     $$('.lang button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.lang===l)});
@@ -85,7 +88,8 @@
     if(fromUser&&matchMedia('(max-width:959px)').matches){var li=steps[cur].parentNode,ol=li.parentNode;ol.scrollTo({left:li.offsetLeft-ol.offsetLeft,behavior:reduce?'auto':'smooth'})}
   }
   function tick(now){
-    if(playing&&visible){
+    if(!visible){raf=null;return}
+    if(playing){
       elapsed+=now-t0;
       var p=Math.min(1,elapsed/DUR);$('.bar i',steps[cur]).style.width=(p*100)+'%';
       if(p>=1)go(cur+1);
@@ -107,9 +111,10 @@
   stage.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
   stage.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40){go(cur+(dx<0?1:-1),true);userPaused=true;setPlay(false)}sx=null});
   stage.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(cur+1,true);if(e.key==='ArrowLeft')go(cur-1,true)});
-  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting},{threshold:.35}).observe(stage);else visible=true;
+  function wake(){if(visible&&!raf)raf=requestAnimationFrame(function(n){t0=n;tick(n)})}
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;wake()},{threshold:.35}).observe(stage);else visible=true;
   go(0);setPlay(playing);hooks.push(function(){cnt.textContent=(cur+1)+' / '+steps.length;setPlay(playing)});
-  raf=requestAnimationFrame(function(n){t0=n;tick(n)});
+  wake();
 
   /* ---------- Demo de l'app ---------- */
   var flows=$$('#app .flow'),dsteps=$$('#dsteps li'),opts=$$('#opts .opt'),send=$('#send'),chat=$('#chat'),aiAct=$('#ai-actions');
@@ -184,19 +189,20 @@
     {id:'018-0401',a:'18',t:'Endoll del lloc 4 sense corrent',g:2,u:1,i:1,iL:'1 lloc',av:1,when:'fa 2 h',cls:'Taller · 16 places · sense classe ara',sym:'Un sol endoll del lloc 4 no dona corrent',src:['7:58 · Alumne, des de l\'appUPC'],tried:['Diferencial de l\'aula comprovat']}
   ];
   Q.forEach(function(q){q.p=q.g*q.u*q.i;q.s='open';q.mine=false});
+  function lc(s){return s.charAt(0).toLowerCase()+s.slice(1)}
   function lv(p){return p>=12?['lv-c','Crític','15 min']:p>=6?['lv-a','Alt','El mateix dia']:p>=3?['lv-n','Normal','48 h']:['lv-b','Baix','Setmanal']}
   var qf='open',sel=Q[0].id,qi=$('#qitems'),qd=$('#qdetail');
   function renderQ(){
     var list=Q.filter(function(q){return q.s===qf}).sort(function(a,b){return b.p-a.p});
     $('#qt-open').textContent=T('Obertes')+' · '+Q.filter(function(q){return q.s==='open'}).length;
     $('#qt-done').textContent=T('Resoltes')+' · '+Q.filter(function(q){return q.s==='done'}).length;
-    $$('.qtab').forEach(function(b){b.setAttribute('aria-selected',b.dataset.f===qf)});
+    $$('.qtab').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.f===qf)});
     qi.innerHTML='';
     if(!list.length){qi.innerHTML='<div class="qempty">'+T(qf==='open'?'Cap incidència oberta. Bona feina!':'Encara no n\'has resolt cap.')+'</div>'}
     if(list.length&&!list.some(function(q){return q.id===sel}))sel=list[0].id;
     list.forEach(function(q){
       var L=lv(q.p),b=document.createElement('button');b.type='button';b.className='qi';b.setAttribute('aria-pressed',q.id===sel);
-      b.innerHTML='<span class="pscore '+L[0]+'">'+q.p+'<small>'+T(L[1])+'</small></span><span><b>'+T('Aula')+' '+q.a+' · '+T(q.t)+'</b><span class="meta"><svg><use href="#i-clock"/></svg>'+T(q.when)+' · '+T('objectiu')+' '+T(L[2])+'</span></span>'+
+      b.innerHTML='<span class="pscore '+L[0]+'">'+q.p+'<small>'+T(L[1])+'</small></span><span><b>'+T('Aula')+' '+q.a+' · '+T(q.t)+'</b><span class="meta"><svg><use href="#i-clock"/></svg>'+T(q.when)+' · '+T('objectiu')+' '+lc(T(L[2]))+'</span></span>'+
         (q.s==='done'?'<span class="tag">'+T('Resolta')+'</span>':q.mine?'<span class="tag me">'+T('Teva')+'</span>':'<span class="tag">'+q.av+' '+T(q.av>1?'avisos':'avís')+'</span>');
       b.addEventListener('click',function(){sel=q.id;renderQ()});
       qi.appendChild(b);

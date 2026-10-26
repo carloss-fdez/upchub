@@ -3,14 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UPCHub</title>
+<title>UPCHub · L'aula a punt amb el carnet UPC al mòbil</title>
 <meta name="description" content="UPCHub: plataforma d'aula que identifica el professor, prepara l'aula i envia les incidències tècniques al servei tècnic amb l'estat de l'aula inclòs. Projecte acadèmic EPSEVG · UPC.">
+<link rel="canonical" href="https://upchub.tech/">
+<meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#071522" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://upchub.tech/">
+<meta property="og:title" content="UPCHub · Toca. Connecta. Comença.">
+<meta property="og:description" content="L'aula es prepara amb el carnet UPC al mòbil. I si alguna cosa falla, UPCHub avisa el servei tècnic amb tot el context. Projecte acadèmic EPSEVG · UPC.">
+<meta property="og:image" content="https://upchub.tech/assets/mockups/4-dashboard-aula.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="1000">
+<meta property="og:locale" content="ca_ES">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="assets/upchub-anillo-H-sobre-azul.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;500;700&display=swap">
 <link rel="preload" as="image" href="assets/mockups/1-carnet-wallet.jpg">
-<link rel="stylesheet" href="assets/styles.css?v=3f">
+<link rel="stylesheet" href="assets/styles.css?v=3g">
+<script>document.documentElement.classList.add('js');addEventListener('load',function(){if(!window.UPC_READY)document.documentElement.classList.remove('js')})</script>
 </head>
 <body>
 
@@ -83,8 +96,8 @@
     </div>
     <div class="hero-visual">
       <div class="nfc-rings" aria-hidden="true"><i></i><i></i><i></i></div>
-      <div class="dev phone hero-phone"><img src="assets/mockups/1-carnet-wallet.jpg" width="780" height="1688" alt="Maqueta: carnet UPC a la cartera del mòbil"></div>
-      <div class="toast" id="toast" aria-live="polite" data-dyn></div>
+      <div class="dev phone hero-phone"><img src="assets/mockups/1-carnet-wallet.jpg" width="780" height="1688" fetchpriority="high" alt="Maqueta: carnet UPC a la cartera del mòbil"></div>
+      <div class="toast" id="toast" aria-hidden="true" data-dyn></div>
     </div>
   </div>
 </div>
@@ -199,9 +212,9 @@
     </div>
     <div class="queue rv">
       <div class="qlist">
-        <div class="qtabs" role="tablist" aria-label="Filtre">
-          <button type="button" role="tab" class="qtab" aria-selected="true" data-f="open" id="qt-open" data-dyn>Obertes · 4</button>
-          <button type="button" role="tab" class="qtab" aria-selected="false" data-f="done" id="qt-done" data-dyn>Resoltes · 0</button>
+        <div class="qtabs" role="group" aria-label="Filtre">
+          <button type="button" class="qtab" aria-pressed="true" data-f="open" id="qt-open" data-dyn>Obertes · 4</button>
+          <button type="button" class="qtab" aria-pressed="false" data-f="done" id="qt-done" data-dyn>Resoltes · 0</button>
         </div>
         <div id="qitems" data-dyn></div>
         <p class="qnote"><svg><use href="#i-spark"/></svg>Avui la IA de les aules ha resolt 5 avisos sense tècnic.</p>
@@ -406,7 +419,7 @@
 <section id="prova">
   <div class="wrap">
     <div class="cta rv">
-      <p class="label" style="color:#fff;opacity:.85">Prova pilot</p>
+      <p class="label">Prova pilot</p>
       <h2 class="display-lg">T'apuntes a provar-lo a la teva aula?</h2>
       <p>Estem validant UPCHub amb un petit grup de professors abans de construir-lo. Nom, aula i una pregunta d'interès, res més.</p>
       <a class="btn accent" href="https://docs.google.com/forms/d/e/1FAIpQLSekdFsPFqdflUqtt-9qpRwKLlzYCD4k4UZaeIK7yrxxj8216Q/viewform" target="_blank" rel="noopener">Omplir el formulari (1 min)</a>
@@ -422,7 +435,7 @@
   </div>
 </footer>
 
-<script src="assets/i18n.js?v=3f"></script>
-<script src="assets/app.js?v=3f"></script>
+<script src="assets/i18n.js?v=3g"></script>
+<script src="assets/app.js?v=3g"></script>
 </body>
 </html>
