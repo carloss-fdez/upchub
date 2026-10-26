@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="demo.css?v=11">
+<link rel="stylesheet" href="demo.css?v=13">
 </head>
 <body>
 <a class="skip" href="#main">Salta al contingut</a>
@@ -39,7 +39,6 @@
 <section class="view" data-view="home" aria-labelledby="t-home">
   <div class="wrap">
     <div class="intro">
-      <p class="eyebrow">UPC · EPSEVG · Disseny Bàsic</p>
       <h1 id="t-home" tabindex="-1">Prova UPCHub en tres papers</h1>
       <p>Aula 205, dilluns a les 9:00, classe de Disseny Bàsic. El projector no funciona. Tria un rol, fes la seva tasca i després digues-nos si s'entén.</p>
     </div>
@@ -71,6 +70,7 @@
       <div><h2>Quan acabis, valora la demo</h2><p>Tres preguntes, menys d'un minut i sense dades personals.</p></div>
       <a class="btn sec" href="#enquesta">Valorar la demo</a>
     </div>
+    <p class="foot">Proposta acadèmica de l'assignatura Disseny Bàsic · UPC · EPSEVG · Equip 02. No és un servei oficial de la universitat.</p>
   </div>
 </section>
 
@@ -79,7 +79,6 @@
   <div class="rolev is-phone">
     <aside class="tpanel">
       <a class="btn ghost back" href="#"><svg aria-hidden="true"><use href="icons.svg#i-left"/></svg>Tots els rols</a>
-      <p class="eyebrow">Tasca · Alumne</p>
       <h1 id="t-alumne" tabindex="-1">Avisa que el projector no funciona</h1>
       <p class="hint">Ets a l'aula 205 i el projector no mostra imatge. Fes servir el mòbil com ho faries de veritat.</p>
       <p class="count" id="a-count" data-dyn aria-live="polite"></p>
@@ -201,7 +200,6 @@
   <div class="rolev">
     <aside class="tpanel">
       <a class="btn ghost back" href="#"><svg aria-hidden="true"><use href="icons.svg#i-left"/></svg>Tots els rols</a>
-      <p class="eyebrow">Tasca · Professor</p>
       <h1 id="t-professor" tabindex="-1">Inicia la sessió i esbrina quin equip falla</h1>
       <p class="hint">Arribes a l'aula 205 per fer classe. A la paret hi ha un lector NFC i a la taula, la pantalla de l'aula.</p>
       <p class="count" id="b-count" data-dyn aria-live="polite"></p>
@@ -214,8 +212,7 @@
         <div class="scr on" id="b1">
           <div class="login">
             <img class="login-logo" src="../assets/upchub-anillo-H-horizontal-oscuro.svg" alt="UPCHub">
-            <p class="eyebrow">Aula</p>
-            <h2 class="room" tabindex="-1">205</h2>
+            <h2 class="room" tabindex="-1">Aula 205</h2>
             <p class="meta">Disseny Bàsic · dilluns 9:00–11:00</p>
             <div class="reader" id="b-reader" aria-hidden="true">
               <span class="ring"></span><span class="ring"></span>
@@ -224,7 +221,7 @@
             </div>
             <p class="lead">Toca el lector amb el carnet del mòbil</p>
             <button type="button" class="btn light" id="b-nfc"><svg aria-hidden="true"><use href="icons.svg#i-nfc"/></svg>Simular toc NFC</button>
-            <p class="small">A l'aula real només cal apropar el mòbil. Sense contrasenyes.</p>
+            <p class="small">A l'aula real n'hi ha prou d'apropar el mòbil al lector, sense contrasenyes.</p>
           </div>
         </div>
 
@@ -338,7 +335,7 @@
           <div class="ibody center">
             <span class="okmark" aria-hidden="true"><svg><use href="icons.svg#i-check"/></svg></span>
             <h2 tabindex="-1">Perfecte, ja funciona</h2>
-            <p class="sub">Ho deixem anotat a l'historial de l'aula perquè el servei tècnic ho sàpiga. No cal fer res més.</p>
+            <p class="sub">Queda anotat a l'historial de l'aula perquè el servei tècnic en tingui constància.</p>
             <button type="button" class="btn sec" data-back="b3">Tornar al tauler</button>
           </div>
         </div>
@@ -353,7 +350,6 @@
   <div class="rolev">
     <aside class="tpanel">
       <a class="btn ghost back" href="#"><svg aria-hidden="true"><use href="icons.svg#i-left"/></svg>Tots els rols</a>
-      <p class="eyebrow">Tasca · Tècnic</p>
       <h1 id="t-tecnic" tabindex="-1">Què atendries primer?</h1>
       <p class="hint">Treballes al servei tècnic del campus. Mira la cua d'avisos, obre el que atendries primer i deixa'l resolt.</p>
       <p class="count" id="c-count" data-dyn aria-live="polite"></p>
@@ -414,9 +410,8 @@
   <div class="wrap survey">
     <a class="btn ghost back" href="#"><svg aria-hidden="true"><use href="icons.svg#i-left"/></svg>Tots els rols</a>
     <div class="intro">
-      <p class="eyebrow">Tres preguntes · menys d'un minut</p>
       <h1 id="t-enquesta" tabindex="-1">Valora la demo</h1>
-      <p>Ens ajuda a saber si UPCHub s'entén. No et demanem el nom, el correu ni cap dada personal.</p>
+      <p>Tres preguntes que ens ajuden a saber si UPCHub s'entén. Menys d'un minut, i no et demanem el nom, el correu ni cap dada personal.</p>
     </div>
 
     <section class="panel tasks" aria-labelledby="h-tasks">
@@ -478,7 +473,7 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite" data-dyn></div>
 
-<script src="i18n-demo.js?v=11"></script>
-<script src="demo.js?v=11"></script>
+<script src="i18n-demo.js?v=13"></script>
+<script src="demo.js?v=13"></script>
 </body>
 </html>

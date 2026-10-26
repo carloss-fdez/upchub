@@ -114,6 +114,7 @@
   /* ---------- Utilitats ---------- */
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function ico(id){return '<svg aria-hidden="true"><use href="icons.svg#'+id+'"/></svg>'}
+  function lc(s){return s.charAt(0).toLowerCase()+s.slice(1)}
   function fmtTime(ms){var s=Math.max(1,Math.round(ms/1000));return s<60?s+' s':Math.floor(s/60)+' min '+('0'+s%60).slice(-2)+' s'}
   function statusLabel(st){return st==='done'?T('Resolta'):st==='progress'?T('En curs'):T('Rebuda')}
   function openItem(aula,eq){return S.queue.filter(function(x){return x.aula===aula&&x.eq===eq&&x.status!=='done'})[0]||null}
@@ -207,7 +208,7 @@
   var A={last:null,step:'a1',photo:false};
   var aFlow=Flow($('[data-view="alumne"] .phone'),function(id){A.step=id;aCount()});
   var aForm=$('#a-form'),aErr=$('#a-err'),aSend=$('#a-send');
-  function aCount(){$('#a-count').textContent=T('Pantalla {n} de {t}',{n:A.step.slice(1),t:aFlow.size})}
+  function aCount(){$('#a-count').textContent=T('Alumne')+' · '+T('Pantalla {n} de {t}',{n:A.step.slice(1),t:aFlow.size})}
   function aPhoto(onOff){A.photo=onOff;$('#a-photo').hidden=!onOff;$('#a-photo-add').hidden=onOff;(onOff?$('#a-photo-del'):$('#a-photo-add')).focus()}
   $('#a-photo-add').addEventListener('click',function(){aPhoto(true)});
   $('#a-photo-del').addEventListener('click',function(){aPhoto(false)});
@@ -264,7 +265,7 @@
     if(id==='b5')bFicha();
   });
   var bSend=$('#b-send');
-  function bCount(){var n=+B.step.slice(1);$('#b-count').textContent=n>6?T('Pantalla {n} de {t}',{n:5,t:5}):T('Pantalla {n} de {t}',{n:n,t:6})}
+  function bCount(){var n=+B.step.slice(1);$('#b-count').textContent=T('Professor')+' · '+(n>6?T('Pantalla {n} de {t}',{n:5,t:5}):T('Pantalla {n} de {t}',{n:n,t:6}))}
   function eqState(k){
     if(S.equip[k]!=='bad')return {c:'',t:'Funciona'};
     var it=openItem('205',k);
@@ -310,7 +311,7 @@
   function bSent(){
     var it=B.last&&item(B.last.item.id);if(!it)return;
     var l=lvl(P(it));
-    $('#b-sent').textContent=T('Prioritat {l}: objectiu {g}.',{l:T(LV[l].n),g:T(LV[l].goal)});
+    $('#b-sent').textContent=T('{l} · objectiu: {g}',{l:T(LV[l].n),g:lc(T(LV[l].goal))});
     $('#b-track').innerHTML=trackHTML(it);
   }
   function bFinish(min){if(finishTask(min))renderResult($('#b-result'),'professor')}
@@ -346,7 +347,7 @@
   /* ================= Tècnic ================= */
   var C={step:'c1',open:null,seen:null,msg:'',flash:{},html:''};
   var cFlow=Flow($('[data-view="tecnic"] .monitor'),function(id){C.step=id;cCount()});
-  function cCount(){$('#c-count').textContent=T('Pantalla {n} de {t}',{n:C.step.slice(1),t:3})}
+  function cCount(){$('#c-count').textContent=T('Tècnic')+' · '+T('Pantalla {n} de {t}',{n:C.step.slice(1),t:3})}
   function openSorted(){return S.queue.filter(function(x){return x.status!=='done'}).sort(function(a,b){return P(b)-P(a)||b.news-a.news})}
   function itLabel(it){return T('Aula')+' '+it.aula+' · '+T(EQ[it.eq].n)}
   function cQueue(){
@@ -362,7 +363,7 @@
         '<span class="side"><span class="badge '+l+'">'+esc(T(LV[l].n))+'</span>'+
         (it.news?'<span class="tag-new">'+esc(T('Nou'))+'</span>':'')+
         (it.status==='progress'?'<span class="tag-st">'+esc(T('En curs'))+'</span>':'')+
-        '<span class="goal">'+esc(T('Objectiu: {g}',{g:T(LV[l].goal)}))+'</span></span></button></li>';
+        '<span class="goal">'+esc(T('Objectiu: {g}',{g:lc(T(LV[l].goal))}))+'</span></span></button></li>';
     }).join('')||'<li class="empty">'+esc(T('Cap incidència oberta.'))+'</li>';
     if(html!==C.html)$('#c-queue').innerHTML=C.html=html;
     C.seen={};q.forEach(function(it){C.seen[it.id]=it.reps});
@@ -494,6 +495,11 @@
     if(!first){var t=$('h1',v);if(t)t.focus({preventScroll:true})}
   }
   addEventListener('hashchange',route);
+  /* L'enllaç de salt no ha de canviar la ruta: porta el focus al títol de la vista */
+  $('.skip').addEventListener('click',function(e){
+    e.preventDefault();
+    var t=$('.view:not([hidden]) h1');if(t)t.focus();
+  });
 
   /* ---------- Reiniciar ---------- */
   $('#reset').addEventListener('click',function(){
