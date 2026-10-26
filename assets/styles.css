@@ -109,6 +109,7 @@ section.tint{background:var(--surface-200)}
 @keyframes wIn{from{opacity:0;transform:translateY(24px)}}
 .hero-copy .lead{margin:var(--space-4) 0;max-width:36ch}
 .hero-actions{display:flex;flex-wrap:wrap;gap:var(--space-3)}
+.demo-actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-3)}
 .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3);margin:var(--space-6) 0;padding-top:var(--space-4);border-top:1px solid rgba(255,255,255,.25)}
 .stats div{margin:0}
 .stats dt{font:700 clamp(32px,4vw,44px)/1 var(--font-display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
