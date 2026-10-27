@@ -611,7 +611,11 @@ P.forEach(function(r){D.es[r[0]]=r[1];D.en[r[0]]=r[2]});
 /* v0.4 — demo interactiva (/demo/) */
 (function(D){
 var P=[
-["Prova la demo completa","Prueba la demo completa","Try the full demo"]
+["Prova la demo completa","Prueba la demo completa","Try the full demo"],
+["O entra directament com a:","O entra directamente como:","Or jump straight in as:"],
+["Alumne","Alumno","Student"],
+["Professor","Profesor","Lecturer"],
+["Tècnic","Técnico","Technician"]
 ];
 P.forEach(function(r){D.es[r[0]]=r[1];D.en[r[0]]=r[2]});
 })(window.UPC_I18N);
