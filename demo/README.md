@@ -1,46 +1,51 @@
 # Demo interactiva de UPCHub
 
-Demo simulada en `/demo/` (https://upchub.tech/demo/) para que la gente pruebe la interfaz y nos diga si se entiende. Propuesta académica de DIBA (EPSEVG · UPC), con datos ficticios y sin carácter oficial.
+Demo simulada en `/demo/` (https://upchub.tech/demo/) para que la gente pruebe la interfaz y nos diga si se entiende. Es una propuesta académica de DIBA (EPSEVG · UPC), con datos ficticios y sin carácter oficial.
 
 - Sin servidor ni build: `index.html`, `demo.css`, `demo.js`, `i18n-demo.js` e `icons.svg`.
-- Tres roles con su tarea: alumno (`#alumne`), profesor (`#professor`) y técnico (`#tecnic`). La encuesta está en `#enquesta`.
-- El estado compartido entre roles (cola de incidencias, equipos del aula 205 y métricas) se guarda en `localStorage` con la clave `upchub-demo-state`. Si el navegador lo bloquea, la demo funciona igual en memoria mientras la pestaña siga abierta. Con dos pestañas abiertas, los cambios se ven en directo.
-- El botón «Reiniciar» de la cabecera vuelve a los datos de ejemplo.
+- Tres roles con su tarea:
+  - **Alumno** (`#alumne`): app del campus con pestañas Aula, Horario y Avisos. Solo puede avisar de enchufes, clima, luz y mobiliario; los equipos audiovisuales los gestiona el profesor. Recibe notificaciones push simuladas.
+  - **Profesor** (`#professor`): pantalla del aula o móvil del profesor, con un interruptor en el panel izquierdo. Incluye:
+    - inicio de sesión NFC;
+    - panel con equipos que se pueden tocar, climatización ajustable y avisos del alumnado;
+    - ayuda de la IA con pasos que se marcan;
+    - aviso al técnico;
+    - **cambio de aula con notificación push** al alumnado.
+  - **Técnico** (`#tecnic`): incluye:
+    - cola por prioridad con filtros;
+    - ficha con «Empezar a atenderla» y cierre indicando qué se ha hecho;
+    - **historial del día** con todo lo que ha pasado y ha cambiado, filtrable por aula y tipo.
+- Encuesta en `#enquesta` y página de privacidad y datos en `#dades`. El botón «Comentari» de la cabecera abre un comentario rápido desde cualquier pantalla.
+- El estado compartido entre roles (cola, equipos, clima, aula actual, historial y notificaciones) se guarda en `localStorage` con la clave `upchub-demo-state`. Con dos pestañas abiertas, los cambios se ven en directo. El reloj de la demo empieza el lunes a las 9:00 y avanza en tiempo real.
+- El botón «Reiniciar» vuelve a los datos de ejemplo. No borra el registro de uso ni el consentimiento.
+
+## Registro de interacciones y comentarios
+
+Al entrar se pide consentimiento con un aviso que no bloquea la demo («D'acord» / «No, gràcies»). Solo si se acepta, se registra de forma anónima:
+
+| Tipo | Qué guarda |
+|---|---|
+| `vista`, `pantalla` | rol abierto y pantalla mostrada |
+| `clic`, `tria` | control pulsado o elegido (id y texto del botón, nunca lo escrito en campos de texto) |
+| `tasca` | rol, tiempo, pasos y si se acertó (p. ej. si el técnico abrió primero la más urgente) |
+| `error` | errores de validación (enviar sin elegir tipo, etc.) |
+| `full`, `idioma`, `comentari`, `enquesta`, `inici` | detalle lateral abierto, cambio de idioma, envíos y tamaño de pantalla |
+
+Cada evento lleva un identificador aleatorio de sesión (`sessionStorage`), la hora, el idioma y si es móvil u ordenador. No hay cookies ni analítica de terceros.
+
+Los datos siempre se guardan también en el navegador. Se pueden descargar en JSON desde `#dades` («Descarregar»), lo que sirve, por ejemplo, para recoger lo que se haya hecho en el portátil del equipo durante una presentación.
+
+### Recogerlos en un Google Sheet
+
+1. Crea un Google Sheet con la cuenta del equipo.
+2. Ve a «Extensiones → Apps Script» y pega `demo/backend/apps-script.gs`.
+3. Pulsa «Implementar → Nueva implementación → Aplicación web», con «Ejecutar como: yo» y «Acceso: cualquier persona». Copia la URL que termina en `/exec`.
+4. Ponla en `ENDPOINT`, al principio de `demo/demo.js`, y sube el `?v=` de `demo.js` en `demo/index.html`.
+
+El script crea solo las hojas `esdeveniments`, `enquesta`, `comentaris` y un `resum` con indicadores: sesiones, tareas acabadas por rol, errores, respuestas, claridad media, comentarios y pantallas más vistas.
+
+Las encuestas y los comentarios se envían cuando la persona pulsa «Enviar», aunque no haya aceptado el registro de uso: enviarlos ya es una acción explícita.
 
 ## Idiomas
 
 El HTML está en catalán. Castellano e inglés se traducen en `i18n-demo.js`, con el texto catalán como clave, igual que en la web. Si cambias un texto en `index.html` o en `demo.js`, actualiza su clave en los dos diccionarios.
-
-## Medición
-
-Al terminar cada tarea se guardan solo en el navegador el tiempo, el número de pasos (clics y toques dentro de la simulación) y, en el técnico, si la primera incidencia abierta era la más urgente. No se guarda ningún dato personal.
-
-## Conectar la encuesta con un formulario externo
-
-Mientras `FORM.url` (al principio de `demo.js`) esté vacía, no se envía nada y las respuestas se quedan en el navegador. Para recogerlas con Google Forms:
-
-1. Crea un formulario anónimo (sin recopilar correos ni pedir inicio de sesión) con seis preguntas de respuesta corta: entendido, claridad, qué cambiarías, tareas, idioma y dispositivo.
-2. En el menú ⋮ elige «Obtener enlace prerrellenado», escribe algo en cada pregunta y copia el enlace. Cada campo aparece como `entry.123456789=...`.
-3. En `demo.js` pon en `FORM.url` la dirección del formulario cambiando `/viewform` por `/formResponse`, y copia cada `entry.XXXX` en `FORM.fields`:
-
-```js
-var FORM={
-  url:'https://docs.google.com/forms/d/e/ID_DEL_FORMULARIO/formResponse',
-  fields:{understood:'entry.111',clarity:'entry.222',change:'entry.333',tasks:'entry.444',lang:'entry.555',device:'entry.666'}
-};
-```
-
-4. Sube el `?v=` de `demo.js` en `index.html` para evitar la caché.
-
-Valores que se envían, solo si la persona pulsa «Enviar respuestas»:
-
-| Campo | Ejemplo |
-|---|---|
-| `understood` | `si`, `en-part`, `no` |
-| `clarity` | `1`–`5` |
-| `change` | texto libre, como máximo 500 caracteres (opcional) |
-| `tasks` | `alumne:34s,6p;professor:-;tecnic:12s,2p,primera-ok` |
-| `lang` | `ca`, `es`, `en` |
-| `device` | `mobil` u `ordinador` |
-
-El envío usa `fetch` sin cookies (`credentials: 'omit'`) y sin referrer. La demo no usa cookies ni analítica.
