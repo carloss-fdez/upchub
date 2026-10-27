@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="demo.css?v=25">
+<link rel="stylesheet" href="demo.css?v=31">
 </head>
 <body>
 <a class="skip" href="#main">Salta al contingut</a>
@@ -42,6 +42,7 @@
     <div class="intro">
       <h1 id="t-home" tabindex="-1">Prova UPCHub en tres papers</h1>
       <p>Dilluns a les 9:00, classe de Disseny Bàsic a l'aula 205. El projector no funciona i a l'aula fa calor. Tria un rol, fes la seva tasca i després digues-nos si s'entén.</p>
+      <p class="prog" id="h-prog" data-dyn></p>
     </div>
     <ul class="roles">
       <li class="role">
@@ -49,6 +50,7 @@
         <h2>Alumne</h2>
         <div class="task"><small>Tasca</small><p>L'endoll del teu lloc no funciona. Avisa-ho.</p></div>
         <p class="done" data-dyn data-done="alumne" hidden></p>
+        <p class="est"><svg aria-hidden="true"><use href="icons.svg#i-clock"/></svg>1 minut</p>
         <a class="btn pri block" href="#alumne">Començar com a alumne</a>
       </li>
       <li class="role">
@@ -56,6 +58,7 @@
         <h2>Professor</h2>
         <div class="task"><small>Tasca</small><p>Inicia la sessió i esbrina quin equip falla.</p></div>
         <p class="done" data-dyn data-done="professor" hidden></p>
+        <p class="est"><svg aria-hidden="true"><use href="icons.svg#i-clock"/></svg>2 minuts</p>
         <a class="btn pri block" href="#professor">Començar com a professor</a>
       </li>
       <li class="role">
@@ -63,6 +66,7 @@
         <h2>Tècnic</h2>
         <div class="task"><small>Tasca</small><p>Què atendries primer? Resol-ho i revisa què ha passat avui.</p></div>
         <p class="done" data-dyn data-done="tecnic" hidden></p>
+        <p class="est"><svg aria-hidden="true"><use href="icons.svg#i-clock"/></svg>2 minuts</p>
         <a class="btn pri block" href="#tecnic">Començar com a tècnic</a>
       </li>
     </ul>
@@ -83,6 +87,8 @@
       <h1 id="t-alumne" tabindex="-1">L'endoll del teu lloc no funciona. Avisa-ho.</h1>
       <p class="hint">Ets a classe de Disseny Bàsic, a l'aula 205. El teu portàtil s'està quedant sense bateria i l'endoll de la taula no dona corrent. Fes servir el mòbil com ho faries de veritat.</p>
       <p class="count" id="a-count" data-dyn aria-live="polite"></p>
+      <button type="button" class="btn ghost hintb" data-hint="a" aria-expanded="false" aria-controls="a-hint"><svg aria-hidden="true"><use href="icons.svg#i-spark"/></svg>Necessito una pista</button>
+      <p class="hintbox" id="a-hint" data-dyn aria-live="polite" hidden></p>
       <div class="result" id="a-result" data-dyn hidden></div>
     </aside>
     <div class="stage">
@@ -279,6 +285,8 @@
         <button type="button" data-dev="mobile" aria-pressed="false"><svg aria-hidden="true"><use href="icons.svg#i-phone"/></svg>Mòbil del professor</button>
       </div>
       <p class="count" id="b-count" data-dyn aria-live="polite"></p>
+      <button type="button" class="btn ghost hintb" data-hint="b" aria-expanded="false" aria-controls="b-hint"><svg aria-hidden="true"><use href="icons.svg#i-spark"/></svg>Necessito una pista</button>
+      <p class="hintbox" id="b-hint" data-dyn aria-live="polite" hidden></p>
       <div class="result" id="b-result" data-dyn hidden></div>
     </aside>
     <div class="stage">
@@ -473,6 +481,8 @@
       <h1 id="t-tecnic" tabindex="-1">Què atendries primer?</h1>
       <p class="hint">Treballes al servei tècnic del campus. Obre l'avís que atendries primer i deixa'l resolt. Després mira a l'historial què ha canviat avui.</p>
       <p class="count" id="c-count" data-dyn aria-live="polite"></p>
+      <button type="button" class="btn ghost hintb" data-hint="c" aria-expanded="false" aria-controls="c-hint"><svg aria-hidden="true"><use href="icons.svg#i-spark"/></svg>Necessito una pista</button>
+      <p class="hintbox" id="c-hint" data-dyn aria-live="polite" hidden></p>
       <div class="result" id="c-result" data-dyn hidden></div>
     </aside>
     <div class="stage">
@@ -683,7 +693,7 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite" data-dyn></div>
 
-<script src="i18n-demo.js?v=25"></script>
-<script src="demo.js?v=25"></script>
+<script src="i18n-demo.js?v=31"></script>
+<script src="demo.js?v=31"></script>
 </body>
 </html>

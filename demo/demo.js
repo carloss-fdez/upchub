@@ -232,7 +232,7 @@
     ls('upchub-demo-consent',v);
     if(v==='yes'){early.forEach(function(ev){keepLocal(ev);pend.push(ev)});track('consentiment','si')}
     early=[];
-    $('#consent').hidden=true;
+    $('#consent').hidden=true;document.body.classList.remove('consenting');
     dRender();
   }
   $$('[data-consent]').forEach(function(b){b.addEventListener('click',function(){setConsent(b.dataset.consent);toast(b.dataset.consent==='yes'?T('Gràcies! El registre és anònim.'):T('D\'acord, no registrarem res.'))})});
@@ -260,7 +260,7 @@
   },true);
   function finishTask(min,extra){
     if(!run)return null;
-    var m={ms:Date.now()-run.t0,steps:run.steps,min:min||MIN[run.role]};
+    var m={ms:Date.now()-run.t0,steps:run.steps,min:min||MIN[run.role],hints:run.hints||0};
     if(extra)for(var k in extra)m[k]=extra[k];
     S.metrics[run.role]=m;
     track('tasca',run.role+' '+Math.round(m.ms/1000)+'s '+m.steps+'p'+(m.ok!==undefined?(m.ok?' encert':' error'):''));
@@ -277,15 +277,52 @@
       '<div class="nums"><div><b>'+fmtTime(m.ms)+'</b><span>'+esc(T('Temps'))+'</span></div>'+
       '<div><b>'+m.steps+'</b><span>'+esc(T('Passos (mínim {n})',{n:m.min}))+'</span></div></div>'+
       (note?'<p>'+esc(note)+'</p>':'')+
+      (m.hints?'<p class="small">'+esc(m.hints>1?T('Has fet servir {n} pistes.',{n:m.hints}):T('Has fet servir 1 pista.'))+'</p>':'')+
+      '<div class="seq"><p id="seq-'+role+'">'+esc(T('Com de fàcil ha estat?'))+'</p><div class="seqb" role="group" aria-labelledby="seq-'+role+'">'+
+      [1,2,3,4,5].map(function(n){return '<button type="button" data-seq="'+n+'" aria-pressed="'+(m.seq===n)+'">'+n+'</button>'}).join('')+
+      '</div><p class="ends"><span>'+esc(T('1 · Molt difícil'))+'</span><span>'+esc(T('5 · Molt fàcil'))+'</span></p></div>'+
       '<div class="acts"><a class="btn pri" href="#enquesta">'+esc(T('Valorar la demo'))+'</a><a class="btn sec" href="#'+nx[0]+'">'+esc(T(nx[1]))+'</a></div>';
-    el.hidden=false;
+    el.dataset.role=role;el.hidden=false;
   }
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('[data-seq]');if(!b)return;
+    var role=b.closest('.result').dataset.role,m=S.metrics[role];if(!m)return;
+    m.seq=+b.dataset.seq;track('facilitat',role+'='+m.seq);save();
+    $$('[data-seq]',b.parentNode).forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+    toast(T('Gràcies! Ens ajuda molt.'));
+  });
   function renderDone(){
     $$('[data-done]').forEach(function(p){
       var m=S.metrics[p.dataset.done];p.hidden=!m;
       if(m)p.innerHTML=ico('i-check')+esc(T('Fet · {t} · {n} passos',{t:fmtTime(m.ms),n:m.steps}));
     });
+    var n=ROLES.filter(function(r){return S.metrics[r[0]]}).length;
+    $('#h-prog').innerHTML=ico(n===3?'i-check':'i-list')+'<span>'+esc(T('{n} de 3 tasques fetes',{n:n}))+' · '+esc(n===3?T('Ja pots valorar la demo.'):T('Ordre recomanat: alumne, professor i tècnic.'))+'</span>';
   }
+
+  /* ---------- Pistes: ajuda segons la pantalla, comptades a la mesura ---------- */
+  var HINTS={
+    a1:"Obre l'app del campus amb el botó de baix.",a2:"Toca «Avisar d'un problema».",
+    a3:"Tria «Endoll» i, si el saps, el número del teu lloc. Després prem «Enviar avís».",a4:"Ja està! Pots tornar a l'inici o mirar les altres pestanyes.",
+    a5:"Torna a la pestanya «Aula» per avisar d'un problema.",a6:"Toca una notificació per veure'n el detall.",a7:"Aquí veus l'estat del teu avís.",
+    b1:"Prem «Simular toc NFC».",b2:"Prem «Obrir el tauler de l'aula».",
+    b3:"Mira els equips: el que està en vermell és el que falla. Si vols ajuda, prem «Tinc un problema».",
+    b4:"Fes els passos, marca'ls i respon si funciona.",b5:"Revisa la fitxa i prem «Avisar el tècnic».",
+    b6:"Ja has acabat la tasca. Si vols, prova a canviar d'aula.",b7:"Ja has acabat la tasca.",
+    b8:"Tria una aula lliure amb prou places i prem «Continuar».",b9:"Revisa el missatge i prem «Enviar la notificació».",b10:"Torna al tauler: veuràs el canvi d'aula.",
+    c1:"Obre l'avís amb la P més alta: és el més urgent.",c2:"Prem «Marcar com a resolta» i indica què has fet.",
+    c3:"Mira què ha canviat a «Historial del dia».",c4:"Filtra per aula o per tipus per veure què ha passat avui."
+  };
+  function hintRender(){
+    [['a',A.step],['b',B.step],['c',C.step]].forEach(function(x){var box=$('#'+x[0]+'-hint');if(box&&!box.hidden)box.textContent=T(HINTS[x[1]]||'Segueix les indicacions de la pantalla.')});
+  }
+  function hintsClose(){$$('.hintb').forEach(function(b){b.setAttribute('aria-expanded','false');$('#'+b.getAttribute('aria-controls')).hidden=true})}
+  $$('.hintb').forEach(function(b){b.addEventListener('click',function(){
+    var open=b.getAttribute('aria-expanded')!=='true';
+    b.setAttribute('aria-expanded',open);$('#'+b.getAttribute('aria-controls')).hidden=!open;
+    hintRender();
+    if(open){track('pista',curScreen());if(run)run.hints=(run.hints||0)+1}
+  })});
 
   /* ---------- Navegació entre pantalles: endavant, enrere o pestanya ---------- */
   function Flow(root,onStep){
@@ -303,6 +340,7 @@
       cur=id;
       var h=$('h2[tabindex],h2',b);if(h)h.focus({preventScroll:true});
       if(onStep)onStep(id);
+      hintRender();
       track('pantalla',id);
     }
     function reset(){
@@ -445,7 +483,7 @@
     A.last=null;$('#a-result').hidden=true;
     aSum();aMine();aNow();aSched();aNotes();
     document.body.classList.add('full');
-    startTask('alumne');
+    hintsClose();startTask('alumne');
     A.seenPush=0;setTimeout(aCheckPush,900);
   }
   on(function(){aSum();aMine();aNow();aSched();aNotes();if(A.step==='a7')aDet();aCheckPush()});
@@ -661,7 +699,7 @@
     bFlow.reset();busy(bSend,false);B.last=null;B.prev={};B.flash={};B.html='';B.room=null;
     $$('#b-steps input').forEach(function(c){c.checked=false});
     $('#b-result').hidden=true;bDash();bDev(ls('upchub-demo-dev')||'desk');
-    startTask('professor');
+    hintsClose();startTask('professor');
   }
   on(function(){bDash();if(B.step==='b2')bBoot();if(B.step==='b5')bFicha();bSent();bSheetRender()});
   hooks.push(function(){bCount();bDash();bBoot();bFicha();bSent();bRooms();if(B.step==='b9')bPushPrev();bSheetRender();if(!$('#b-result').hidden)renderResult($('#b-result'),'professor')});
@@ -764,7 +802,7 @@
   function cEnter(){
     cFlow.reset();C.open=null;C.seen=null;C.msg='';C.flash={};C.html='';C.logSeen=null;$('#c-res').hidden=true;
     $('#c-result').hidden=true;cQueue();
-    startTask('tecnic');
+    hintsClose();startTask('tecnic');
   }
   on(function(){cQueue();if(C.step==='c2')cFicha();if(C.step==='c4')cLog()});
   hooks.push(function(){cCount();cQueue();cFicha();cMsg();cLog();if(!$('#c-result').hidden)renderResult($('#c-result'),'tecnic')});
@@ -789,7 +827,7 @@
   function sTasksText(){
     return ROLES.map(function(r){
       var m=S.metrics[r[0]];if(!m)return r[0]+':-';
-      return r[0]+':'+Math.round(m.ms/1000)+'s,'+m.steps+'p'+(m.ok!==undefined?(m.ok?',ok':',no'):'');
+      return r[0]+':'+Math.round(m.ms/1000)+'s,'+m.steps+'p'+(m.ok!==undefined?(m.ok?',ok':',no'):'')+(m.seq?',facil'+m.seq:'')+(m.hints?',pistes'+m.hints:'');
     }).join(';');
   }
   function sDone(r,ans){
@@ -886,6 +924,8 @@
     document.body.classList.remove('full');run=null;
     if(ENTER[h])ENTER[h]();
     renderDone();
+    $('#consent').hidden=!!consent()||['home','enquesta','dades'].indexOf(h)<0;
+    document.body.classList.toggle('consenting',!$('#consent').hidden);
     window.scrollTo(0,0);
     if(!first){var t=$('h1',v);if(t)t.focus({preventScroll:true})}
     track('vista',h);
@@ -907,6 +947,7 @@
   });
   on(renderDone);
   hooks.push(renderDone);
+  hooks.push(hintRender);
   hooks.push(tick);
   setInterval(tick,15000);
 
@@ -915,6 +956,5 @@
   var saved=ls('upchub-lang'),navL=(navigator.language||'ca').slice(0,2).toLowerCase();
   route();
   setLang(SUP.indexOf(q)>=0?q:SUP.indexOf(saved)>=0?saved:(navL==='es'||navL==='en')?navL:'ca');
-  $('#consent').hidden=!!consent();
   track('inici',(navigator.language||'').slice(0,5)+' '+innerWidth+'x'+innerHeight);
 })();
