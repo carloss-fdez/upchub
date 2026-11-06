@@ -709,6 +709,107 @@ body.consenting main{padding-bottom:200px}
   .consent>svg{display:none}
 }
 
+/* ================= v2.2: ajustos de la prova amb usuaris ================= */
+/* App del campus: capçalera blava, accessos directes i 4 pestanyes */
+.tabbar{grid-template-columns:repeat(4,1fr)}
+.tabbar button span{font-size:.6875rem}
+.apphead{padding:var(--space-3) var(--space-5) var(--space-5);background:linear-gradient(180deg,#0069a6 0%,#007bc0 100%);color:#fff;border-radius:0 0 var(--radius-lg) var(--radius-lg)}
+.apphead .ah-top{display:flex;align-items:center;justify-content:space-between;min-height:44px}
+.apphead .app{display:flex;align-items:center;gap:var(--space-2);font-weight:700}
+.apphead .app .mark{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#fff;color:#0069a6}
+.apphead .app .mark svg{width:16px;height:16px}
+.apphead .avatar{background:rgba(255,255,255,.2);color:#fff}
+.apphead h2{font-size:1.75rem;margin:var(--space-2) 0 var(--space-3)}
+.apphead .now{padding:var(--space-3) var(--space-4);background:rgba(255,255,255,.14);border-radius:var(--radius-md)}
+.apphead .now-h .pin{background:rgba(255,255,255,.2);color:#fff}
+.apphead .now-h span,.apphead .now-h b,.apphead .now-h .room-big{color:#fff}
+.apphead .moved-note{background:#fff;color:#003b66;margin-top:var(--space-2)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-2)}
+.tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-2);min-height:84px;padding:var(--space-3) var(--space-1);border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface-0);font-weight:700;font-size:.8125rem;color:var(--ink);transition:transform 160ms var(--ease-out)}
+.tile:active{transform:scale(.96)}
+.tile svg{width:26px;height:26px;color:var(--brand-text)}
+.scr.tab .apphead+.sbody{padding-top:var(--space-4)}
+
+/* Carnet amb estil de cartera */
+.scr.wallet{background:#101820}
+.scr.wallet .shead{color:#fff;padding-left:var(--space-5)}
+.scr.wallet .shead .ttl{font-size:1.5rem}
+.scr.wallet .wcard{display:flex;flex-direction:column;justify-content:space-between;cursor:default}
+.scr.wallet .wstack{background:#2a3644}
+.nfcbox{display:flex;flex-direction:column;align-items:center;gap:var(--space-3);margin-top:var(--space-4);color:#fff;text-align:center}
+.nfc-wait{display:flex;flex-direction:column;align-items:center;gap:var(--space-3);width:100%}
+.nfc-wait p{font-weight:700;font-size:1.0625rem}
+.tapr{position:relative;display:grid;place-items:center;width:96px;height:96px}
+.tapr svg{position:relative;z-index:1;width:44px;height:44px;padding:10px;border-radius:50%;background:#007bc0;color:#fff}
+.tapr i{position:absolute;inset:22px;border-radius:50%;border:2px solid #5bbcf5;animation:ring 2s var(--ease-out) infinite}
+.tapr i+i{animation-delay:1s}
+.nfc-ok{display:flex;align-items:center;gap:var(--space-3);width:100%;padding:var(--space-4);border-radius:var(--radius-md);background:#13351f;color:#fff;text-align:left;animation:pop 260ms var(--ease-out)}
+.nfc-ok>svg{width:32px;height:32px;padding:6px;border-radius:50%;background:#4fd18b;color:#0b1b2b}
+.nfc-ok b{display:block;font-size:1.125rem}
+.nfc-ok span{color:#cfeedd;font-size:.875rem}
+.wcard.mini{width:100%;max-width:260px;aspect-ratio:1.586;margin:var(--space-2) 0;padding:var(--space-3) var(--space-4);display:flex;flex-direction:column;justify-content:space-between;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.wcard.mini .who{font-size:.8125rem}
+
+/* Formulari: text lliure i foto discreta */
+.txt{width:100%;min-height:48px;padding:0 var(--space-4);border:1px solid var(--border);border-radius:var(--radius-md);background:var(--surface-0);color:var(--ink);font:inherit;font-size:1rem}
+.types{grid-template-columns:1fr 1fr}
+#a-photo-add{min-height:48px;border-style:dashed;border-width:1px;font-size:.9375rem}
+#a-photo-add small{display:inline;font-weight:500}
+.eta-big{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-4);margin-bottom:var(--space-3);background:var(--brand-tint);border-radius:var(--radius-md);text-align:left}
+.eta-big>svg{width:28px;height:28px;color:var(--brand-text)}
+.eta-big span span,.eta-big div span{display:block;font-size:.8125rem;color:var(--ink-muted)}
+.eta-big b{font-family:var(--font-display);font-size:1.75rem;line-height:1.1}
+#b-sent{max-width:none}
+#b-sent .eta-big{margin:0}
+
+/* Assistent: tria d'equip i passos visuals */
+.picks{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2);max-width:520px}
+.pick{display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-2);min-height:88px;padding:var(--space-3) var(--space-4);border:1px solid var(--border);border-radius:var(--radius-md);background:var(--surface-0);font-weight:700;text-align:left;transition:transform 160ms var(--ease-out),border-color 160ms ease}
+.pick:active{transform:scale(.97)}
+.pick svg{width:28px;height:28px;color:var(--brand-text)}
+.prog3{display:flex;align-items:center;gap:var(--space-3);max-width:520px;font-size:.875rem;font-weight:700}
+.pbar{flex:1;height:8px;border-radius:4px;background:var(--surface-200);overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--ok);border-radius:4px;transition:width 300ms var(--ease-out)}
+.stepcs{list-style:none;margin:var(--space-3) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-2);max-width:620px}
+.stepc{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-2);width:100%;min-height:132px;padding:var(--space-4) var(--space-2);border:2px solid var(--line);border-radius:var(--radius-md);background:var(--surface-0);text-align:center;transition:transform 160ms var(--ease-out),background-color 200ms ease,border-color 200ms ease}
+.stepc:active{transform:scale(.96)}
+.stepc>svg{width:34px;height:34px;color:var(--brand-text)}
+.stepc b{font-size:.9375rem;line-height:1.25}
+.stepc .sn{position:absolute;top:8px;left:8px;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--surface-200);font-size:.75rem;font-weight:700}
+.stepc .sn svg{width:13px;height:13px}
+.stepc.on{border-color:var(--ok);background:var(--ok-soft)}
+.stepc.on .sn{background:var(--ok);color:#fff}
+.stepc.on>svg{color:var(--ok)}
+@container mon (max-width:600px){.stepcs{grid-template-columns:1fr}.stepc{flex-direction:row;justify-content:flex-start;min-height:64px;padding-left:44px;text-align:left}.stepc .sn{top:50%;margin-top:-12px}}
+#b4 .ask{margin-top:var(--space-4)}
+#b4 .yn .btn svg{width:18px;height:18px}
+
+/* Clima de l'aula: visual, sense xifres grans */
+.clima{display:flex;flex-direction:column;gap:var(--space-3)}
+.cl-t{display:grid;grid-template-columns:auto 1fr;column-gap:var(--space-3);align-items:center}
+.cl-t svg{width:28px;height:28px;color:var(--brand-text);grid-row:span 2}
+.cl-t b{font-family:var(--font-display);font-size:2rem;line-height:1}
+.cl-t span{font-size:.8125rem;color:var(--ink-muted)}
+.cl-a{display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);background:var(--surface-200)}
+.cl-a>svg{width:20px;height:20px}
+.cl-a b{flex:1}
+.cl-a .btn{min-height:40px;padding:0 var(--space-3)}
+.cl-a.ok{background:var(--ok-soft)} .cl-a.ok>svg{color:var(--ok)}
+.cl-a.mid{background:var(--c-alt-soft)} .cl-a.mid>svg{color:var(--ink)}
+.cl-a.bad{background:var(--c-crit-soft)} .cl-a.bad>svg{color:var(--c-crit)}
+.cl-a.vent{background:var(--brand-tint)} .cl-a.vent>svg{color:var(--brand-text);animation:spin 2.4s linear infinite}
+.airbar{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.airbar i{height:6px;border-radius:3px;background:var(--surface-200)}
+.airbar.ok i:nth-child(1),.airbar.vent i:nth-child(1){background:var(--ok)}
+.airbar.mid i:nth-child(-n+2){background:var(--c-alt)}
+.airbar.bad i{background:var(--c-crit)}
+.noreg{margin-top:var(--space-3);padding-top:var(--space-3);border-top:1px solid var(--line)}
+.noreg p{margin-bottom:var(--space-2)}
+.tnow{display:flex;align-items:center;gap:var(--space-2)}
+.tnow svg{width:22px;height:22px;color:var(--brand-text)}
+.tnow b{font-family:var(--font-display);font-size:1.5rem}
+@media (prefers-reduced-motion:reduce){.tapr i{animation:none;opacity:0}.cl-a.vent>svg{animation:none}}
+
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
