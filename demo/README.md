@@ -3,20 +3,33 @@
 Demo simulada en `/demo/` (https://upchub.tech/demo/) para que la gente pruebe la interfaz y nos diga si se entiende. Es una propuesta académica de DIBA (EPSEVG · UPC), con datos ficticios y sin carácter oficial.
 
 - Sin servidor ni build: `index.html`, `demo.css`, `demo.js`, `i18n-demo.js` e `icons.svg`.
-- Tres roles con su tarea:
-  - **Alumno** (`#alumne`): app del campus con pestañas Aula, Horario y Avisos. Solo puede avisar de enchufes, clima, luz y mobiliario; los equipos audiovisuales los gestiona el profesor. Recibe notificaciones push simuladas.
-  - **Profesor** (`#professor`): pantalla del aula o móvil del profesor, con un interruptor en el panel izquierdo. Incluye:
-    - inicio de sesión NFC;
-    - panel con equipos que se pueden tocar, climatización ajustable y avisos del alumnado;
-    - ayuda de la IA con pasos que se marcan;
-    - aviso al técnico;
-    - **cambio de aula con notificación push** al alumnado.
-  - **Técnico** (`#tecnic`): incluye:
-    - cola por prioridad con filtros;
-    - ficha con «Empezar a atenderla» y cierre indicando qué se ha hecho;
-    - **historial del día** con todo lo que ha pasado y ha cambiado, filtrable por aula y tipo.
-- Encuesta en `#enquesta` y página de privacidad y datos en `#dades`. El botón «Comentari» de la cabecera abre un comentario rápido desde cualquier pantalla.
-- El estado compartido entre roles (cola, equipos, clima, aula actual, historial y notificaciones) se guarda en `localStorage` con la clave `upchub-demo-state`. Con dos pestañas abiertas, los cambios se ven en directo. El reloj de la demo empieza el lunes a las 9:00 y avanza en tiempo real.
+- **v3 (tras la prueba con usuarios): tres recorridos cortos**. Lo que no está en ellos se ha quitado.
+  - **Alumno** (`#alumne`, móvil):
+    1. Activa el carnet: empieza «Sense activar», con un anillo NFC y la acción para simular el lector.
+    2. Avisa de un problema en 3 toques: categoría (Projector, Endoll, Aire/temperatura, Mobiliari, Altres con texto), gravedad percibida (poc greu / greu / molt greu) y enviar. El número de enchufe y la foto son opcionales; la foto solo aparece en Endoll y Mobiliari.
+    3. Ve el seguimiento: Rebuda → En curs → Resolta, tiempo de espera estimado, «Com es calcula?» (gravedad, urgencia y aforo) y «Tornar a avisar», que suma un aviso y recalcula la espera.
+
+    Los avisos de frío o calor no van al técnico: el aula se regula sola si está fuera de los límites de ejemplo (21–25 °C) o se avisa al profesor.
+  - **Profesor** (`#professor`, móvil):
+    1. Acerca el móvil al lector.
+    2. Tablero: selector «Aula 205 · Canviar», cuatro equipos (tocar uno en rojo abre el asistente con ese equipo; con aviso abierto muestra «Tècnic en ~X min») y la temperatura con «Ajustar».
+    3. Asistente: chat limpio cada vez, pasos con barra «Pas n de 3», «Ho he fet» o «No funciona» en cada paso y «S'ha resolt?» al final. «Trucar al tècnic ara» está siempre visible.
+
+    Al cambiar de aula, si hay un aviso abierto pregunta «Has resolt el problema?»; por defecto sigue abierto. Cada aula tiene su propio estado. Los avisos de temperatura del alumnado llegan como aviso emergente con «Ajustar», «Ja ho he fet» o «Ignorar».
+  - **Técnico** (`#tecnic`, ordenador):
+    - cola e historial con pestañas Pendents / Resoltes / Tot y filtro por edificio;
+    - ficha con la gravedad percibida, los reavisos, los pasos ya probados con el asistente, el cálculo de la prioridad y el estado del aula (con CO₂);
+    - cierre con «Resoldre» e indicando qué se ha hecho.
+- **Prioridad**: P = gravedad × urgencia × aforo, cada factor de 1 a 3. La gravedad sale del tipo de equipo y de lo que indica quien avisa; la urgencia, de si hay clase ahora (+1 con reavisos); el aforo, de si afecta a toda el aula o a una persona. La espera estimada es crítico ~15 min, alto ~40 min, normal ~2 h y bajo ~1 día, más 10 min por cada incidencia más urgente en la cola.
+- **Nombres**:
+  - **Avís**: lo que alguien envía.
+  - **Incidència**: la ficha de la cola del técnico.
+  - **Notificació**: lo que llega al móvil.
+  - **El meu seguiment**: la lista del alumno.
+  - **Avís de l'alumnat**: el aviso emergente que ve el profesor.
+- **Pendiente de decidir**: el técnico tiene un filtro por edificio (A, B y C son de ejemplo) porque en la prueba se preguntó si habría un servicio técnico por edificio. La demo no lo decide.
+- Encuesta en `#enquesta` y página de privacidad y datos en `#dades`. El botón «Comentari» de la cabecera abre un comentario rápido desde cualquier pantalla. Cada tarea termina con una nota de facilidad (1–5) y tiene un botón de pistas.
+- El estado compartido entre roles se guarda en `localStorage` con la clave `upchub-demo-state`; con dos pestañas abiertas, los cambios se ven en directo. El reloj de la demo empieza el lunes a las 9:00 y avanza en tiempo real.
 - El botón «Reiniciar» vuelve a los datos de ejemplo. No borra el registro de uso ni el consentimiento.
 
 ## Registro de interacciones y comentarios
