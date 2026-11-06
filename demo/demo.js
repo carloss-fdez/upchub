@@ -325,7 +325,7 @@
 
   /* ---------- Pistes: ajuda segons la pantalla, comptades a la mesura ---------- */
   var HINTS={
-    a2:"Toca «Avisar d'un problema».",a3:"Tria «Endoll» i prem «Enviar avís».",a4:"Ja està! Pots tornar a l'inici.",
+    a2:"Toca «Alguna cosa no funciona a l'aula?».",a8:"Torna a «Inici» per avisar.",a9:"Torna a «Inici» per avisar.",a3:"Tria «Endoll» i prem «Enviar avís».",a4:"Ja està! Pots tornar a l'inici.",
     a1:"Aquí tens el carnet. Torna a «Inici» per avisar.",a5:"Torna a «Inici» per avisar d'un problema.",a6:"Toca una notificació per veure-la.",a7:"Aquí veus l'estat del teu avís.",
     b1:"Prem «Simular toc NFC».",b2:"Prem «Obrir el tauler de l'aula».",
     b3:"Toca el projector en vermell.",b4:"Toca cada pas quan l'hagis fet i respon si funciona.",b5:"Prem «Avisar el tècnic».",
@@ -374,12 +374,13 @@
   }
 
   /* ================= Alumne ================= */
-  var A={step:'a2',last:null,photo:false,det:null,pushT:null,seenPush:0,nfc:false};
-  var TABS=['a2','a1','a5','a6'];
+  var A={step:'a2',last:null,photo:false,det:null,pushT:null,seenPush:0,nfc:false,subj:null,room:false,menuBtn:null};
+  var TABS=['a2','a5','a8','a9','a1'];
   var aFlow=Flow($('[data-view="alumne"] .phone'),function(id){
     A.step=id;aCount();
     $('#a-tabbar').hidden=TABS.indexOf(id)<0;
     $$('#a-tabbar [data-tab]').forEach(function(b){if(b.dataset.tab===id)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
+    aDrawer(false,true);
     if(id==='a6')setTimeout(function(){var ch=false;S.push.forEach(function(p){if(!p.read){p.read=true;ch=true}});if(ch)save()},900);
     if(id==='a3')aFormReset();
   });
@@ -397,7 +398,7 @@
   function aNfc(){
     var ok=A.nfc;
     $('#a-nfcbox').innerHTML=ok?'<div class="nfc-ok">'+ico('i-check')+'<div><b>'+esc(T('Validat'))+'</b><span>'+esc(T('Aula {a} · {h}',{a:S.room.cur,h:A.nfcAt}))+'</span></div></div>'
-      :'<div class="nfc-wait"><span class="tapr" aria-hidden="true"><i></i><i></i>'+ico('i-nfc')+'</span><p>'+esc(T('Apropa el mòbil al lector'))+'</p><button type="button" class="btn light block" id="a-nfc">'+esc(T('Simular toc al lector'))+'</button></div>';
+      :'<div class="nfc-wait"><span class="tapr" aria-hidden="true"><i></i><i></i>'+ico('i-nfc')+'</span><p>'+esc(T('Apropa el mòbil al lector'))+'</p><button type="button" class="btn pri block" id="a-nfc">'+esc(T('Simular toc al lector'))+'</button></div>';
   }
   $('#a-nfcbox').addEventListener('click',function(e){
     if(!e.target.closest('#a-nfc'))return;
@@ -452,8 +453,7 @@
   function aSum(){var it=A.last&&item(A.last.item.id);$('#a-sum').innerHTML=it?sumHTML(it,A.last.merged):''}
   function aNow(){
     var moved=S.room.cur!=='205';
-    $('#a-now').innerHTML='<div class="now-h"><span class="pin">'+ico('i-pin')+'</span><div><b>'+esc(T('Disseny Bàsic'))+'</b><span>'+esc(T('Ara · 9:00–11:00'))+'</span></div><span class="room-big">'+esc(S.room.cur)+'</span></div>'+
-      (moved?'<p class="moved-note">'+ico('i-move')+esc(T('Canvi d\'aula: abans era la 205'))+'</p>':'');
+    $('#a-now').innerHTML='<span class="nc-t"><b>9:00</b><span>11:00</span></span><span class="nc-s"><b>'+esc(T('Disseny Bàsic'))+'</b><span>'+esc(T('Aula'))+' '+esc(S.room.cur)+(moved?' · '+esc(T('canvi d\'aula')):'')+'</span></span><span class="nowtag">'+esc(T('Ara'))+'</span>';
   }
   function aMine(){
     var seen={},ul=$('#a-mine');
@@ -466,11 +466,50 @@
   $('#a-mine').addEventListener('click',function(e){var b=e.target.closest('[data-det]');if(b){A.det=b.dataset.det;aDet();aFlow.go('a7')}});
   function aDet(){var it=A.det&&item(A.det);$('#a-det').innerHTML=it?'<h2 tabindex="-1">'+esc(symText(it))+'</h2>'+sumHTML(it,false):''}
   function aSched(){
-    var rows=[['9:00–11:00','Disseny Bàsic',S.room.cur,S.room.cur!=='205'?'205':''],['11:30–13:30','Expressió Gràfica','114',''],['15:00–17:00','Matemàtiques II','302','']];
+    var moved=S.room.cur!=='205',rows=[
+      ['9:00','11:00','Disseny Bàsic','Teoria',S.room.cur,'c1',moved],
+      ['11:30','13:30','Expressió Gràfica','Laboratori','114','c2'],
+      ['15:00','17:00','Matemàtiques II','Teoria','302','c3']];
     $('#a-sched').innerHTML=rows.map(function(r,i){
-      return '<li class="'+(i===0?'now':'')+'"><span class="tm">'+r[0]+'</span><span class="cl"><b>'+esc(T(r[1]))+'</b><span>'+esc(T('Aula'))+' '+(r[3]?'<s>'+r[3]+'</s> ':'')+esc(r[2])+(r[3]?' · '+esc(T('canvi d\'aula')):'')+'</span></span>'+(i===0?'<span class="chip">'+esc(T('Ara'))+'</span>':'')+'</li>';
+      return '<li class="calc-i '+r[5]+(i===0?' is-now':'')+'"><span class="ct"><b>'+r[0]+'</b><span>'+r[1]+'</span><em>'+esc(T(r[3]))+'</em></span>'+
+        '<span class="cs"><b>'+esc(T(r[2]))+'</b><span>'+esc(T('Aula'))+' '+esc(r[4])+(r[6]?' · '+esc(T('canvi d\'aula')):'')+'</span>'+(i===0?'<span class="nowtag">'+esc(T('Ara'))+'</span>':'')+'</span></li>';
     }).join('');
   }
+  /* Notes i Biblioteca: com a l'app, amb contingut d'exemple */
+  var SUBJ=['Disseny Bàsic','Expressió Gràfica','Matemàtiques II','Processos de Fabricació','Disseny Assistit per Ordinador','Estadística'];
+  function aSubjects(){
+    var open=A.subj;
+    $('#a-subjects').innerHTML=SUBJ.map(function(n,i){var o=open===i;
+      return '<li><button type="button" class="subj" data-subj="'+i+'" aria-expanded="'+o+'"><span>'+esc(T(n))+'</span>'+ico(o?'i-down':'i-right')+'</button>'+(o?'<p class="subj-d">'+esc(T('Encara no hi ha notes publicades.'))+'</p>':'')+'</li>';
+    }).join('');
+  }
+  $('#a-subjects').addEventListener('click',function(e){var b=e.target.closest('[data-subj]');if(!b)return;var i=+b.dataset.subj;A.subj=A.subj===i?null:i;aSubjects();$('#a-subjects [data-subj="'+i+'"]').focus()});
+  function aLib(){
+    $('#a-lib').innerHTML='<div class="lib-c">'+ico('i-book')+'<div><b>'+esc(T('Préstecs actius'))+'</b><span>'+esc(T('Cap préstec ara mateix'))+'</span></div></div>'+
+      '<div class="lib-c">'+ico('i-clock')+'<div><b>'+esc(T('Obert avui'))+'</b><span>8:30–20:30</span></div></div>'+
+      (A.room?'<div class="lib-c ok">'+ico('i-check')+'<div><b>'+esc(T('Sala d\'estudi 2 reservada'))+'</b><span>'+esc(T('Avui, 16:00–17:00'))+'</span></div><button type="button" class="btn ghost" id="a-lib-x">'+esc(T('Anul·lar'))+'</button></div>'
+        :'<button type="button" class="btn pri block" id="a-lib-r">'+esc(T('Reservar una sala d\'estudi'))+'</button>');
+  }
+  $('#a-lib').addEventListener('click',function(e){
+    if(e.target.closest('#a-lib-r')){A.room=true;aLib();toast(T('Sala reservada (simulat)'));$('#a-lib-x').focus()}
+    else if(e.target.closest('#a-lib-x')){A.room=false;aLib();$('#a-lib-r').focus()}
+  });
+  /* Menú lateral */
+  function aDrawer(on,silent){
+    $('#a-drawer').hidden=!on;$('#a-drawer-bg').hidden=!on;
+    if(on)$('#a-drawer [data-dr]').focus();else if(!silent&&A.menuBtn)A.menuBtn.focus();
+  }
+  $('[data-view="alumne"] .phone').addEventListener('click',function(e){
+    var m=e.target.closest('[data-menu]');if(m){A.menuBtn=m;aDrawer(true);return}
+    var d=e.target.closest('[data-dr]');if(!d)return;
+    var t=d.dataset.dr;aDrawer(false,true);
+    if(t==='about')toast(T('UPCHub: proposta acadèmica, no oficial.'));
+    else if(t==='a3'||t==='a6')aFlow.go(t);
+    else aFlow.go(t,'tab');
+  });
+  $('#a-drawer-x').addEventListener('click',function(){aDrawer(false)});
+  $('#a-drawer-bg').addEventListener('click',function(){aDrawer(false)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!$('#a-drawer').hidden)aDrawer(false)});
   function aNotes(){
     var list=S.push.slice().reverse();
     $('#a-notes').innerHTML=list.map(function(p){
@@ -479,7 +518,9 @@
     }).join('')||'<li class="empty">'+esc(T('Cap notificació.'))+'</li>';
     var unread=S.push.filter(function(p){return !p.read}).length,b=$('#a-bdg');
     b.hidden=!unread;b.textContent=unread;
-    $('#a-tabbar [data-tab="a6"]').setAttribute('aria-label',T('Notificacions')+(unread?' · '+T('{n} sense llegir',{n:unread}):''));
+    $('#a-bell').setAttribute('aria-label',T('Els teus avisos')+(unread?' · '+T('{n} sense llegir',{n:unread}):''));
+    var top=S.push.slice().reverse().slice(0,2);
+    $('#a-home-notes').innerHTML=top.length?top.map(function(p){var tx=pushText(p);return '<li><button type="button" class="hn'+(p.read?'':' unread')+'" data-push="'+p.id+'"><b>'+esc(tx.title)+'</b><span>'+esc(tx.body)+'</span><time>'+esc(p.t)+'</time></button></li>'}).join(''):'<li class="hn-empty">'+esc(T('No hi ha avisos nous'))+'</li>';
   }
   function openPush(id){
     var p=S.push.filter(function(x){return String(x.id)===String(id)})[0];if(!p)return;
@@ -506,13 +547,14 @@
     $$('.detail',aForm).forEach(function(d){d.hidden=true});
     A.photo=false;$('#a-photo').hidden=true;$('#a-photo-add').hidden=false;$('#a-push').hidden=true;
     A.last=null;A.nfc=false;$('#a-result').hidden=true;$('#a-err2').hidden=true;$('#a-photo-add').parentNode.hidden=false;
-    aSum();aMine();aNow();aSched();aNotes();aNfc();
+    A.subj=null;A.room=false;aDrawer(false,true);
+    aSum();aMine();aNow();aSched();aNotes();aNfc();aSubjects();aLib();
     document.body.classList.add('full');
     hintsClose();startTask('alumne');
     A.seenPush=0;setTimeout(aCheckPush,900);
   }
   on(function(){aSum();aMine();aNow();aSched();aNotes();if(A.step==='a7')aDet();aCheckPush()});
-  hooks.push(function(){aCount();aSum();aMine();aNow();aSched();aNotes();aDet();aNfc();if(!$('#a-result').hidden)renderResult($('#a-result'),'alumne')});
+  hooks.push(function(){aCount();aSum();aMine();aNow();aSched();aNotes();aDet();aNfc();aSubjects();aLib();if(!$('#a-result').hidden)renderResult($('#a-result'),'alumne')});
 
   /* ================= Professor ================= */
   var B={step:'b1',last:null,prev:{},flash:{},html:'',dev:'desk',room:null,sheet:null,opener:null,chat:null};

@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="demo.css?v=52">
+<link rel="stylesheet" href="demo.css?v=63">
 </head>
 <body>
 <a class="skip" href="#main">Salta al contingut</a>
@@ -98,67 +98,103 @@
           <!-- Notificació push dins del mòbil -->
           <button type="button" class="push" id="a-push" data-dyn hidden></button>
 
-          <!-- A2 · Inici de l'app -->
+          <!-- A2 · Inici -->
           <div class="scr tab" id="a2">
-            <div class="apphead">
-              <div class="ah-top"><span class="app"><span class="mark"><svg aria-hidden="true"><use href="icons.svg#i-grid"/></svg></span>App del campus</span><span class="avatar" aria-hidden="true">E</span></div>
-              <h2 tabindex="-1">Hola!</h2>
-              <div class="now" id="a-now" data-dyn></div>
+            <div class="appbar">
+              <button type="button" class="ic-btn" data-menu aria-label="Obrir el menú"><svg aria-hidden="true"><use href="icons.svg#i-menu"/></svg></button>
+              <span class="ttl">Inici</span>
+              <button type="button" class="ic-btn bell" id="a-bell" data-tab="a6" aria-label="Notificacions"><svg aria-hidden="true"><use href="icons.svg#i-bell"/></svg><b class="bdg" id="a-bdg" data-dyn hidden></b></button>
             </div>
             <div class="sbody">
-              <button type="button" class="big-cta" data-go="a3">
-                <span class="i"><svg aria-hidden="true"><use href="icons.svg#i-alert"/></svg></span>
-                <span><b>Avisar d'un problema</b><span>Endoll, llum, mobiliari…</span></span>
+              <h2 class="sr" tabindex="-1">Inici</h2>
+              <button type="button" class="hero-cta" data-go="a3">
+                <span class="hc-i"><svg aria-hidden="true"><use href="icons.svg#i-alert"/></svg></span>
+                <span class="hc-t"><b>Alguna cosa no funciona a l'aula?</b><span>Avisa-ho en 3 tocs</span></span>
                 <svg class="chev" aria-hidden="true"><use href="icons.svg#i-right"/></svg>
               </button>
-              <div class="tiles">
-                <button type="button" class="tile" data-tab="a1"><svg aria-hidden="true"><use href="icons.svg#i-nfc"/></svg><span>Carnet</span></button>
-                <button type="button" class="tile" data-tab="a5"><svg aria-hidden="true"><use href="icons.svg#i-cal"/></svg><span>Horari</span></button>
-                <button type="button" class="tile" data-tab="a6"><svg aria-hidden="true"><use href="icons.svg#i-bell"/></svg><span>Notificacions</span></button>
-              </div>
-              <h3 class="sec-h">Els meus avisos</h3>
+              <div class="now-card" id="a-now" data-dyn></div>
+              <div class="sec-row"><h3>Els teus avisos</h3><button type="button" class="btn pri sm" data-tab="a6">Veure tots</button></div>
+              <ul class="home-notes" id="a-home-notes" data-dyn></ul>
+              <div class="sec-row"><h3>Les meves incidències</h3></div>
               <ul class="mine" id="a-mine" data-dyn></ul>
             </div>
           </div>
 
-          <!-- A1 · Carnet (estil cartera) -->
-          <div class="scr tab wallet" id="a1" data-pos="next">
-            <div class="shead"><span class="ttl">Carnet</span></div>
+          <!-- A5 · Calendari -->
+          <div class="scr tab" id="a5" data-pos="next">
+            <div class="appbar">
+              <button type="button" class="ic-btn" data-menu aria-label="Obrir el menú"><svg aria-hidden="true"><use href="icons.svg#i-menu"/></svg></button>
+              <span class="ttl">Calendari</span>
+            </div>
+            <div class="sbody">
+              <h2 tabindex="-1" class="day-h">Avui, dilluns <i aria-hidden="true"></i></h2>
+              <ol class="cal" id="a-sched" data-dyn></ol>
+            </div>
+          </div>
+
+          <!-- A8 · Notes -->
+          <div class="scr tab" id="a8" data-pos="next">
+            <div class="appbar">
+              <button type="button" class="ic-btn" data-menu aria-label="Obrir el menú"><svg aria-hidden="true"><use href="icons.svg#i-menu"/></svg></button>
+              <span class="ttl">Notes</span>
+            </div>
+            <div class="sbody">
+              <h2 tabindex="-1" class="grade-h">Grau en Enginyeria de Disseny Industrial</h2>
+              <p class="term">2026-1</p>
+              <ul class="subjects" id="a-subjects" data-dyn></ul>
+            </div>
+          </div>
+
+          <!-- A9 · Biblioteca -->
+          <div class="scr tab" id="a9" data-pos="next">
+            <div class="appbar">
+              <button type="button" class="ic-btn" data-menu aria-label="Obrir el menú"><svg aria-hidden="true"><use href="icons.svg#i-menu"/></svg></button>
+              <span class="ttl">Biblioteca</span>
+            </div>
+            <div class="sbody">
+              <h2 tabindex="-1">Biblioteca del campus</h2>
+              <div class="lib" id="a-lib" data-dyn></div>
+            </div>
+          </div>
+
+          <!-- A1 · Carnet -->
+          <div class="scr tab" id="a1" data-pos="next">
+            <div class="appbar">
+              <button type="button" class="ic-btn" data-menu aria-label="Obrir el menú"><svg aria-hidden="true"><use href="icons.svg#i-menu"/></svg></button>
+              <span class="ttl">Carnet</span>
+            </div>
             <div class="sbody">
               <h2 class="sr" tabindex="-1">Carnet universitari</h2>
-              <div class="wcard" id="a-card" role="img" aria-label="Carnet universitari digital d'exemple: Estudiant de prova, UPC · EPSEVG">
-                <span class="r1"><span class="org">UPC · EPSEVG</span><span class="demo">Exemple · no vàlid</span></span>
-                <span class="kind"><svg aria-hidden="true"><use href="icons.svg#i-nfc"/></svg>Carnet universitari</span>
-                <span class="who"><b>Estudiant de prova</b>Disseny Industrial · 2026-27</span>
+              <div class="idcard" role="img" aria-label="Carnet universitari d'exemple: Estudiant de prova, EPSEVG. No és vàlid.">
+                <div class="idc-top">
+                  <span class="idc-org"><b>UPC · EPSEVG</b><span>Carnet universitari</span></span>
+                  <span class="idc-ph" aria-hidden="true"><svg><use href="icons.svg#i-user"/></svg></span>
+                </div>
+                <div class="idc-mid"><b>ESTUDIANT DE PROVA</b><span>ESTUDIANT</span><span>Escola Politècnica Superior d'Enginyeria de Vilanova i la Geltrú</span></div>
+                <div class="idc-bar"><span class="bars" aria-hidden="true"></span><span class="num">EXEMPLE · NO VÀLID</span></div>
               </div>
-              <div class="wstack" aria-hidden="true"></div>
               <div class="nfcbox" id="a-nfcbox" data-dyn></div>
             </div>
           </div>
 
-          <!-- A5 · Horari -->
-          <div class="scr tab" id="a5" data-pos="next">
-            <div class="shead"><span class="ttl">Horari</span></div>
-            <div class="sbody">
-              <h2 tabindex="-1">Avui</h2>
-              <ol class="tsched" id="a-sched" data-dyn></ol>
+          <!-- A6 · Els teus avisos (notificacions) -->
+          <div class="scr" id="a6" data-pos="next">
+            <div class="appbar">
+              <button type="button" class="ic-btn" data-back="a2" aria-label="Tornar"><svg aria-hidden="true"><use href="icons.svg#i-left"/></svg></button>
+              <span class="ttl">Els teus avisos</span>
+              <button type="button" class="btn ghost on-blue" id="a-readall">Llegits</button>
             </div>
-          </div>
-
-          <!-- A6 · Notificacions -->
-          <div class="scr tab" id="a6" data-pos="next">
-            <div class="shead"><span class="ttl">Notificacions</span><button type="button" class="btn ghost" id="a-readall">Marcar llegides</button></div>
             <div class="sbody">
-              <h2 class="sr" tabindex="-1">Notificacions</h2>
+              <h2 class="sr" tabindex="-1">Els teus avisos</h2>
               <ul class="notes" id="a-notes" data-dyn></ul>
             </div>
           </div>
 
           <!-- A3 · formulari -->
           <div class="scr" id="a3" data-pos="next">
-            <div class="shead">
+            <div class="appbar">
               <button type="button" class="ic-btn" data-back="a2" aria-label="Tornar"><svg aria-hidden="true"><use href="icons.svg#i-left"/></svg></button>
-              <span class="ttl">Nou avís</span>
+              <span class="ttl">Incidència a l'aula</span>
             </div>
             <form class="fwrap" id="a-form" novalidate>
               <div class="sbody">
@@ -231,20 +267,41 @@
             <div class="sfoot"><button type="button" class="btn sec block" data-go="a2">Tornar a l'inici</button></div>
           </div>
 
-          <!-- A7 · detall d'un avís -->
+          <!-- A7 · detall d'una incidència -->
           <div class="scr" id="a7" data-pos="next">
-            <div class="shead">
+            <div class="appbar">
               <button type="button" class="ic-btn" data-back="a2" aria-label="Tornar"><svg aria-hidden="true"><use href="icons.svg#i-left"/></svg></button>
-              <span class="ttl">El meu avís</span>
+              <span class="ttl">La meva incidència</span>
             </div>
             <div class="sbody" id="a-det" data-dyn></div>
           </div>
 
           <nav class="tabbar" id="a-tabbar" aria-label="App del campus">
             <button type="button" data-tab="a2"><svg aria-hidden="true"><use href="icons.svg#i-home"/></svg><span>Inici</span></button>
-            <button type="button" data-tab="a1"><svg aria-hidden="true"><use href="icons.svg#i-nfc"/></svg><span>Carnet</span></button>
-            <button type="button" data-tab="a5"><svg aria-hidden="true"><use href="icons.svg#i-cal"/></svg><span>Horari</span></button>
-            <button type="button" data-tab="a6"><svg aria-hidden="true"><use href="icons.svg#i-bell"/></svg><span>Notificacions</span><b class="bdg" id="a-bdg" data-dyn hidden></b></button>
+            <button type="button" data-tab="a5"><svg aria-hidden="true"><use href="icons.svg#i-cal"/></svg><span>Calendari</span></button>
+            <button type="button" data-tab="a8"><svg aria-hidden="true"><use href="icons.svg#i-list"/></svg><span>Notes</span></button>
+            <button type="button" data-tab="a9"><svg aria-hidden="true"><use href="icons.svg#i-book"/></svg><span>Biblioteca</span></button>
+            <button type="button" data-tab="a1"><svg aria-hidden="true"><use href="icons.svg#i-idcard"/></svg><span>Carnet</span></button>
+          </nav>
+
+          <!-- Menú lateral -->
+          <div class="drawer-bg" id="a-drawer-bg" hidden></div>
+          <nav class="drawer" id="a-drawer" aria-label="Menú" hidden>
+            <div class="dr-prof">
+              <span class="dr-av" aria-hidden="true"><svg><use href="icons.svg#i-user"/></svg></span>
+              <div><b>Estudiant de prova</b><span>EPSEVG · Disseny Industrial</span></div>
+              <button type="button" class="ic-btn" id="a-drawer-x" aria-label="Tancar el menú"><svg aria-hidden="true"><use href="icons.svg#i-x"/></svg></button>
+            </div>
+            <ul>
+              <li><button type="button" data-dr="a2"><svg aria-hidden="true"><use href="icons.svg#i-home"/></svg>Inici</button></li>
+              <li><button type="button" data-dr="a3"><svg aria-hidden="true"><use href="icons.svg#i-alert"/></svg>Incidència a l'aula<span class="new">UPCHub</span></button></li>
+              <li><button type="button" data-dr="a6"><svg aria-hidden="true"><use href="icons.svg#i-bell"/></svg>Els teus avisos</button></li>
+              <li><button type="button" data-dr="a5"><svg aria-hidden="true"><use href="icons.svg#i-cal"/></svg>Calendari</button></li>
+              <li><button type="button" data-dr="a8"><svg aria-hidden="true"><use href="icons.svg#i-list"/></svg>Notes</button></li>
+              <li><button type="button" data-dr="a9"><svg aria-hidden="true"><use href="icons.svg#i-book"/></svg>Biblioteca</button></li>
+              <li><button type="button" data-dr="a1"><svg aria-hidden="true"><use href="icons.svg#i-idcard"/></svg>Carnet</button></li>
+              <li><button type="button" data-dr="about"><svg aria-hidden="true"><use href="icons.svg#i-shield"/></svg>Sobre l'app</button></li>
+            </ul>
           </nav>
         </div>
         <span class="homebar" aria-hidden="true"></span>
@@ -663,7 +720,7 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite" data-dyn></div>
 
-<script src="i18n-demo.js?v=52"></script>
-<script src="demo.js?v=52"></script>
+<script src="i18n-demo.js?v=63"></script>
+<script src="demo.js?v=63"></script>
 </body>
 </html>
