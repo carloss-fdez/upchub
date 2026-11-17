@@ -358,6 +358,9 @@
       setTimeout(function(){a.classList.remove('leaving')},300);
       cur=id;
       var h=$('h2[tabindex],h2',b);if(h)h.focus({preventScroll:true});
+      /* Al mòbil, si la pantalla nova queda per sobre de la vista, hi tornem */
+      var bh=($('.band')||{offsetHeight:0}).offsetHeight+8,bt=b.getBoundingClientRect().top;
+      if(bt<bh&&!root.closest('.is-phone'))window.scrollTo({top:Math.max(0,bt+window.scrollY-bh),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
       if(onStep)onStep(id);
       hintRender();
       track('pantalla',id);
@@ -560,7 +563,7 @@
   var B={step:'b1',last:null,prev:{},flash:{},html:'',dev:'desk',room:null,sheet:null,opener:null,chat:null};
   /* Passos de l'assistent per equip: icona i frase curta */
   var STEPS={
-    proj:[['i-screen','Encén el projector'],['i-dock','Reinicia el dock (3 s)'],['i-right','Tria HDMI 1']],
+    proj:[['i-screen','Encén el projector'],['i-dock','Reinicia el dock (3 s)'],['i-hdmi','Tria HDMI 1']],
     audio:[['i-audio','Puja el volum'],['i-audio','Treu el silenci'],['i-dock','Reinicia el dock (3 s)']],
     pc:[['i-pc','Mou el ratolí'],['i-pc',"Prem el botó d'engegada"],['i-laptop','Prova el teu portàtil']],
     dock:[['i-plug','Torna a endollar el cable'],['i-dock','Llum del dock en blanc'],['i-plug',"Prova l'altre port"]]
