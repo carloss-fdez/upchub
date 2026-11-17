@@ -934,3 +934,41 @@ body.consenting main{padding-bottom:200px}
   .push:not([hidden]),.sheet:not([hidden]),.consent:not([hidden]){animation:none}
   .wcard .face{transition:opacity 150ms ease!important;transform:none!important}
 }
+
+/* ================= v2.4: revisió UI/UX ================= */
+/* Capçalera d'una sola fila al mòbil: més espai per a la tasca */
+@media (max-width:599px){
+  .band{gap:var(--space-2);padding:var(--space-1) var(--space-3) var(--space-2)}
+  .band .logo{height:26px}
+  .band .tools{gap:var(--space-1)}
+  .band .tools .btn.ghost{min-width:44px;padding:0 var(--space-2)}
+  .flag{padding:2px var(--space-2);font-size:.75rem}
+  /* Professor i tècnic: el text de la tasca, més compacte */
+  .rolev:not(.is-phone) .tpanel{gap:var(--space-2)}
+  .rolev:not(.is-phone) .tpanel h1{font-size:1.25rem}
+  .rolev:not(.is-phone) .tpanel .hint{font-size:.9375rem}
+  .rolev:not(.is-phone) .tpanel .back{min-height:44px}
+  .rolev.is-phone .hintb{min-height:44px}
+}
+/* Objectius tàctils de 44 px */
+.btn.sm,.cl-a .btn{min-height:44px}
+.foot a{display:inline-flex;align-items:center;min-height:44px}
+/* Text mínim de 12 px */
+.tabbar button span{font-size:.75rem}
+.qrow .pv span{font-size:.75rem}
+@media (max-width:719px){.qrow .side{justify-content:flex-start;gap:var(--space-2)}}
+/* Calendari en mode fosc: colors apagats, sense enlluernar */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .calc-i .ct,:root:not([data-theme="light"]) .calc-i .cs{color:#e8f1f8}
+  :root:not([data-theme="light"]) .calc-i .ct em{background:rgba(255,255,255,.12)}
+  :root:not([data-theme="light"]) .calc-i.c1 .ct{background:#1d4f74}:root:not([data-theme="light"]) .calc-i.c1 .cs{background:#163a55}
+  :root:not([data-theme="light"]) .calc-i.c2 .ct{background:#1b5a4c}:root:not([data-theme="light"]) .calc-i.c2 .cs{background:#15433a}
+  :root:not([data-theme="light"]) .calc-i.c3 .ct{background:#3a4552}:root:not([data-theme="light"]) .calc-i.c3 .cs{background:#2b343e}
+  :root:not([data-theme="light"]) .now-card .nc-t{background:#1d4f74;color:#e8f1f8}
+}
+:root[data-theme="dark"] .calc-i .ct,:root[data-theme="dark"] .calc-i .cs{color:#e8f1f8}
+:root[data-theme="dark"] .calc-i .ct em{background:rgba(255,255,255,.12)}
+:root[data-theme="dark"] .calc-i.c1 .ct{background:#1d4f74}:root[data-theme="dark"] .calc-i.c1 .cs{background:#163a55}
+:root[data-theme="dark"] .calc-i.c2 .ct{background:#1b5a4c}:root[data-theme="dark"] .calc-i.c2 .cs{background:#15433a}
+:root[data-theme="dark"] .calc-i.c3 .ct{background:#3a4552}:root[data-theme="dark"] .calc-i.c3 .cs{background:#2b343e}
+:root[data-theme="dark"] .now-card .nc-t{background:#1d4f74;color:#e8f1f8}
