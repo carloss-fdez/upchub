@@ -137,6 +137,17 @@
   hooks.push(function(){if(state===1)renderChat();if(state===2&&choice){drawTrack();$('#ticket').textContent='#205-0412 · '+T('dilluns')+' 9:04';$('#grouped').innerHTML='<b>'+T('Aula 205')+' · '+T(choice)+'<em>'+T('Crítica')+'</em></b>'+T("Ja hi havia un avís igual en aquesta aula: s'han agrupat (2 avisos). T'avisarem quan canviï l'estat.")}});
   restart();
 
+  /* ---------- Servei: peces del hardware enllaçades amb la il·lustració ---------- */
+  var hwFig=$('#hw-fig'),hwItems=$$('#hw-parts li');
+  function hwOn(n){
+    if(n)hwFig.dataset.on=n;else delete hwFig.dataset.on;
+    hwItems.forEach(function(li){li.classList.toggle('on',li.dataset.p===n)});
+  }
+  hwItems.concat($$('.pin',hwFig)).forEach(function(el){
+    el.addEventListener('pointerenter',function(){hwOn(el.dataset.p)});
+    el.addEventListener('pointerleave',function(){hwOn(null)});
+  });
+
   /* ---------- Preu: calculadora per centre ---------- */
   var range=$('#aules'),HW=1250,SW=150;
   function eur(n){var s=n.toLocaleString(lang==='en'?'en-GB':'es-ES',{maximumFractionDigits:0,useGrouping:'always'});return lang==='en'?'€'+s:s+' €'}

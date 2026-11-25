@@ -721,3 +721,29 @@ var P=[
 ];
 P.forEach(function(r){D.es[r[0]]=r[1];D.en[r[0]]=r[2]});
 })(window.UPC_I18N);
+
+/* v0.5.1 — hardware i captures de la demo */
+(function(D){
+var P=[
+["Captura de la demo: carnet universitari a l'app del campus","Captura de la demo: carnet universitario en la app del campus","Demo screenshot: student card in the campus app"],
+["Captura de la demo: sessió a punt a la pantalla de l'aula després de tocar amb el carnet","Captura de la demo: sesión lista en la pantalla del aula después de acercar el carnet","Demo screenshot: session ready on the classroom screen after tapping the card"],
+["Captura de la demo: l'assistent d'IA local guia tres passos per arreglar el projector","Captura de la demo: el asistente de IA local guía tres pasos para arreglar el proyector","Demo screenshot: the local AI assistant walks through three steps to fix the projector"],
+["Captura de la demo: cua d'incidències del servei tècnic ordenada per prioritat","Captura de la demo: cola de incidencias del servicio técnico ordenada por prioridad","Demo screenshot: technical service issue queue sorted by priority"],
+["Il·lustració: atril d'aula amb el lector NFC, el dock USB-C, el commutador de font i el gateway amb sensors","Ilustración: atril de aula con el lector NFC, el dock USB-C, el conmutador de fuente y el gateway con sensores","Illustration: classroom lectern with the NFC reader, USB-C dock, source switch and gateway with sensors"],
+["projector","proyector","projector"],
+["DINS DE L'ATRIL","DENTRO DEL ATRIL","INSIDE THE LECTERN"],
+["Sessió a punt","Sesión lista","Session ready"],
+["22,5 °C","22,5 °C","22.5 °C"],
+["Quatre peces que ja existeixen, dimensionades per a cada aula","Cuatro piezas que ya existen, dimensionadas para cada aula","Four off-the-shelf parts, sized for each room"],
+["Res de kits genèrics: components de mercat que dimensionem colze a colze amb la facultat i els nostres proveïdors.","Nada de kits genéricos: componentes de mercado que dimensionamos mano a mano con la facultad y nuestros proveedores.","No generic kits: off-the-shelf components we size hand in hand with the faculty and our suppliers."],
+["Lector NFC","Lector NFC","NFC reader"],
+["Al costat del PC de l'aula, llegeix el carnet del mòbil. Com els de les impressores compartides.","Junto al PC del aula, lee el carnet del móvil. Como los de las impresoras compartidas.","Next to the classroom PC, it reads the card on your phone. Like the ones on shared printers."],
+["Dock USB-C","Dock USB-C","USB-C dock"],
+["Un sol cable per a vídeo, àudio, càrrega i xarxa.","Un solo cable para vídeo, audio, carga y red.","One cable for video, audio, charging and network."],
+["Commutador de font","Conmutador de fuente","Source switch"],
+["Tria entre el mini-PC de l'aula i el portàtil del professor, amb prioritat per al portàtil.","Elige entre el mini-PC del aula y el portátil del profesor, con prioridad para el portátil.","Switches between the classroom mini-PC and the lecturer's laptop, with the laptop taking priority."],
+["Gateway i sensors","Gateway y sensores","Gateway and sensors"],
+["Estat dels equips, CO₂, temperatura i ocupació de l'aula.","Estado de los equipos, CO₂, temperatura y ocupación del aula.","Equipment status, CO₂, temperature and room occupancy."]
+];
+P.forEach(function(r){D.es[r[0]]=r[1];D.en[r[0]]=r[2]});
+})(window.UPC_I18N);
