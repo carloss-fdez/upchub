@@ -70,7 +70,14 @@
   ],ti=0,toast=$('#toast');
   function drawToast(){var c=toasts[ti];toast.innerHTML='<span class="ti"><svg><use href="#'+c.ic+'"/></svg></span><span><b>'+T(c.t)+'</b><small>'+T(c.s)+'</small></span>'}
   hooks.push(drawToast);
-  if(!reduce)setInterval(function(){toast.classList.add('out');setTimeout(function(){ti=(ti+1)%toasts.length;drawToast();toast.classList.remove('out')},400)},3200);
+  /* només roda amb l'hero a la vista i la pestanya activa */
+  var heroOn=true;
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){heroOn=es[0].isIntersecting}).observe(toast.parentNode);
+  if(!reduce)setInterval(function(){
+    if(!heroOn||document.hidden)return;
+    toast.classList.add('out');
+    setTimeout(function(){ti=(ti+1)%toasts.length;drawToast();toast.classList.remove('out')},200);
+  },3200);
 
   /* ---------- Demo de l'app ---------- */
   var flows=$$('#app .flow'),dsteps=$$('#dsteps li'),opts=$$('#opts .opt'),send=$('#send'),chat=$('#chat'),aiAct=$('#ai-actions');
