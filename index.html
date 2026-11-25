@@ -21,8 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;500;700&display=swap">
-<link rel="preload" as="image" href="assets/captures/carnet-mobil.jpg">
-<link rel="stylesheet" href="assets/styles.css?v=4c">
+<link rel="preload" as="image" type="image/webp" imagesrcset="assets/captures/carnet-mobil-480.webp 480w, assets/captures/carnet-mobil-732.webp 732w" imagesizes="(min-width:960px) 300px, 72vw">
+<link rel="stylesheet" href="assets/styles.css?v=4d">
 <script>document.documentElement.classList.add('js');addEventListener('load',function(){if(!window.UPC_READY)document.documentElement.classList.remove('js')})</script>
 </head>
 <body>
@@ -69,6 +69,11 @@
       <a href="#preu">Preu</a>
       <a href="#demo">Demo</a>
       <a href="#resultats">Resultats</a>
+      <div class="lang lang-menu" role="group" aria-label="Idioma / Idioma / Language">
+        <button type="button" data-lang="ca" aria-pressed="true" lang="ca" title="Català">CA</button>
+        <button type="button" data-lang="es" aria-pressed="false" lang="es" title="Castellano">ES</button>
+        <button type="button" data-lang="en" aria-pressed="false" lang="en" title="English">EN</button>
+      </div>
     </nav>
     <div class="lang" role="group" aria-label="Idioma / Idioma / Language">
       <button type="button" data-lang="ca" aria-pressed="true" lang="ca" title="Català">CA</button>
@@ -96,7 +101,7 @@
     </div>
     <div class="hero-visual">
       <div class="nfc-rings" aria-hidden="true"><i></i><i></i><i></i></div>
-      <div class="dev phone hero-phone"><img src="assets/captures/carnet-mobil.jpg" width="732" height="1552" fetchpriority="high" alt="Captura de la demo: carnet universitari a l'app del campus"></div>
+      <div class="dev phone hero-phone"><picture><source type="image/webp" srcset="assets/captures/carnet-mobil-480.webp 480w, assets/captures/carnet-mobil-732.webp 732w" sizes="(min-width:960px) 300px, 72vw"><img src="assets/captures/carnet-mobil.jpg" width="732" height="1552" fetchpriority="high" alt="Captura de la demo: carnet universitari a l'app del campus"></picture></div>
       <div class="toast" id="toast" aria-hidden="true" data-dyn></div>
     </div>
   </div>
@@ -132,21 +137,21 @@
           <h3>Accés instantani</h3>
           <p>El professor s'identifica amb el carnet UPC al mòbil i l'aula es prepara sola: sessió oberta amb la classe d'avui, i projector i àudio a punt amb un sol cable USB-C.</p>
         </div>
-        <div class="pillar-media"><div class="dev tv"><div class="scr"><img src="assets/captures/sessio-a-punt.jpg" width="1600" height="1200" loading="lazy" alt="Captura de la demo: sessió a punt a la pantalla de l'aula després de tocar amb el carnet"></div><div class="stand"></div></div></div>
+        <div class="pillar-media"><div class="dev tv"><div class="scr"><picture><source type="image/webp" srcset="assets/captures/sessio-a-punt-800.webp 800w, assets/captures/sessio-a-punt-1600.webp 1600w" sizes="(min-width:1180px) 620px, (min-width:900px) 52vw, 92vw"><img src="assets/captures/sessio-a-punt.jpg" width="1600" height="1200" loading="lazy" decoding="async" alt="Captura de la demo: sessió a punt a la pantalla de l'aula després de tocar amb el carnet"></picture></div><div class="stand"></div></div></div>
       </article>
       <article class="pillar rv">
         <div class="pillar-copy">
           <h3>Suport immediat</h3>
           <p>Si alguna cosa falla, la IA local del campus proposa passos senzills. Si no ho resol, avisa el servei tècnic amb la fitxa ja omplerta i l'estat de l'aula inclòs.</p>
         </div>
-        <div class="pillar-media"><div class="dev tv"><div class="scr"><img src="assets/captures/ajuda-ia.jpg" width="1600" height="1200" loading="lazy" alt="Captura de la demo: l'assistent d'IA local guia tres passos per arreglar el projector"></div><div class="stand"></div></div></div>
+        <div class="pillar-media"><div class="dev tv"><div class="scr"><picture><source type="image/webp" srcset="assets/captures/ajuda-ia-800.webp 800w, assets/captures/ajuda-ia-1600.webp 1600w" sizes="(min-width:1180px) 620px, (min-width:900px) 52vw, 92vw"><img src="assets/captures/ajuda-ia.jpg" width="1600" height="1200" loading="lazy" decoding="async" alt="Captura de la demo: l'assistent d'IA local guia tres passos per arreglar el projector"></picture></div><div class="stand"></div></div></div>
       </article>
       <article class="pillar rv">
         <div class="pillar-copy">
           <h3>Manteniment preventiu</h3>
           <p>El servei tècnic veu l'estat de cada aula i una cua ordenada per prioritat. Els diagnòstics en hores lliures detecten anomalies abans que comenci la classe.</p>
         </div>
-        <div class="pillar-media"><div class="dev tv"><div class="scr"><img src="assets/captures/cua-tecnic.jpg" width="1600" height="1200" loading="lazy" alt="Captura de la demo: cua d'incidències del servei tècnic ordenada per prioritat"></div><div class="stand"></div></div></div>
+        <div class="pillar-media"><div class="dev tv"><div class="scr"><picture><source type="image/webp" srcset="assets/captures/cua-tecnic-800.webp 800w, assets/captures/cua-tecnic-1600.webp 1600w" sizes="(min-width:1180px) 620px, (min-width:900px) 52vw, 92vw"><img src="assets/captures/cua-tecnic.jpg" width="1600" height="1200" loading="lazy" decoding="async" alt="Captura de la demo: cua d'incidències del servei tècnic ordenada per prioritat"></picture></div><div class="stand"></div></div></div>
       </article>
     </div>
   </div>
@@ -415,7 +420,7 @@
   </div>
 </footer>
 
-<script src="assets/i18n.js?v=4c"></script>
-<script src="assets/app.js?v=4c"></script>
+<script src="assets/i18n.js?v=4d"></script>
+<script src="assets/app.js?v=4d"></script>
 </body>
 </html>
