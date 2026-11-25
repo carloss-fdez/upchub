@@ -44,7 +44,10 @@ a{color:var(--brand-text)}
 :focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
 button{font:inherit;cursor:pointer;color:inherit}
 .wrap{max-width:1180px;margin:0 auto;padding-inline:var(--space-3)}
-h1,h2,h3{font-family:var(--font-display);margin:0}
+h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance}
+p,li{text-wrap:pretty}
+a,button,input,label{touch-action:manipulation}
+picture{display:contents}
 .display-xl{font-weight:700;font-size:clamp(44px,7.4vw,84px);line-height:.95;letter-spacing:-.025em}
 .display-lg{font-weight:700;font-size:clamp(30px,4.6vw,46px);line-height:1.05;letter-spacing:-.015em}
 .lead{font:500 19px/29px var(--font-sans)}
@@ -111,7 +114,13 @@ footer a{display:inline-flex;align-items:center;min-height:44px}
   .top nav.open{opacity:1;transform:none;pointer-events:auto}
   .top nav a{padding:14px 12px;font-size:16px;border-radius:var(--radius-sm)}
 }
-@media(max-width:520px){.cta-top{display:none}.logo{height:32px}}
+.lang-menu{display:none}
+@media(max-width:520px){
+  .logo{height:32px}
+  .top .wrap>.lang{display:none}
+  .cta-top{margin-left:auto;min-height:44px;padding:0 14px}
+  .lang-menu{display:flex;align-self:flex-start;margin:var(--space-2) 12px var(--space-1)}
+}
 
 /* hero */
 .hero{padding-block:var(--space-3) 0}

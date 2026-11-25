@@ -43,7 +43,12 @@
 
   /* ---------- Capçalera: ombra, menú mòbil, secció activa ---------- */
   var top=$('.top'),nav=$('#nav'),mb=$('.menu-btn');
-  function onScroll(){top.classList.toggle('scrolled',scrollY>8)}
+  var first=document.querySelector('main section');
+  function onScroll(){
+    top.classList.toggle('scrolled',scrollY>8);
+    /* a l'hero no hi ha cap secció activa al menú */
+    if(first&&scrollY<first.offsetTop-innerHeight*.5)$$('a',nav).forEach(function(a){a.classList.remove('act')});
+  }
   addEventListener('scroll',onScroll,{passive:true});onScroll();
   function closeMenu(){nav.classList.remove('open');mb.setAttribute('aria-expanded','false')}
   mb.addEventListener('click',function(){var o=!nav.classList.contains('open');nav.classList.toggle('open',o);mb.setAttribute('aria-expanded',o)});
