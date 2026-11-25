@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UPCHub · L'aula a punt amb el carnet UPC al mòbil</title>
-<meta name="description" content="UPCHub: plataforma d'aula que identifica el professor, prepara l'aula i envia les incidències tècniques al servei tècnic amb l'estat de l'aula inclòs. Projecte acadèmic EPSEVG · UPC.">
+<title>UPCHub · El servei que posa cada aula a punt</title>
+<meta name="description" content="UPCHub posa cada aula a punt en segons amb el carnet UPC al mòbil i resol les incidències abans que aturin la classe. Hardware dimensionat per a cada aula i servei des de 150 € per aula i any. Projecte acadèmic EPSEVG · UPC.">
 <link rel="canonical" href="https://upchub.tech/">
 <meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#071522" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://upchub.tech/">
 <meta property="og:title" content="UPCHub · Toca. Connecta. Comença.">
-<meta property="og:description" content="L'aula es prepara amb el carnet UPC al mòbil. I si alguna cosa falla, UPCHub avisa el servei tècnic amb tot el context. Projecte acadèmic EPSEVG · UPC.">
-<meta property="og:image" content="https://upchub.tech/assets/mockups/4-dashboard-aula.jpg">
+<meta property="og:description" content="El servei que posa cada aula a punt en segons i resol les incidències abans que aturin la classe. 150 € per aula i any. Projecte acadèmic EPSEVG · UPC.">
+<meta property="og:image" content="https://upchub.tech/assets/captures/og-sessio.jpg">
 <meta property="og:image:width" content="1600">
 <meta property="og:image:height" content="1000">
 <meta property="og:locale" content="ca_ES">
@@ -21,8 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;500;700&display=swap">
-<link rel="preload" as="image" href="assets/mockups/1-carnet-wallet.jpg">
-<link rel="stylesheet" href="assets/styles.css?v=3j">
+<link rel="preload" as="image" href="assets/captures/carnet-mobil.jpg">
+<link rel="stylesheet" href="assets/styles.css?v=4b">
 <script>document.documentElement.classList.add('js');addEventListener('load',function(){if(!window.UPC_READY)document.documentElement.classList.remove('js')})</script>
 </head>
 <body>
@@ -53,24 +53,29 @@
     <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
     <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
     <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
   </defs>
 </svg>
 
+<a class="skip" href="#problema">Salta al contingut</a>
 <header class="top">
   <div class="wrap">
-    <a href="#inici" aria-label="UPCHub — inici"><img class="logo l" src="assets/upchub-anillo-H-horizontal-claro.svg" width="116" height="38" alt="UPCHub"><img class="logo d" src="assets/upchub-anillo-H-horizontal-oscuro.svg" width="116" height="38" alt="UPCHub"></a>
+    <a href="#inici" aria-label="UPCHub — inici"><img class="logo l" src="assets/upchub-anillo-H-horizontal-claro.svg" width="121" height="38" alt="UPCHub"><img class="logo d" src="assets/upchub-anillo-H-horizontal-oscuro.svg" width="121" height="38" alt="UPCHub"></a>
     <nav id="nav" aria-label="Principal">
-      <a href="#com-funciona">Com funciona</a>
-      <a href="#demo">Prova la demo</a>
-      <a href="#tecnic">Servei tècnic</a>
-      <a href="#inclou">Què inclou</a>
+      <a href="#problema">El problema</a>
+      <a href="#solucio">La solució</a>
+      <a href="#servei">El servei</a>
+      <a href="#preu">Preu</a>
+      <a href="#demo">Demo</a>
+      <a href="#resultats">Resultats</a>
     </nav>
     <div class="lang" role="group" aria-label="Idioma / Idioma / Language">
       <button type="button" data-lang="ca" aria-pressed="true" lang="ca" title="Català">CA</button>
       <button type="button" data-lang="es" aria-pressed="false" lang="es" title="Castellano">ES</button>
       <button type="button" data-lang="en" aria-pressed="false" lang="en" title="English">EN</button>
     </div>
-    <a class="btn cta-top" href="#prova">Apunta't</a>
+    <a class="btn cta-top" href="demo/">Prova la demo</a>
     <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="Menú"><svg><use href="#i-menu"/></svg></button>
   </div>
 </header>
@@ -81,60 +86,213 @@
 <div class="wrap hero">
   <div class="hero-block">
     <div class="hero-copy">
-      <p class="label">Projecte acadèmic · UPC · EPSEVG</p>
       <h1 class="display-xl"><span class="w">Toca.</span> <span class="w">Connecta.</span> <span class="w">Comença.</span></h1>
-      <p class="lead">L'aula es prepara amb el carnet UPC al mòbil. I si alguna cosa falla, UPCHub t'ajuda a resoldre-ho o avisa el servei tècnic amb tot el context.</p>
+      <p class="lead">UPCHub és el servei que posa cada aula a punt en segons i resol les incidències abans que aturin la classe. Hardware dimensionat per a la teva facultat i una plataforma que ho connecta tot.</p>
       <div class="hero-actions">
-        <a class="btn light" href="demo/">Prova la demo</a>
-        <a class="btn ghost" href="#com-funciona">Mira com funciona</a>
-        <a class="btn ghost" href="#prova">Apunta't a la prova</a>
+        <a class="btn light" href="demo/">Prova la demo<svg><use href="#i-arrow"/></svg></a>
+        <a class="btn ghost" href="#preu">Veure preus</a>
       </div>
-      <dl class="stats">
-        <div><dt><span class="n" data-count="3">3</span></dt><dd>tocs per avisar d'una errada</dd></div>
-        <div><dt><span class="n" data-count="1">1</span></dt><dd>cable USB-C per connectar-ho tot</dd></div>
-        <div><dt><span class="n" data-count="15">15</span><small>min</small></dt><dd>objectiu per a una incidència crítica</dd></div>
-      </dl>
+      <p class="proof"><span class="proof-n">4,16<small>/5</small></span><span>d'interès a la prova pilot, amb 19 alumnes i professors. Des de <b>150 € per aula i any</b>.</span></p>
     </div>
     <div class="hero-visual">
       <div class="nfc-rings" aria-hidden="true"><i></i><i></i><i></i></div>
-      <div class="dev phone hero-phone"><img src="assets/mockups/1-carnet-wallet.jpg" width="780" height="1688" fetchpriority="high" alt="Maqueta: carnet UPC a la cartera del mòbil"></div>
+      <div class="dev phone hero-phone"><img src="assets/captures/carnet-mobil.jpg" width="732" height="1552" fetchpriority="high" alt="Captura de la demo: carnet universitari a l'app del campus"></div>
       <div class="toast" id="toast" aria-hidden="true" data-dyn></div>
     </div>
   </div>
 </div>
 
-<!-- COM FUNCIONA -->
-<section id="com-funciona">
+<!-- PROBLEMA -->
+<section id="problema">
+  <div class="wrap problem">
+    <div class="problem-copy rv">
+      <h2 class="display-lg">Cada minut perdut a l'inici és contingut que no s'imparteix.</h2>
+      <p>Projectors que no detecten el portàtil, inicis de sessió lents, equips que fallen i no saber a qui avisar. Ho vam preguntar a 26 alumnes i 14 professors de l'EPSEVG.</p>
+      <p class="src">Enquesta pròpia · setembre 2026</p>
+    </div>
+    <ul class="figs rv" aria-label="Resultats de l'enquesta">
+      <li style="--v:96"><b class="fig-n">96<small>%</small></b><span class="fig-bar" aria-hidden="true"><i></i></span><span class="fig-t">de l'alumnat ha viscut problemes tècnics o d'aula els darrers mesos</span></li>
+      <li style="--v:92"><b class="fig-n">92<small>%</small></b><span class="fig-bar" aria-hidden="true"><i></i></span><span class="fig-t">de l'alumnat creu que afecta el contingut que s'arriba a impartir</span></li>
+      <li style="--v:77"><b class="fig-n">77<small>%</small></b><span class="fig-bar" aria-hidden="true"><i></i></span><span class="fig-t">ha vist el professor trigar a poder projectar la presentació</span></li>
+      <li style="--v:64"><b class="fig-n">64<small>%</small></b><span class="fig-bar" aria-hidden="true"><i></i></span><span class="fig-t">del professorat ha tingut problemes per connectar el portàtil</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- SOLUCIÓ -->
+<section id="solucio" class="tint">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="label">Com funciona</p>
-      <h2 class="display-lg">Del passadís a la classe, en set moments.</h2>
-      <p>Tria un pas o deixa que avanci sol. Són les pantalles de la maqueta.</p>
+      <h2 class="display-lg">Un sol sistema per a l'aula, el professor i el servei tècnic.</h2>
+      <p>UPCHub uneix identificació, equips, incidències i horari. El professor arriba i comença; si alguna cosa falla, el sistema ho resol o ho fa arribar a qui toca.</p>
     </div>
-    <div class="journey rv">
-      <ol class="jsteps" id="jsteps">
-        <li><button type="button" class="jstep" data-i="0"><span class="num">01</span><span class="jt">Toca.</span><span class="jd">Portes el carnet UPC a la cartera del mòbil. Sense targetes ni contrasenyes.</span><span class="bar"><i></i></span></button></li>
-        <li><button type="button" class="jstep" data-i="1"><span class="num">02</span><span class="jt">Avisa.</span><span class="jd">Si alguna cosa falla, ho comuniques des de l'appUPC en tres tocs. L'aula ja hi és.</span><span class="bar"><i></i></span></button></li>
-        <li><button type="button" class="jstep" data-i="2"><span class="num">03</span><span class="jt">Toca, a l'aula.</span><span class="jd">Acostes el mòbil al lector i el PC de l'aula obre la teva sessió amb la classe d'avui.</span><span class="bar"><i></i></span></button></li>
-        <li><button type="button" class="jstep" data-i="3"><span class="num">04</span><span class="jt">Connecta.</span><span class="jd">Un sol dock USB-C uneix projector, àudio, pantalla, xarxa i càrrega. També per al teu portàtil.</span><span class="bar"><i></i></span></button></li>
-        <li><button type="button" class="jstep" data-i="4"><span class="num">05</span><span class="jt">Comença.</span><span class="jd">El dashboard mostra l'estat dels equips, el clima i l'horari de l'aula d'un cop d'ull.</span><span class="bar"><i></i></span></button></li>
-        <li><button type="button" class="jstep" data-i="5"><span class="num">06</span><span class="jt">Si falla, et guia.</span><span class="jd">La IA local del campus proposa passos senzills i, si no ho arregla, omple la fitxa per tu.</span><span class="bar"><i></i></span></button></li>
-        <li><button type="button" class="jstep" data-i="6"><span class="num">07</span><span class="jt">Arriba amb context.</span><span class="jd">El servei tècnic rep una cua ordenada per prioritat, amb els passos ja provats.</span><span class="bar"><i></i></span></button></li>
-      </ol>
-      <div class="jstage" id="jstage">
-        <div class="frame on" data-bg="blue"><div class="dev phone"><img src="assets/mockups/1-carnet-wallet.jpg" width="780" height="1688" alt="Maqueta: carnet UPC a la cartera del mòbil"></div></div>
-        <div class="frame" data-bg="blue"><div class="duo"><div class="dev phone"><img src="assets/mockups/2a-appupc-formulario.jpg" width="780" height="1688" loading="lazy" alt="Maqueta: formulari per avisar d'una errada a l'appUPC"></div><span class="arrow" aria-hidden="true"><svg><use href="#i-right"/></svg></span><div class="dev phone"><img src="assets/mockups/2b-appupc-recibida.jpg" width="780" height="1688" loading="lazy" alt="Maqueta: incidència rebuda a l'appUPC"></div></div></div>
-        <div class="frame" data-bg="light"><div class="dev tv"><div class="scr"><img src="assets/mockups/3-sesion-nfc.jpg" width="1600" height="1000" loading="lazy" alt="Maqueta: sessió llesta al PC de l'aula"></div><div class="stand"></div></div></div>
-        <div class="frame" data-bg="light"><div class="dev wide"><img src="assets/mockups/5b-conecta-dock.jpg" width="1600" height="810" loading="lazy" alt="Il·lustració: dock USB-C connectat a projector, pantalla, altaveus, teclat i xarxa"></div></div>
-        <div class="frame" data-bg="light"><div class="dev tv"><div class="scr"><img src="assets/mockups/4-dashboard-aula.jpg" width="1600" height="1000" loading="lazy" alt="Maqueta: dashboard de l'aula amb equips, clima i horari"></div><div class="stand"></div></div></div>
-        <div class="frame" data-bg="light"><div class="dev tv"><div class="scr"><img src="assets/mockups/5-ia-ayuda.jpg" width="1600" height="1000" loading="lazy" alt="Maqueta: assistent d'IA de l'aula guiant la resolució"></div><div class="stand"></div></div></div>
-        <div class="frame" data-bg="light"><div class="dev tv"><div class="scr"><img src="assets/mockups/6-cola-tecnico.jpg" width="1600" height="1000" loading="lazy" alt="Maqueta: cua d'incidències del servei tècnic"></div><div class="stand"></div></div></div>
-        <div class="jctrl">
-          <button type="button" class="ic-btn" id="jprev" aria-label="Pas anterior"><svg><use href="#i-left"/></svg></button>
-          <span class="jcount" id="jcount" data-dyn>1 / 7</span>
-          <button type="button" class="ic-btn" id="jplay" aria-label="Pausa"><svg><use href="#i-pause"/></svg></button>
-          <button type="button" class="ic-btn" id="jnext" aria-label="Pas següent"><svg><use href="#i-right"/></svg></button>
+    <div class="pillars">
+      <article class="pillar rv">
+        <div class="pillar-copy">
+          <h3>Accés instantani</h3>
+          <p>El professor s'identifica amb el carnet UPC al mòbil i l'aula es prepara sola: sessió oberta amb la classe d'avui, i projector i àudio a punt amb un sol cable USB-C.</p>
         </div>
+        <div class="pillar-media"><div class="dev tv"><div class="scr"><img src="assets/captures/sessio-a-punt.jpg" width="1600" height="1200" loading="lazy" alt="Captura de la demo: sessió a punt a la pantalla de l'aula després de tocar amb el carnet"></div><div class="stand"></div></div></div>
+      </article>
+      <article class="pillar rv">
+        <div class="pillar-copy">
+          <h3>Suport immediat</h3>
+          <p>Si alguna cosa falla, la IA local del campus proposa passos senzills. Si no ho resol, avisa el servei tècnic amb la fitxa ja omplerta i l'estat de l'aula inclòs.</p>
+        </div>
+        <div class="pillar-media"><div class="dev tv"><div class="scr"><img src="assets/captures/ajuda-ia.jpg" width="1600" height="1200" loading="lazy" alt="Captura de la demo: l'assistent d'IA local guia tres passos per arreglar el projector"></div><div class="stand"></div></div></div>
+      </article>
+      <article class="pillar rv">
+        <div class="pillar-copy">
+          <h3>Manteniment preventiu</h3>
+          <p>El servei tècnic veu l'estat de cada aula i una cua ordenada per prioritat. Els diagnòstics en hores lliures detecten anomalies abans que comenci la classe.</p>
+        </div>
+        <div class="pillar-media"><div class="dev tv"><div class="scr"><img src="assets/captures/cua-tecnic.jpg" width="1600" height="1200" loading="lazy" alt="Captura de la demo: cua d'incidències del servei tècnic ordenada per prioritat"></div><div class="stand"></div></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SERVEI -->
+<section id="servei">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2 class="display-lg">Tot el que necessita una aula, en un sol servei.</h2>
+      <p>Hardware pensat per a cada aula i una plataforma que el connecta amb el professorat, l'alumnat i el servei tècnic.</p>
+    </div>
+    <div class="service">
+      <div class="svc svc-hw rv">
+        <figure class="hw-fig" id="hw-fig">
+          <svg viewBox="0 0 640 460" role="img" aria-labelledby="hw-t">
+            <title id="hw-t">Il·lustració: atril d'aula amb el lector NFC, el dock USB-C, el commutador de font i el gateway amb sensors</title>
+            <rect class="floor" x="0" y="412" width="640" height="48"/>
+            <line class="rod" x1="470" y1="0" x2="470" y2="30"/>
+            <g class="part part-0">
+              <rect class="bx" x="420" y="30" width="100" height="36" rx="10"/>
+              <circle class="dk" cx="500" cy="48" r="9"/><circle class="lens" cx="500" cy="48" r="4"/>
+              <text class="tm" x="432" y="52">projector</text>
+            </g>
+            <path class="flow" d="M470 66V300H340V328"/>
+            <path class="flow" d="M234 248V300H300V328"/>
+            <path class="flow f4" d="M576 212V345H474"/>
+            <rect class="desk" x="90" y="248" width="460" height="16" rx="8"/>
+            <rect class="bx" x="120" y="264" width="400" height="148" rx="10"/>
+            <rect class="dk" x="150" y="282" width="340" height="112" rx="12"/>
+            <text class="cap" x="166" y="302">DINS DE L'ATRIL</text>
+            <g class="part">
+              <rect class="unit" x="166" y="314" width="90" height="62" rx="8"/>
+              <text class="ut" x="211" y="350">mini-PC</text>
+              <line class="wire" x1="256" y1="345" x2="278" y2="345"/>
+              <line class="wire" x1="362" y1="345" x2="384" y2="345"/>
+            </g>
+            <g class="part part-3">
+              <rect class="br" x="278" y="328" width="84" height="34" rx="8"/>
+              <rect class="port" x="288" y="339" width="16" height="12" rx="2"/><rect class="port" x="312" y="339" width="16" height="12" rx="2"/><rect class="port" x="336" y="339" width="16" height="12" rx="2"/>
+            </g>
+            <g class="part part-4">
+              <rect class="unit" x="384" y="314" width="90" height="62" rx="8"/>
+              <circle class="led" cx="400" cy="328" r="3"/><circle class="led" cx="411" cy="328" r="3"/>
+              <text class="ut" x="429" y="356">gateway</text>
+              <rect class="bx" x="530" y="128" width="92" height="84" rx="14"/>
+              <path class="wave" d="M520 160a14 14 0 0 0 0 22M512 154a22 22 0 0 0 0 34"/>
+              <text class="big" x="576" y="161">640</text>
+              <text class="tm sm" x="576" y="177">ppm CO₂</text>
+              <text class="hl" x="576" y="199">22,5 °C</text>
+            </g>
+            <g class="part">
+              <rect class="dk" x="250" y="128" width="150" height="100" rx="10"/>
+              <circle class="ok" cx="325" cy="160" r="13"/><path class="okp" d="M319 160l4 4 8-9"/>
+              <text class="mt" x="325" y="195">Sessió a punt</text>
+              <text class="ms" x="325" y="211">Aula 205 · 9:00</text>
+              <rect class="stand" x="315" y="228" width="20" height="12"/><rect class="stand" x="295" y="240" width="60" height="8" rx="3"/>
+              <rect class="bx" x="110" y="186" width="86" height="56" rx="6"/><rect class="lap" x="116" y="192" width="74" height="44" rx="3"/>
+              <path class="desk" d="M100 242H206L212 248H94Z"/>
+            </g>
+            <g class="part part-2">
+              <path class="cable" d="M196 240C204 240 206 241 212 241"/>
+              <rect class="br" x="212" y="234" width="44" height="14" rx="4"/>
+            </g>
+            <g class="part part-1">
+              <rect class="dk" x="420" y="236" width="56" height="12" rx="6"/><rect class="lens" x="440" y="240" width="16" height="4" rx="2"/>
+              <g transform="rotate(16 448 197)"><rect class="phone" x="432" y="168" width="32" height="58" rx="7"/><rect class="port" x="438" y="182" width="20" height="13" rx="2"/></g>
+              <path class="wave" d="M414 196a12 12 0 0 0 0 20M406 190a20 20 0 0 0 0 32"/>
+            </g>
+            <line class="lead" x1="320" y1="362" x2="320" y2="415"/><line class="lead" x1="429" y1="376" x2="429" y2="415"/>
+            <g class="pin" data-p="1"><circle cx="488" cy="170" r="14"/><text x="488" y="175">1</text></g>
+            <g class="pin" data-p="2"><circle cx="234" cy="212" r="14"/><text x="234" y="217">2</text></g>
+            <g class="pin" data-p="3"><circle cx="320" cy="430" r="14"/><text x="320" y="435">3</text></g>
+            <g class="pin" data-p="4"><circle cx="429" cy="430" r="14"/><text x="429" y="435">4</text></g>
+          </svg>
+        </figure>
+        <div class="hw-copy">
+          <h3>Quatre peces que ja existeixen, dimensionades per a cada aula</h3>
+          <p>Res de kits genèrics: components de mercat que dimensionem colze a colze amb la facultat i els nostres proveïdors.</p>
+          <ol class="hw-parts" id="hw-parts">
+            <li data-p="1"><span class="pn" aria-hidden="true">1</span><span><b>Lector NFC</b>Al costat del PC de l'aula, llegeix el carnet del mòbil. Com els de les impressores compartides.</span></li>
+            <li data-p="2"><span class="pn" aria-hidden="true">2</span><span><b>Dock USB-C</b>Un sol cable per a vídeo, àudio, càrrega i xarxa.<small>Ref.: Dell WD25 · Targus DOCK316USZ</small></span></li>
+            <li data-p="3"><span class="pn" aria-hidden="true">3</span><span><b>Commutador de font</b>Tria entre el mini-PC de l'aula i el portàtil del professor, amb prioritat per al portàtil.</span></li>
+            <li data-p="4"><span class="pn" aria-hidden="true">4</span><span><b>Gateway i sensors</b>Estat dels equips, CO₂, temperatura i ocupació de l'aula.<small>Ref.: Raspberry Pi 5 · RevPi Connect</small></span></li>
+          </ol>
+        </div>
+      </div>
+      <div class="svc svc-sw rv">
+        <h3>Plataforma i servei</h3>
+        <p>Una quota per aula que ho inclou tot, per a cada rol.</p>
+        <ul class="ticks">
+          <li><svg><use href="#i-screen"/></svg><span><b>Dashboard d'aula</b>Estat dels equips, clima i horari real d'un cop d'ull.</span></li>
+          <li><svg><use href="#i-bell"/></svg><span><b>Avisos des de l'appUPC</b>Tres tocs per avisar d'una errada, amb l'aula ja inclosa.</span></li>
+          <li><svg><use href="#i-cpu"/></svg><span><b>IA local al campus</b>Resol les incidències habituals sense que les dades surtin de la universitat.</span></li>
+          <li><svg><use href="#i-alert"/></svg><span><b>Cua del servei tècnic</b>Avisos ordenats per prioritat, amb els passos ja provats.</span></li>
+          <li><svg><use href="#i-wind"/></svg><span><b>Climatització automàtica</b>L'aire s'ajusta segons l'ocupació i l'horari real.</span></li>
+          <li><svg><use href="#i-cal"/></svg><span><b>Horari integrat</b>Canvis d'aula notificats a l'alumnat i al professorat.</span></li>
+        </ul>
+      </div>
+    </div>
+    <ol class="steps rv" aria-label="Com el posem en marxa">
+      <li><b>Analitzem</b><span>les aules amb la facultat: usos, equips i incidències habituals.</span></li>
+      <li><b>Dimensionem</b><span>el hardware de cada aula amb els nostres proveïdors.</span></li>
+      <li><b>Posem en marxa</b><span>el servei i el connectem amb el servei tècnic del centre.</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- PREU -->
+<section id="preu">
+  <div class="wrap">
+    <div class="pricing rv">
+      <div class="price-head">
+        <h2 class="display-lg">Un preu clar, per aula.</h2>
+        <p>Una quota fixa per al servei i un hardware que només pagues una vegada.</p>
+      </div>
+      <div class="plans">
+        <div class="plan plan-main">
+          <h3>Servei UPCHub</h3>
+          <p class="amount"><b>150 €</b><span>per aula i any</span></p>
+          <p>Plataforma, app, IA local, dashboard i cua del servei tècnic. Quota fixa, sense sorpreses.</p>
+        </div>
+        <div class="plan">
+          <h3>Hardware d'aula</h3>
+          <p class="amount"><b>1.250 €</b><span>per aula · pagament únic</span></p>
+          <p>Preu orientatiu. El dimensionem amb la facultat, així que el pressupost final depèn de cada aula.</p>
+        </div>
+      </div>
+      <figure class="market">
+        <figcaption>Programari de gestió d'aules al mercat: <b>entre 100 i 500 € per aula i any</b>.</figcaption>
+        <div class="range" aria-hidden="true"><span class="range-track"></span><span class="range-us" style="--at:12.5%"><i></i><em>UPCHub · 150 €</em></span><span class="range-lo">100 €</span><span class="range-hi">500 €</span></div>
+      </figure>
+      <div class="calc">
+        <div class="calc-in">
+          <label for="aules">Calcula-ho per al teu centre</label>
+          <div class="calc-row"><input type="range" id="aules" min="1" max="120" value="40" step="1"><output id="aules-n" for="aules" data-dyn>40 aules</output></div>
+        </div>
+        <dl class="calc-out" aria-live="polite">
+          <div><dt>Hardware · pagament únic</dt><dd id="c-hw" data-dyn>50.000 €</dd></div>
+          <div><dt>Servei · cada any</dt><dd id="c-sw" data-dyn>6.000 €</dd></div>
+          <div class="tot"><dt>Primer any</dt><dd id="c-y1" data-dyn>56.000 €</dd></div>
+        </dl>
+      </div>
+      <div class="price-cta">
+        <a class="btn accent" href="mailto:naiara.buxelo@estudiantat.upc.edu?subject=UPCHub%20%C2%B7%20Proposta%20per%20al%20centre"><svg><use href="#i-mail"/></svg>Demana una proposta</a>
+        <p class="small">Preus orientatius de la proposta, per aula. Projecte acadèmic sense caràcter comercial.</p>
       </div>
     </div>
   </div>
@@ -145,8 +303,7 @@
   <div class="wrap">
     <div class="split">
       <div class="rv">
-        <p class="label">Prova la demo</p>
-        <h2 class="display-lg">Avisar és fàcil. Prova-ho.</h2>
+                <h2 class="display-lg">Avisar és fàcil. Prova-ho.</h2>
         <p class="sub">Toca el mòbil: tria què falla, envia-ho i mira què passa després.</p>
         <ol class="dsteps" id="dsteps">
           <li data-s="0"><b>Tria què falla</b><span>L'aula i la classe ja hi són. Només has de dir què no funciona.</span></li>
@@ -154,7 +311,7 @@
           <li data-s="2"><b>Segueix l'estat</b><span>Si cal un tècnic, l'avís arriba amb context i tu veus com avança.</span></li>
         </ol>
         <div class="demo-actions">
-          <a class="btn" href="demo/">Prova la demo completa</a>
+          <a class="btn" href="demo/">Prova la demo completa<svg><use href="#i-arrow"/></svg></a>
           <button type="button" class="btn sec" id="restart">Tornar a començar</button>
         </div>
         <p class="demo-roles"><span>O entra directament com a:</span><a href="demo/#alumne">Alumne</a><a href="demo/#professor">Professor</a><a href="demo/#tecnic">Tècnic</a></p>
@@ -207,216 +364,31 @@
   </div>
 </section>
 
-<!-- SERVEI TÈCNIC -->
-<section id="tecnic">
+<!-- RESULTATS -->
+<section id="resultats">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="label">Per al servei tècnic</p>
-      <h2 class="display-lg">Si no s'arregla, arriba amb context.</h2>
-      <p>Cada avís rep una prioritat P = G × U × I (gravetat, urgència i impacte). Selecciona una incidència, assigna-te-la o marca-la com a resolta.</p>
+      <h2 class="display-lg">Validat amb qui fa servir les aules.</h2>
+      <p>Vam presentar la proposta a alumnes i professors en una prova pilot en línia i els vam demanar que valoressin d'1 a 5 l'interès per tenir UPCHub al dia a dia.</p>
     </div>
-    <div class="queue rv">
-      <div class="qlist">
-        <div class="qtabs" role="group" aria-label="Filtre">
-          <button type="button" class="qtab" aria-pressed="true" data-f="open" id="qt-open" data-dyn>Obertes · 4</button>
-          <button type="button" class="qtab" aria-pressed="false" data-f="done" id="qt-done" data-dyn>Resoltes · 0</button>
+    <div class="results">
+      <div class="score rv">
+        <p class="score-n">4,16<small>/5</small></p>
+        <p class="score-t">Interès mitjà de 19 participants</p>
+        <div class="scale" aria-hidden="true">
+          <span class="scale-track"><i style="--at:79%"></i></span>
+          <span class="scale-th" style="--at:70%"><em>Llindar 3,8</em></span>
+          <span class="scale-ticks"><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b></span>
         </div>
-        <div id="qitems" data-dyn></div>
-        <p class="qnote"><svg><use href="#i-spark"/></svg>Avui la IA de les aules ha resolt 5 avisos sense tècnic.</p>
+        <p class="small">Havíem fixat una mitjana de 3,8 per donar la idea per validada. La vam superar.</p>
       </div>
-      <div class="qdetail" id="qdetail" aria-live="polite" data-dyn></div>
+      <ul class="kpis rv">
+        <li><b>84<small>%</small></b><span>dels participants van puntuar 4 o 5</span></li>
+        <li><b>93<small>%</small></b><span>del professorat enquestat ha tingut problemes tècnics en començar una classe</span></li>
+        <li><b>85<small>%</small></b><span>de l'alumnat es distreu o se li fa feixuga la sessió quan passa</span></li>
+      </ul>
     </div>
-    <ul class="levels rv">
-      <li class="lv-c"><b>Crític · P ≥ 12</b><span>15 minuts</span></li>
-      <li class="lv-a"><b>Alt · P 6–11</b><span>El mateix dia</span></li>
-      <li class="lv-n"><b>Normal · P 3–5</b><span>48 h</span></li>
-      <li class="lv-b"><b>Baix · P &lt; 3</b><span>Revisió setmanal</span></li>
-    </ul>
-    <p class="note">Totes les xifres són dades d'exemple per mostrar el concepte; no provenen d'un pilot real.</p>
-  </div>
-</section>
-
-<!-- QUÈ INCLOU -->
-<section id="inclou" class="tint">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <p class="label">Què inclou</p>
-      <h2 class="display-lg">Un hub per a cada aula, una app per a tothom.</h2>
-    </div>
-    <div class="grid3">
-      <article class="fcard rv"><div class="ico"><svg><use href="#i-nfc"/></svg></div><h3>Identificació instantània</h3><p>El professor s'identifica amb el carnet UPC al mòbil (NFC) i l'aula es reconeix automàticament en entrar.</p></article>
-      <article class="fcard rv"><div class="ico"><svg><use href="#i-alert"/></svg></div><h3>Incidències resoltes abans</h3><p>Qualsevol errada es reporta des de l'app i arriba al servei tècnic amb l'estat de l'aula ja inclòs.</p></article>
-      <article class="fcard rv"><div class="ico"><svg><use href="#i-cpu"/></svg></div><h3>IA local a l'aula</h3><p>Un assistent que s'executa en un servidor local del campus diagnostica i resol les incidències més habituals abans de necessitar escalar-les.</p></article>
-      <article class="fcard rv"><div class="ico"><svg><use href="#i-laptop"/></svg></div><h3>Ordinador propi, opcional</h3><p>Qui ho prefereixi pot fer servir el seu portàtil a classe i al despatx, sense dependre de l'ordinador compartit.</p></article>
-      <article class="fcard rv"><div class="ico"><svg><use href="#i-cal"/></svg></div><h3>Horari integrat</h3><p>El dashboard es sincronitza amb l'horari real de cada aula, sense configurar-ho classe a classe.</p></article>
-      <article class="fcard rv"><div class="ico"><svg><use href="#i-temp"/></svg></div><h3>Climatització automàtica</h3><p>Sensors d'aire i temperatura a cada aula regulen l'AC segons l'ocupació i l'horari real; el consum es contrasta amb les dades de SIRENA i QaireUPC.</p></article>
-    </div>
-
-    <details class="arch rv" id="arquitectura">
-      <summary><span><b>Arquitectura</b> · Com s'integren les peces d'UPCHub.</span><svg><use href="#i-down"/></svg></summary>
-      <p class="arch-intro">Cinc fluxos de maquinari a resultat, sincronitzats per un estat i un horari compartits dins del nucli.</p>
-    <figure class="fig" style="margin:0">
-      <div class="scroll">
-      <svg viewBox="0 0 1300 700" role="img" aria-label="Diagrama d'arquitectura UPCHUB: cinc fluxos de maquinari a resultat —identificació, perifèrics, climatització, incidències i horari— connectats per un estat compartit al nucli central">
-        <defs>
-          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M0,0 L10,5 L0,10 z" fill="#8a97b3"/>
-          </marker>
-          <marker id="arrowFeedback" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M0,0 L10,5 L0,10 z" fill="var(--feedback)"/>
-          </marker>
-        </defs>
-
-        <text x="145" y="30" text-anchor="middle" font-family="var(--font-display)" font-size="13.5" font-weight="700" letter-spacing="0.06em" fill="var(--muted)">MAQUINARI</text>
-        <text x="650" y="30" text-anchor="middle" font-family="var(--font-display)" font-size="13.5" font-weight="700" letter-spacing="0.06em" fill="var(--accent)">UPCHUB · NUCLI</text>
-        <text x="1135" y="30" text-anchor="middle" font-family="var(--font-display)" font-size="13.5" font-weight="700" letter-spacing="0.06em" fill="var(--muted)">RESULTAT</text>
-
-        <rect x="465" y="48" width="350" height="615" rx="18" fill="var(--accent-soft)" stroke="var(--accent-line)" stroke-width="1.5"/>
-        <text x="650" y="72" text-anchor="middle" font-size="11" font-weight="600" letter-spacing="0.03em" fill="var(--muted)">ESTAT I HORARI COMPARTITS</text>
-
-        <line x1="650" y1="90" x2="650" y2="632" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"/>
-
-        <!-- ROW 1: identificació (m1) -->
-        <rect x="30" y="70" width="230" height="74" rx="14" fill="var(--panel)" stroke="var(--m1)" stroke-width="1.3"/>
-        <rect x="44" y="90" width="34" height="34" rx="9" fill="var(--m1)"/>
-        <g transform="translate(51,97)" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="0" y="2" width="20" height="14" rx="2.5"/><path d="M7 6a4 4 0 0 1 0 6"/><path d="M4.3 4a7.5 7.5 0 0 1 0 10"/>
-        </g>
-        <text x="92" y="100" font-size="12.5" font-weight="600" fill="var(--fg)">Lector NFC</text>
-        <text x="92" y="117" font-size="12.5" fill="var(--muted)">carnet UPC al mòbil</text>
-
-        <line x1="260" y1="107" x2="462" y2="107" stroke="#8a97b3" stroke-width="1.4" marker-end="url(#arrow)"/>
-        <text x="361" y="99" text-anchor="middle" font-size="10.5" fill="var(--muted)">identifica</text>
-
-        <circle cx="650" cy="107" r="6" fill="var(--m1)" stroke="var(--panel)" stroke-width="2"/>
-        <rect x="590" y="130" width="120" height="38" rx="9" fill="var(--m1-soft)"/>
-        <text x="650" y="144" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--m1)">Autenticació</text>
-        <text x="650" y="159" text-anchor="middle" font-size="10.5" fill="var(--muted)">+ aula reconeguda</text>
-
-        <line x1="710" y1="150" x2="1002" y2="150" stroke="#8a97b3" stroke-width="1.4" marker-end="url(#arrow)"/>
-        <text x="856" y="142" text-anchor="middle" font-size="10.5" fill="var(--muted)">concedeix accés</text>
-
-        <rect x="1010" y="113" width="250" height="74" rx="14" fill="var(--panel)" stroke="var(--border)"/>
-        <circle cx="1030" cy="150" r="5" fill="var(--m1)"/>
-        <text x="1045" y="145" font-size="12.5" font-weight="600" fill="var(--fg)">Sessió iniciada,</text>
-        <text x="1045" y="162" font-size="12.5" fill="var(--muted)">aula reconeguda</text>
-
-        <!-- ROW 2: perifèrics (m2) -->
-        <rect x="30" y="193" width="230" height="74" rx="14" fill="var(--panel)" stroke="var(--m2)" stroke-width="1.3"/>
-        <rect x="44" y="213" width="34" height="34" rx="9" fill="var(--m2)"/>
-        <g transform="translate(51,220)" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="0" width="16" height="11" rx="2"/><line x1="7" y1="15" x2="13" y2="15"/><line x1="10" y1="11" x2="10" y2="15"/>
-        </g>
-        <text x="92" y="227" font-size="12.5" font-weight="600" fill="var(--fg)">Dock USB-C d'aula</text>
-        <text x="92" y="244" font-size="12.5" fill="var(--muted)">vídeo + àudio + càrrega</text>
-
-        <line x1="260" y1="230" x2="462" y2="230" stroke="#8a97b3" stroke-width="1.4" marker-end="url(#arrow)"/>
-        <text x="361" y="222" text-anchor="middle" font-size="10.5" fill="var(--muted)">detecta connexió</text>
-
-        <circle cx="650" cy="230" r="6" fill="var(--m2)" stroke="var(--panel)" stroke-width="2"/>
-        <rect x="590" y="253" width="120" height="38" rx="9" fill="var(--m2-soft)"/>
-        <text x="650" y="267" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--m2)">Gestor de</text>
-        <text x="650" y="282" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--m2)">perifèrics</text>
-
-        <line x1="710" y1="273" x2="1002" y2="273" stroke="#8a97b3" stroke-width="1.4" marker-end="url(#arrow)"/>
-        <text x="856" y="265" text-anchor="middle" font-size="10.5" fill="var(--muted)">activa sortida</text>
-
-        <rect x="1010" y="236" width="250" height="74" rx="14" fill="var(--panel)" stroke="var(--border)"/>
-        <circle cx="1030" cy="273" r="5" fill="var(--m2)"/>
-        <text x="1045" y="268" font-size="12.5" font-weight="600" fill="var(--fg)">Aula llesta sense</text>
-        <text x="1045" y="285" font-size="12.5" fill="var(--muted)">canviar cables</text>
-
-        <!-- ROW 3: climatització (m3) -->
-        <rect x="30" y="316" width="230" height="74" rx="14" fill="var(--panel)" stroke="var(--m3)" stroke-width="1.3"/>
-        <rect x="44" y="336" width="34" height="34" rx="9" fill="var(--m3)"/>
-        <g transform="translate(55,341)" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M7 15.5V4a2 2 0 1 0-4 0v11.5a4.5 4.5 0 1 0 4 0Z"/><line x1="5" y1="8" x2="7" y2="8"/>
-        </g>
-        <text x="92" y="350" font-size="12.5" font-weight="600" fill="var(--fg)">Sensors d'aire</text>
-        <text x="92" y="367" font-size="12.5" fill="var(--muted)">i temperatura</text>
-
-        <line x1="260" y1="353" x2="462" y2="353" stroke="#8a97b3" stroke-width="1.4" marker-end="url(#arrow)"/>
-        <text x="361" y="345" text-anchor="middle" font-size="10.5" fill="var(--muted)">mesura en directe</text>
-
-        <circle cx="650" cy="353" r="6" fill="var(--m3)" stroke="var(--panel)" stroke-width="2"/>
-        <rect x="590" y="376" width="120" height="38" rx="9" fill="var(--m3-soft)"/>
-        <text x="650" y="390" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--m3)">Control de</text>
-        <text x="650" y="405" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--m3)">climatització</text>
-
-        <line x1="710" y1="396" x2="1002" y2="396" stroke="#8a97b3" stroke-width="1.4" marker-end="url(#arrow)"/>
-        <text x="856" y="388" text-anchor="middle" font-size="10.5" fill="var(--muted)">regula l'AC</text>
-
-        <rect x="1010" y="359" width="250" height="74" rx="14" fill="var(--panel)" stroke="var(--border)"/>
-        <circle cx="1030" cy="396" r="5" fill="var(--m3)"/>
-        <text x="1045" y="391" font-size="12.5" font-weight="600" fill="var(--fg)">AC ajustat</text>
-        <text x="1045" y="408" font-size="12.5" fill="var(--muted)">automàticament</text>
-
-        <!-- ROW 4: incidències (m4) -->
-        <rect x="30" y="439" width="230" height="74" rx="14" fill="var(--panel)" stroke="var(--m4)" stroke-width="1.3"/>
-        <rect x="44" y="459" width="34" height="34" rx="9" fill="var(--m4)"/>
-        <g transform="translate(50,464)" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0" transform="translate(0,-4)"/>
-        </g>
-        <text x="92" y="473" font-size="12.5" font-weight="600" fill="var(--fg)">App alumnat —</text>
-        <text x="92" y="490" font-size="12.5" fill="var(--muted)">informe d'incidència</text>
-
-        <line x1="260" y1="476" x2="462" y2="476" stroke="#8a97b3" stroke-width="1.4" marker-end="url(#arrow)"/>
-        <text x="361" y="468" text-anchor="middle" font-size="10.5" fill="var(--muted)">reporta</text>
-
-        <circle cx="650" cy="476" r="6" fill="var(--m4)" stroke="var(--panel)" stroke-width="2"/>
-        <rect x="590" y="499" width="120" height="38" rx="9" fill="var(--m4-soft)"/>
-        <text x="650" y="513" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--m4)">Gestor</text>
-        <text x="650" y="528" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--m4)">d'incidències + IA</text>
-
-        <line x1="710" y1="519" x2="1002" y2="519" stroke="#8a97b3" stroke-width="1.4" marker-end="url(#arrow)"/>
-        <text x="856" y="511" text-anchor="middle" font-size="10.5" fill="var(--muted)">escala i alerta</text>
-
-        <rect x="1010" y="482" width="250" height="74" rx="14" fill="var(--panel)" stroke="var(--border)"/>
-        <circle cx="1030" cy="508" r="5" fill="var(--m4)"/>
-        <text x="1045" y="504" font-size="12.5" font-weight="600" fill="var(--fg)">Servei tècnic alertat</text>
-        <text x="1045" y="521" font-size="12.5" fill="var(--muted)">+ estat de l'aula</text>
-        <text x="1045" y="538" font-size="11" fill="var(--m4)">La IA resol incidències comunes</text>
-
-        <!-- ROW 5: horari (m5) -->
-        <rect x="30" y="562" width="230" height="74" rx="14" fill="var(--panel)" stroke="var(--m5)" stroke-width="1.3"/>
-        <rect x="44" y="582" width="34" height="34" rx="9" fill="var(--m5)"/>
-        <g transform="translate(51,588)" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="0" y="2" width="20" height="18" rx="2"/><path d="M5 0v4M15 0v4M0 9h20"/>
-        </g>
-        <text x="92" y="596" font-size="12.5" font-weight="600" fill="var(--fg)">Horari acadèmic</text>
-        <text x="92" y="613" font-size="12.5" fill="var(--muted)">de l'aula</text>
-
-        <line x1="260" y1="599" x2="462" y2="599" stroke="#8a97b3" stroke-width="1.4" marker-end="url(#arrow)"/>
-        <text x="361" y="591" text-anchor="middle" font-size="10.5" fill="var(--muted)">sincronitza</text>
-
-        <circle cx="650" cy="599" r="6" fill="var(--m5)" stroke="var(--panel)" stroke-width="2"/>
-        <rect x="585" y="622" width="130" height="38" rx="9" fill="var(--m5-soft)"/>
-        <text x="650" y="636" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--m5)">Motor d'horaris</text>
-        <text x="650" y="651" text-anchor="middle" font-size="10.5" fill="var(--muted)">/ Dashboard-Bot</text>
-
-        <line x1="715" y1="641" x2="1002" y2="641" stroke="#8a97b3" stroke-width="1.4" marker-end="url(#arrow)"/>
-        <text x="859" y="633" text-anchor="middle" font-size="10.5" fill="var(--muted)">avisa canvis</text>
-
-        <rect x="1010" y="605" width="250" height="74" rx="14" fill="var(--panel)" stroke="var(--border)"/>
-        <circle cx="1030" cy="641" r="5" fill="var(--m5)"/>
-        <text x="1045" y="637" font-size="12.5" font-weight="600" fill="var(--fg)">Notificació push a</text>
-        <text x="1045" y="654" font-size="12.5" fill="var(--muted)">professorat/alumnat</text>
-
-        <path d="M 1261,519 C 1290,519 1290,680 1290,680 L 650,680 L 650,664" fill="none" stroke="var(--feedback)" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrowFeedback)"/>
-        <text x="960" y="694" text-anchor="middle" font-size="11" fill="var(--feedback)">en tancar la incidència, actualitza l'estat compartit</text>
-      </svg>
-
-      </div>
-      <figcaption>El maquinari (esquerra) alimenta el nucli UPCHub; el nucli comparteix un únic estat i horari entre els seus cinc mòduls i actua sobre resultats concrets (dreta). Tancar una incidència retroalimenta aquest estat.</figcaption>
-    </figure>
-    <ul class="legend">
-      <li><b>01 · Identificació</b> — NFC/carnet UPC autentica i reconeix l'aula a l'instant.</li>
-      <li><b>02 · Perifèrics</b> — el dock USB-C centralitza vídeo, àudio, càrrega i USB amb un sol cable.</li>
-      <li><b>03 · Climatització</b> — els sensors ajusten l'AC segons ocupació i horari real.</li>
-      <li><b>04 · Incidències</b> — una IA local al servidor del campus resol les habituals; la resta entra a una cua prioritzada i escala al servei tècnic amb l'estat de l'aula.</li>
-      <li><b>05 · Horari</b> — el motor central sincronitza aula, hores i notificacions de canvi.</li>
-    </ul>
-    </details>
+    <p class="note">Prova pilot: 19 persones, majoritàriament alumnat (octubre 2026). Enquesta: 26 alumnes i 14 professors de l'EPSEVG (setembre 2026). Ara fem proves d'usabilitat amb la <a href="demo/">demo interactiva</a>.</p>
   </div>
 </section>
 
@@ -424,10 +396,13 @@
 <section id="prova">
   <div class="wrap">
     <div class="cta rv">
-      <p class="label">Prova pilot</p>
-      <h2 class="display-lg">T'apuntes a provar-lo a la teva aula?</h2>
-      <p>Estem validant UPCHub amb un petit grup de professors abans de construir-lo. Nom, aula i una pregunta d'interès, res més.</p>
-      <a class="btn accent" href="https://docs.google.com/forms/d/e/1FAIpQLSekdFsPFqdflUqtt-9qpRwKLlzYCD4k4UZaeIK7yrxxj8216Q/viewform" target="_blank" rel="noopener">Omplir el formulari (1 min)</a>
+      <h2 class="display-lg">Porta UPCHub a la teva facultat.</h2>
+      <p>Prova la demo amb els tres rols, demana'ns una proposta per al teu centre o apunta't a la prova pilot a la teva aula.</p>
+      <div class="cta-actions">
+        <a class="btn accent" href="demo/">Prova la demo<svg><use href="#i-arrow"/></svg></a>
+        <a class="btn ghost" href="mailto:naiara.buxelo@estudiantat.upc.edu?subject=UPCHub%20%C2%B7%20Proposta%20per%20al%20centre">Demana una proposta</a>
+      </div>
+      <p class="cta-alt"><a href="https://docs.google.com/forms/d/e/1FAIpQLSekdFsPFqdflUqtt-9qpRwKLlzYCD4k4UZaeIK7yrxxj8216Q/viewform" target="_blank" rel="noopener">Apunta't a la prova pilot (formulari d'1 minut)</a></p>
     </div>
   </div>
 </section>
@@ -440,7 +415,7 @@
   </div>
 </footer>
 
-<script src="assets/i18n.js?v=3i"></script>
-<script src="assets/app.js?v=3i"></script>
+<script src="assets/i18n.js?v=4b"></script>
+<script src="assets/app.js?v=4b"></script>
 </body>
 </html>
